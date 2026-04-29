@@ -150,7 +150,8 @@ nav {
    HERO — full-screen gradient
 ══════════════════════════════════ */
 .hero {
-  height: 100vh; min-height: 680px;
+  height: 100vh; height: 100svh;
+  min-height: 600px;
   position: relative; overflow: hidden;
   display: flex; flex-direction: column; justify-content: flex-end;
 }
@@ -164,13 +165,12 @@ nav {
   filter: grayscale(15%);
 }
 
-/* Layered gradient: deep charcoal to warm stone to soft white */
+/* Gradient — desktop */
 .hero-grad {
-  position: absolute; inset: 0;
+  position: absolute; inset: 0; z-index: 1;
   background:
-    linear-gradient(to top, rgba(10,10,10,.82) 0%, rgba(10,10,10,.55) 35%, rgba(10,10,10,.18) 65%, rgba(10,10,10,.05) 100%),
-    linear-gradient(to right, rgba(10,10,10,.3) 0%, transparent 60%);
-  z-index: 1;
+    linear-gradient(to top, rgba(10,10,10,.88) 0%, rgba(10,10,10,.6) 40%, rgba(10,10,10,.2) 68%, rgba(10,10,10,.05) 100%),
+    linear-gradient(to right, rgba(10,10,10,.35) 0%, transparent 65%);
 }
 
 /* Animated grain overlay */
@@ -617,10 +617,15 @@ footer a:hover { color: rgba(255,255,255,.75); }
 
   /* Hero */
   .hero { min-height: 100svh; }
+  .hero-grad {
+    background:
+      linear-gradient(to top, rgba(10,10,10,.95) 0%, rgba(10,10,10,.8) 45%, rgba(10,10,10,.45) 72%, rgba(10,10,10,.15) 100%),
+      linear-gradient(to right, rgba(10,10,10,.5) 0%, rgba(10,10,10,.1) 100%);
+  }
   .hero-content {
     grid-template-columns: 1fr;
     padding: 0 24px 52px;
-    gap: 32px;
+    gap: 28px;
   }
   .hero-h1 { font-size: clamp(40px, 8vw, 64px); }
   .hero-scroll { display: none; }
@@ -674,7 +679,12 @@ footer a:hover { color: rgba(255,255,255,.75); }
   .nav-cta { padding: 9px 18px; font-size: 9px; }
 
   /* Hero */
-  .hero-content { padding: 0 20px 44px; gap: 24px; }
+  .hero-content { padding: 0 20px 44px; gap: 20px; }
+  .hero-grad {
+    background:
+      linear-gradient(to top, rgba(10,10,10,.97) 0%, rgba(10,10,10,.85) 40%, rgba(10,10,10,.55) 68%, rgba(10,10,10,.2) 100%),
+      linear-gradient(to right, rgba(10,10,10,.6) 0%, rgba(10,10,10,.15) 100%);
+  }
   .hero-h1 { font-size: clamp(36px, 10vw, 52px); line-height: 1.05; }
   .hero-eyebrow { font-size: 8px; letter-spacing: .24em; }
   .hero-slogan { font-size: 12px; }
