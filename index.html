@@ -97,6 +97,54 @@ nav {
   padding: 10px 24px; transition: opacity .2s;
 }
 .nav-cta:hover { opacity: .75; }
+.nav-right { display: flex; align-items: center; gap: 12px; }
+
+/* Burger button — hidden on desktop */
+.nav-burger {
+  display: none; flex-direction: column; justify-content: center;
+  gap: 5px; width: 36px; height: 36px;
+  background: none; border: none; cursor: pointer; padding: 6px;
+}
+.nav-burger span {
+  display: block; width: 100%; height: 1px; background: var(--b);
+  transition: transform .3s, opacity .3s;
+}
+.nav-burger.open span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+.nav-burger.open span:nth-child(2) { transform: translateY(-6px) rotate(-45deg); }
+
+/* Mobile full-screen menu */
+.mobile-menu {
+  position: fixed; inset: 0; z-index: 490;
+  background: var(--w);
+  display: flex; flex-direction: column; justify-content: center;
+  align-items: flex-start; gap: 0;
+  padding: 100px 32px 60px;
+  transform: translateX(100%);
+  transition: transform .45s cubic-bezier(.16,1,.3,1);
+}
+.mobile-menu.open { transform: translateX(0); }
+.mobile-menu a {
+  font-family: var(--serif); font-size: clamp(32px, 8vw, 52px);
+  font-weight: 400; letter-spacing: .03em; text-transform: uppercase;
+  color: var(--b); text-decoration: none; line-height: 1.3;
+  border-bottom: 1px solid transparent;
+  transition: border-color .2s;
+  padding: 6px 0;
+}
+.mobile-menu a:hover { border-color: var(--br); }
+.mob-enquire {
+  font-family: var(--sans) !important; font-size: 11px !important;
+  font-weight: 400 !important; letter-spacing: .2em !important;
+  text-transform: uppercase !important;
+  background: var(--b); color: var(--w) !important;
+  padding: 14px 28px !important; margin-top: 32px;
+  border: none !important;
+}
+
+@media(max-width:900px){
+  .nav-burger { display: flex; }
+  .nav-cta { display: none; }
+}
 
 /* ══════════════════════════════════
    HERO — full-screen gradient
@@ -556,31 +604,133 @@ footer a:hover { color: rgba(255,255,255,.75); }
 .rv.vis { opacity: 1; transform: none; }
 .d1{transition-delay:.08s} .d2{transition-delay:.16s} .d3{transition-delay:.24s} .d4{transition-delay:.32s}
 
-/* RESPONSIVE */
+/* ══════════════════════════════════
+   RESPONSIVE — MOBILE OPTIMISED
+══════════════════════════════════ */
+
+/* Tablet — 768px to 900px */
 @media(max-width:900px){
-  nav { padding: 20px 24px; }
+  /* Nav */
+  nav { padding: 16px 24px; }
   .nav-links { display: none; }
-  .hero-content { grid-template-columns: 1fr; padding: 0 24px 56px; }
-  .hero-h1 { font-size: clamp(38px, 9vw, 64px); }
+  .nav-logo-img { height: 46px; }
+
+  /* Hero */
+  .hero { min-height: 100svh; }
+  .hero-content {
+    grid-template-columns: 1fr;
+    padding: 0 24px 52px;
+    gap: 32px;
+  }
+  .hero-h1 { font-size: clamp(40px, 8vw, 64px); }
   .hero-scroll { display: none; }
-  .about, .svc-intro { grid-template-columns: 1fr; }
-  .about-l { padding: 60px 24px; border-right: none; border-bottom: 1px solid var(--br); }
-  .about-r { padding: 48px 24px; }
-  .proj-top { padding: 48px 24px 36px; flex-direction: column; gap: 16px; align-items: flex-start; }
-  .proj-grid { grid-template-columns: 1fr 1fr; grid-template-rows: 260px 260px 200px; }
-  .pc:first-child { grid-column: 1/-1; grid-row: auto; }
-  .statement, .news, .cta, footer { padding-left: 24px; padding-right: 24px; }
-  .svc-intro { padding: 56px 24px; border-bottom: 1px solid var(--br); }
-  .svc-header { padding: 0 24px; }
+  .hero-slogan { max-width: 100%; }
+
+  /* About */
+  .about { grid-template-columns: 1fr; }
+  .about-l { padding: 64px 24px 48px; border-right: none; border-bottom: 1px solid var(--br); }
+  .about-r { padding: 48px 24px 64px; }
+  .about-nums { gap: 32px; }
+
+  /* Projects */
+  .proj-top { padding: 48px 24px 36px; flex-direction: column; gap: 14px; align-items: flex-start; }
+  .proj-grid { grid-template-columns: 1fr 1fr; grid-template-rows: 240px 240px 200px; }
+  .pc:first-child { grid-column: 1 / -1; grid-row: auto; }
+
+  /* Statement */
+  .statement { padding: 72px 24px; }
+
+  /* Services */
+  .svc-intro { grid-template-columns: 1fr; padding: 56px 24px; gap: 24px; }
+  .svc-header { padding: 0 24px; min-height: 72px; }
   .svc-tags { display: none; }
   .svc-panel { grid-template-columns: 1fr; }
-  .svc-panel-text { padding: 28px 24px 36px; border-right: none; border-bottom: 1px solid var(--br); }
-  .svc-row.open .svc-panel { max-height: 600px; }
+  .svc-panel-text { padding: 28px 24px 32px; border-right: none; border-bottom: 1px solid var(--br); }
+  .svc-panel-img { min-height: 200px; }
+  .svc-row.open .svc-panel { max-height: 700px; }
+
+  /* News */
+  .news { padding: 64px 24px; }
   .news-grid { grid-template-columns: 1fr; }
   .nc { padding: 28px 0; }
   .nc:not(:first-child) { padding-left: 0; border-left: none; }
-  .ft { grid-template-columns: 1fr 1fr; }
-  footer { padding: 44px 24px 28px; }
+
+  /* CTA */
+  .cta { padding: 80px 24px; }
+  .cta-row { flex-direction: column; align-items: flex-start; gap: 20px; }
+  .cta-tel { margin-left: 0; }
+
+  /* Footer */
+  footer { padding: 52px 24px 32px; }
+  .ft { grid-template-columns: 1fr 1fr; gap: 36px; }
+  .ft-bot { flex-direction: column; gap: 8px; align-items: flex-start; }
+}
+
+/* Mobile — up to 600px */
+@media(max-width:600px){
+  /* Nav */
+  nav { padding: 14px 20px; }
+  .nav-logo-img { height: 40px; }
+  .nav-cta { padding: 9px 18px; font-size: 9px; }
+
+  /* Hero */
+  .hero-content { padding: 0 20px 44px; gap: 24px; }
+  .hero-h1 { font-size: clamp(36px, 10vw, 52px); line-height: 1.05; }
+  .hero-eyebrow { font-size: 8px; letter-spacing: .24em; }
+  .hero-slogan { font-size: 12px; }
+  .hero-ctas { flex-direction: column; align-items: flex-start; gap: 16px; }
+  .hero-btn { padding: 13px 24px; }
+
+  /* Marquee — slow down slightly on mobile */
+  .mq-t { animation-duration: 20s; }
+  .mq-t span { padding: 0 28px; font-size: 8px; }
+
+  /* About */
+  .about-l { padding: 52px 20px 40px; }
+  .about-r { padding: 40px 20px 52px; }
+  .about-nums { flex-wrap: wrap; gap: 24px; }
+  .stat .n { font-size: 36px; }
+
+  /* Projects */
+  .proj-top { padding: 40px 20px 28px; }
+  .proj-grid { grid-template-columns: 1fr; grid-template-rows: auto; }
+  .pc { min-height: 260px; }
+  .pc:first-child { grid-column: auto; }
+  /* Always show info on mobile since no hover */
+  .pc-info { opacity: 1; }
+  .pc img { filter: brightness(.6); }
+  .pc-arrow { opacity: 1; transform: scale(1); }
+
+  /* Statement */
+  .statement { padding: 56px 20px; }
+  .statement-text { font-size: clamp(18px, 5vw, 26px); }
+
+  /* Services */
+  .svc-intro { padding: 48px 20px; }
+  .svc-header { padding: 0 20px; min-height: 64px; }
+  .svc-title { font-size: clamp(16px, 4.5vw, 22px); }
+  .svc-panel-text { padding: 24px 20px 28px; }
+  .svc-panel-img { min-height: 180px; }
+
+  /* News */
+  .news { padding: 52px 20px; }
+  .news-hdr { flex-direction: column; gap: 12px; align-items: flex-start; }
+
+  /* CTA */
+  .cta { padding: 64px 20px; }
+  .cta h2 { font-size: clamp(28px, 8vw, 46px); margin-bottom: 32px; }
+  .cta-btn { width: 100%; text-align: center; display: block; padding: 16px; }
+
+  /* Footer */
+  footer { padding: 44px 20px 28px; }
+  .ft { grid-template-columns: 1fr; gap: 32px; }
+  .ft-bot { gap: 6px; }
+  .ft-bot span:last-child { display: none; }
+
+  /* Intro */
+  .i-name { font-size: clamp(26px, 8vw, 48px); letter-spacing: .05em; }
+  .i-rule { margin: 18px auto; }
+  .i-sub { font-size: 8px; letter-spacing: .3em; }
 }
 </style>
 </head>
@@ -612,8 +762,23 @@ footer a:hover { color: rgba(255,255,255,.75); }
     <li><a href="#">News</a></li>
     <li><a href="#">Contact</a></li>
   </ul>
-  <button class="nav-cta">Enquire</button>
+  <div class="nav-right">
+    <button class="nav-cta">Enquire</button>
+    <button class="nav-burger" id="burger" aria-label="Menu">
+      <span></span><span></span>
+    </button>
+  </div>
 </nav>
+
+<!-- Mobile menu -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#" onclick="closeMenu()">Projects</a>
+  <a href="#" onclick="closeMenu()">Services</a>
+  <a href="#" onclick="closeMenu()">Practice</a>
+  <a href="#" onclick="closeMenu()">News</a>
+  <a href="#" onclick="closeMenu()">Contact</a>
+  <a href="#" class="mob-enquire" onclick="closeMenu()">Enquire</a>
+</div>
 
 <!-- HERO -->
 <section class="hero">
@@ -942,6 +1107,20 @@ document.querySelectorAll('.svc-row').forEach(row=>{
     if(!isOpen) row.classList.add('open');
   });
 });
+
+// Mobile burger menu
+const burger=document.getElementById('burger');
+const mobileMenu=document.getElementById('mobileMenu');
+burger.addEventListener('click',()=>{
+  const open=mobileMenu.classList.toggle('open');
+  burger.classList.toggle('open',open);
+  document.body.style.overflow=open?'hidden':'';
+});
+function closeMenu(){
+  mobileMenu.classList.remove('open');
+  burger.classList.remove('open');
+  document.body.style.overflow='';
+}
 </script>
 </body>
 </html>
