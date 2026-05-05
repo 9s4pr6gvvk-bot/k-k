@@ -156,13 +156,20 @@ nav {
   display: flex; flex-direction: column; justify-content: flex-end;
 }
 
-/* Base photo layer */
+/* Base photo layer — dual image crossfade */
 .hero-img {
   position: absolute; inset: 0; z-index: 0;
-  background-image: url('https://images.unsplash.com/photo-1710883727427-59d1ccc368fa?q=80&w=1800&auto=format&fit=crop');
   background-size: cover;
   background-position: center 30%;
   filter: grayscale(15%);
+  transition: opacity 1.5s ease;
+}
+.hero-img-1 {
+  background-image: url('https://images.unsplash.com/photo-1710883727427-59d1ccc368fa?q=80&w=1800&auto=format&fit=crop');
+}
+.hero-img-2 {
+  background-image: url('https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=1800&q=85&auto=format&fit=crop');
+  opacity: 0;
 }
 
 /* Gradient — desktop */
@@ -201,9 +208,12 @@ nav {
 
 .hero-content {
   position: relative; z-index: 3;
-  padding: 0 64px 72px;
+  padding: 120px 64px 80px;
   display: grid; grid-template-columns: 1fr 1fr;
-  align-items: flex-end; gap: 48px;
+  align-items: flex-end; gap: 64px;
+  min-height: 100%;
+  justify-content: flex-end;
+  align-content: flex-end;
 }
 
 .hero-left {}
@@ -219,12 +229,13 @@ nav {
 
 .hero-h1 {
   font-family: var(--serif);
-  font-size: clamp(44px, 5.8vw, 90px);
-  font-weight: 400; line-height: 1.02;
+  font-size: clamp(36px, 4.2vw, 68px);
+  font-weight: 400; line-height: 1.1;
   letter-spacing: .04em;
   color: var(--w);
   text-transform: uppercase;
   margin-bottom: 0;
+  max-width: 560px;
 }
 .hero-h1 .dim { color: rgba(255,255,255,.32); }
 
@@ -264,24 +275,36 @@ nav {
 }
 .hero-lnk:hover { color: rgba(255,255,255,.85); border-color: rgba(255,255,255,.5); }
 
-/* Scroll indicator bottom right */
-.hero-scroll {
-  position: absolute; right: 64px; bottom: 76px; z-index: 4;
-  display: flex; flex-direction: column; align-items: center; gap: 10px;
+/* Hero slide controls — minimal arrows */
+.hero-controls {
+  position: absolute; right: 52px; bottom: 44px; z-index: 4;
+  display: flex; align-items: center; gap: 2px;
 }
-.hero-scroll span {
-  font-family: var(--sans); font-size: 8px; font-weight: 200;
-  letter-spacing: .28em; text-transform: uppercase;
-  color: rgba(255,255,255,.3);
-  writing-mode: vertical-rl;
+.hero-ctrl {
+  width: 40px; height: 40px;
+  border: 1px solid rgba(255,255,255,.22);
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; background: rgba(0,0,0,.15);
+  backdrop-filter: blur(6px);
+  transition: background .22s, border-color .22s;
 }
-.scroll-line { width: 1px; height: 44px; background: rgba(255,255,255,.12); position: relative; overflow: hidden; }
-.scroll-line::after {
-  content: ''; position: absolute; top: -100%; width: 1px; height: 100%;
-  background: rgba(255,255,255,.4);
-  animation: sline 2.2s ease infinite;
+.hero-ctrl:hover { background: rgba(255,255,255,.14); border-color: rgba(255,255,255,.5); }
+.hero-ctrl.active { background: rgba(255,255,255,.18); border-color: rgba(255,255,255,.55); }
+.hero-ctrl svg { width: 12px; height: 12px; stroke: rgba(255,255,255,.7); stroke-width: 1.5; fill: none; transition: stroke .22s; }
+.hero-ctrl:hover svg, .hero-ctrl.active svg { stroke: var(--w); }
+
+/* Progress bar beneath controls */
+.hero-progress {
+  position: absolute; right: 52px; bottom: 40px; z-index: 4;
+  width: 82px; height: 1px;
+  background: rgba(255,255,255,.12);
+  overflow: hidden;
 }
-@keyframes sline { 0%{top:-100%} 100%{top:100%} }
+.hero-progress-fill {
+  height: 100%; width: 0%;
+  background: rgba(255,255,255,.55);
+  transition: width .1s linear;
+}
 
 /* ── MARQUEE ── */
 .mq {
@@ -291,11 +314,11 @@ nav {
 }
 .mq-t { display: inline-flex; animation: mq 32s linear infinite; }
 .mq-t span {
-  font-family: var(--sans); font-size: 9px; font-weight: 200;
-  letter-spacing: .3em; text-transform: uppercase;
-  color: #c0c0c0; padding: 0 44px;
+  font-family: var(--sans); font-size: 10px; font-weight: 500;
+  letter-spacing: .22em; text-transform: uppercase;
+  color: var(--b); padding: 0 44px;
 }
-.mq-t .dot { color: var(--b); padding: 0; font-size: 5px; vertical-align: middle; }
+.mq-t .dot { color: var(--g); padding: 0; font-size: 5px; vertical-align: middle; }
 @keyframes mq { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
 
 /* ── ABOUT ── */
@@ -309,20 +332,41 @@ nav {
   display: flex; flex-direction: column; justify-content: space-between;
 }
 .about-l h2 {
-  font-family: var(--serif); font-size: clamp(28px, 3.2vw, 50px);
-  font-weight: 400; line-height: 1.12; letter-spacing: .03em;
-  text-transform: uppercase;
+  font-family: var(--serif); font-size: clamp(16px, 1.5vw, 22px);
+  font-weight: 400; line-height: 1.6; letter-spacing: .02em;
+  color: var(--b);
+  border-left: 2px solid var(--b);
+  padding-left: 18px;
 }
-.about-l h2 .dim { color: var(--g); }
-.about-nums { display: flex; gap: 52px; margin-top: 60px; }
+.about-l h2 .dim { color: #777; }
+.about-nums {
+  display: grid;
+  grid-template-columns: auto auto 1fr;
+  gap: 0;
+  margin-top: 52px;
+  border-top: 1px solid var(--br);
+}
+.stat {
+  padding: 24px 24px 24px 0;
+  border-right: 1px solid var(--br);
+  padding-right: 24px;
+  margin-right: 24px;
+}
+.stat:last-child { border-right: none; margin-right: 0; }
 .stat .n {
-  font-family: var(--serif); font-size: 46px; font-weight: 400;
+  font-family: var(--serif); font-size: 40px; font-weight: 400;
   letter-spacing: .02em; line-height: 1; color: var(--b);
 }
-.stat .n sup { font-size: 18px; color: var(--g); }
+.stat .n sup { font-size: 16px; color: var(--g); }
+.stat-disciplines { display: flex; flex-direction: column; justify-content: center; padding: 20px 0 20px 0; }
+.stat-disciplines .n {
+  font-size: 10px; font-weight: 400; letter-spacing: .16em;
+  line-height: 2.2; text-transform: uppercase; color: #444;
+  font-family: var(--sans);
+}
 .stat .l {
-  font-family: var(--sans); font-size: 9px; font-weight: 200;
-  letter-spacing: .24em; text-transform: uppercase; color: var(--g); margin-top: 5px;
+  font-family: var(--sans); font-size: 9px; font-weight: 300;
+  letter-spacing: .2em; text-transform: uppercase; color: var(--g); margin-top: 6px;
 }
 .about-r {
   padding: 88px 52px;
@@ -404,15 +448,19 @@ nav {
 
 /* ── STATEMENT ── */
 .statement {
-  padding: 100px 52px;
+  padding: 80px 52px;
+  border-top: 1px solid var(--br);
   border-bottom: 1px solid var(--br);
+  background: var(--lg);
 }
 .statement-text {
-  font-family: var(--serif); font-size: clamp(22px, 2.8vw, 42px);
-  font-weight: 400; line-height: 1.4; letter-spacing: .02em;
-  max-width: 820px; text-transform: uppercase;
+  font-family: var(--sans);
+  font-size: clamp(14px, 1.4vw, 18px);
+  font-weight: 300; line-height: 1.85; letter-spacing: .01em;
+  max-width: 860px; color: #555;
 }
-.statement-text .dim { color: var(--g); }
+.statement-text strong { font-weight: 500; color: var(--b); font-family: var(--serif); font-size: 1.15em; }
+.statement-text .dim { color: #666; }
 
 /* ══════════════════════════════════
    SERVICES — accordion with image panel
@@ -627,6 +675,8 @@ footer a:hover { color: var(--w); }
   }
   .hero-h1 { font-size: clamp(40px, 8vw, 64px); }
   .hero-scroll { display: none; }
+  .hero-controls { display: none; }
+  .hero-progress { display: none; }
   .hero-slogan { max-width: 100%; }
 
   /* About */
@@ -790,24 +840,25 @@ footer a:hover { color: var(--w); }
 
 <!-- HERO -->
 <section class="hero">
-  <div class="hero-img"></div>
+  <div class="hero-img hero-img-1"></div>
+  <div class="hero-img hero-img-2"></div>
   <div class="hero-grad"></div>
   <div class="hero-grain"></div>
   <div class="hero-grid"></div>
 
   <div class="hero-content">
     <div class="hero-left">
-      <div class="hero-eyebrow">Halifax · West Yorkshire · Est. 1987</div>
+      <div class="hero-eyebrow">Established 1993</div>
       <h1 class="hero-h1">
-        Architecture<br>
-        <span class="dim">Rooted In</span><br>
-        Yorkshire.
+        Why predict<br>
+        <span class="dim">the future</span><br>
+        when you<br>
+        can create it.
       </h1>
     </div>
     <div class="hero-right">
       <p class="hero-slogan">
-        <strong>The best way to predict the future is to create it.</strong><br>
-        An independent practice designing buildings that belong — combining decades of craft, rigour and knowledge of West Yorkshire.
+        We are passionate about creating homes for today's lifestyles combining innovative design with creative living spaces where the designs put the people first. Creating developments that respond to community values, where everyone can recognise their own homes from the way it looks, with place making that makes children and play more important than cars.
       </p>
       <div class="hero-ctas">
         <a href="#" class="hero-btn">View our work</a>
@@ -816,9 +867,16 @@ footer a:hover { color: var(--w); }
     </div>
   </div>
 
-  <div class="hero-scroll">
-    <div class="scroll-line"></div>
-    <span>Scroll</span>
+  <div class="hero-controls" id="heroControls">
+    <div class="hero-ctrl active" id="ctrl0" data-slide="0">
+      <svg viewBox="0 0 12 12"><polyline points="8,2 4,6 8,10"/></svg>
+    </div>
+    <div class="hero-ctrl" id="ctrl1" data-slide="1">
+      <svg viewBox="0 0 12 12"><polyline points="4,2 8,6 4,10"/></svg>
+    </div>
+  </div>
+  <div class="hero-progress" id="heroProgress">
+    <div class="hero-progress-fill" id="heroFill"></div>
   </div>
 </section>
 
@@ -848,18 +906,25 @@ footer a:hover { color: var(--w); }
 <div class="about">
   <div class="about-l">
     <div>
-      <div style="font-family:var(--sans);font-size:9px;font-weight:200;letter-spacing:.34em;text-transform:uppercase;color:var(--g);margin-bottom:20px" class="rv">The Practice</div>
-      <h2 class="rv d1">Buildings<br><span class="dim">That</span><br>Belong.</h2>
+      <div style="font-family:var(--sans);font-size:9px;font-weight:300;letter-spacing:.34em;text-transform:uppercase;color:var(--g);margin-bottom:20px" class="rv">The Practice</div>
+      <h2 class="rv d1">To deliver meaningful architecture is not to parody history, <span class="dim">but to articulate it.</span></h2>
     </div>
     <div class="about-nums rv d2">
-      <div class="stat"><div class="n">35<sup>+</sup></div><div class="l">Years</div></div>
-      <div class="stat"><div class="n">400<sup>+</sup></div><div class="l">Projects</div></div>
-      <div class="stat"><div class="n">12</div><div class="l">Awards</div></div>
+      <div class="stat">
+        <div class="n">33</div>
+        <div class="l">Years Experience</div>
+      </div>
+      <div class="stat">
+        <div class="n" style="font-size:28px;letter-spacing:.01em">Multi</div>
+        <div class="l">Disciplined</div>
+      </div>
+      <div class="stat stat-disciplines">
+        <div class="n">Architecture<br>BIM<br>Virtual Reality<br>3D Printing</div>
+      </div>
     </div>
   </div>
   <div class="about-r">
-    <p class="rv d1">We are an independent architecture practice based at <strong>Dean Clough Mills, Halifax</strong> since 1987. From sensitive heritage conservation to new civic commissions, we design buildings that genuinely belong to their place.</p>
-    <p class="rv d2">Three generations of craft and care inform every project. We know the grain, stone and character of West Yorkshire's built environment — and that knowledge shapes everything we do.</p>
+    <p class="rv d1">The company was originally born in 1993 and since our inception we have become one of the market leaders in the design of residential and mixed use developments, having led a number of large scale and innovative schemes.</p>
     <a href="#" class="lnk rv d3">About the practice →</a>
   </div>
 </div>
@@ -872,7 +937,7 @@ footer a:hover { color: var(--w); }
   </div>
   <div class="proj-grid">
     <div class="pc rv">
-      <img src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=900&q=80&auto=format&fit=crop" alt="Riverside Quarter">
+      <img src="proj0.jpg" alt="Project 1">
       <div class="pc-info">
         <p class="pc-type">Residential · 2024</p>
         <h3 class="pc-title">Riverside Quarter</h3>
@@ -881,38 +946,38 @@ footer a:hover { color: var(--w); }
       <div class="pc-arrow"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 6h8M6 2l4 4-4 4"/></svg></div>
     </div>
     <div class="pc rv d1">
-      <img src="https://images.unsplash.com/photo-1464938050520-ef2270bb8ce8?w=800&q=80&auto=format&fit=crop" alt="Mill Conversion">
+      <img src="proj1.jpg" alt="Project 2">
       <div class="pc-info">
-        <p class="pc-type">Heritage · 2023</p>
-        <h3 class="pc-title">Mill Conversion</h3>
-        <p class="pc-loc">Hebden Bridge</p>
+        <p class="pc-type">Commercial · 2023</p>
+        <h3 class="pc-title">City Centre Development</h3>
+        <p class="pc-loc">Leeds</p>
       </div>
       <div class="pc-arrow"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 6h8M6 2l4 4-4 4"/></svg></div>
     </div>
     <div class="pc rv d2">
-      <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&q=80&auto=format&fit=crop" alt="Community Hub">
+      <img src="proj2.jpg" alt="Project 3">
       <div class="pc-info">
-        <p class="pc-type">Civic · 2023</p>
-        <h3 class="pc-title">Community Hub</h3>
-        <p class="pc-loc">Keighley Town Centre</p>
+        <p class="pc-type">Interior · 2023</p>
+        <h3 class="pc-title">Design Studio</h3>
+        <p class="pc-loc">Halifax</p>
       </div>
       <div class="pc-arrow"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 6h8M6 2l4 4-4 4"/></svg></div>
     </div>
     <div class="pc rv d1">
-      <img src="https://images.unsplash.com/photo-1562564055-71e051d33c19?w=800&q=80&auto=format&fit=crop" alt="School Extension">
+      <img src="proj3.jpg" alt="Project 4">
       <div class="pc-info">
-        <p class="pc-type">Education · 2022</p>
-        <h3 class="pc-title">School Extension</h3>
-        <p class="pc-loc">Elland, West Yorkshire</p>
+        <p class="pc-type">Planning · 2022</p>
+        <h3 class="pc-title">Masterplan Scheme</h3>
+        <p class="pc-loc">West Yorkshire</p>
       </div>
       <div class="pc-arrow"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 6h8M6 2l4 4-4 4"/></svg></div>
     </div>
     <div class="pc rv d2">
-      <img src="https://images.unsplash.com/photo-1470723710355-95304d8aece4?w=800&q=80&auto=format&fit=crop" alt="Office Refurb">
+      <img src="proj4.jpg" alt="Project 5">
       <div class="pc-info">
-        <p class="pc-type">Commercial · 2022</p>
-        <h3 class="pc-title">Office Refurbishment</h3>
-        <p class="pc-loc">Holbeck, Leeds</p>
+        <p class="pc-type">Residential · 2022</p>
+        <h3 class="pc-title">Urban Living Quarter</h3>
+        <p class="pc-loc">Bradford</p>
       </div>
       <div class="pc-arrow"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 6h8M6 2l4 4-4 4"/></svg></div>
     </div>
@@ -921,7 +986,7 @@ footer a:hover { color: var(--w); }
 
 <!-- STATEMENT -->
 <section class="statement">
-  <p class="statement-text rv">We have built up a great deal of <span class="dim">intellectual capital,</span> which means our staff can empathise with each client and understand their individual needs.</p>
+  <p class="statement-text rv"><strong>Our People.</strong> <span class="dim">We have built up a highly motivated and talented design team that has a great deal of intellectual capital which means they can empathise with each individual client, understand their needs and ultimately add value to all the developments we are involved with.</span></p>
 </section>
 
 <!-- SERVICES -->
@@ -929,9 +994,9 @@ footer a:hover { color: var(--w); }
   <div class="svc-intro">
     <div>
       <div class="svc-intro-label rv">Capabilities</div>
-      <h2 class="rv d1">A Full Range<br><span class="dim">Of Architectural</span><br>Services.</h2>
+      <h2 class="rv d1">A Multi<br><span class="dim">Disciplined Range</span><br>Of Architectural<br>Services.</h2>
     </div>
-    <p class="rv d2">From feasibility and planning through to construction and completion — we offer the complete architectural service, tailored to every commission.</p>
+    <p class="rv d2">Our fundamental driver is the creation of modern, vibrant urban communities by combining forward thinking design with a people friendly environment. The defining word for the creation of peoples homes is choice, choice of elevation, choice of layout, choice in the mix of house types and choice in the way people want to live their lives.</p>
   </div>
 
   <div class="svc-row rv">
@@ -969,48 +1034,48 @@ footer a:hover { color: var(--w); }
   <div class="svc-row rv d1">
     <div class="svc-header">
       <span class="svc-idx">iii</span>
-      <span class="svc-title">Heritage &amp; Conservation</span>
-      <div class="svc-tags"><span class="svc-tag-pill">Listed Buildings</span><span class="svc-tag-pill">Adaptive Reuse</span></div>
+      <span class="svc-title">BIM — Building Information Modelling</span>
+      <div class="svc-tags"><span class="svc-tag-pill">Digital</span><span class="svc-tag-pill">Coordination</span></div>
       <div class="svc-toggle"><svg viewBox="0 0 10 10" fill="none" stroke-width="1.2"><line x1="5" y1="1" x2="5" y2="9"/><line x1="1" y1="5" x2="9" y2="5"/></svg></div>
     </div>
     <div class="svc-panel">
       <div class="svc-panel-text">
-        <p>Sensitive conservation, listed building consent and thoughtful adaptive reuse. The mills, farmhouses and stone terraces of West Yorkshire are irreplaceable — we treat them accordingly.</p>
-        <a href="#">View heritage projects →</a>
+        <p>We use Building Information Modelling across all stages of design and construction, enabling greater coordination, fewer errors on site, and better outcomes for clients and contractors alike.</p>
+        <a href="#">Learn more →</a>
       </div>
-      <div class="svc-panel-img"><img src="https://images.unsplash.com/photo-1464938050520-ef2270bb8ce8?w=800&q=80&auto=format&fit=crop" alt="Heritage"></div>
+      <div class="svc-panel-img"><img src="https://images.unsplash.com/photo-1531403009284-440f080d1e12?w=800&q=80&auto=format&fit=crop" alt="BIM"></div>
     </div>
   </div>
 
   <div class="svc-row rv d2">
     <div class="svc-header">
       <span class="svc-idx">iv</span>
-      <span class="svc-title">Civic &amp; Education</span>
-      <div class="svc-tags"><span class="svc-tag-pill">Schools</span><span class="svc-tag-pill">Community</span></div>
+      <span class="svc-title">VR — Virtual Reality</span>
+      <div class="svc-tags"><span class="svc-tag-pill">Visualisation</span><span class="svc-tag-pill">Client Experience</span></div>
       <div class="svc-toggle"><svg viewBox="0 0 10 10" fill="none" stroke-width="1.2"><line x1="5" y1="1" x2="5" y2="9"/><line x1="1" y1="5" x2="9" y2="5"/></svg></div>
     </div>
     <div class="svc-panel">
       <div class="svc-panel-text">
-        <p>Schools, libraries, community centres and cultural buildings that invest in public life. Spaces that serve communities for generations — designed with care for every person who uses them.</p>
-        <a href="#">View civic projects →</a>
+        <p>We offer immersive virtual reality walkthroughs that allow clients to experience their building before a single brick is laid — transforming the way design decisions are made and communicated.</p>
+        <a href="#">Learn more →</a>
       </div>
-      <div class="svc-panel-img"><img src="https://images.unsplash.com/photo-1562564055-71e051d33c19?w=800&q=80&auto=format&fit=crop" alt="Civic"></div>
+      <div class="svc-panel-img"><img src="https://images.unsplash.com/photo-1617802690992-15d93263d3a9?w=800&q=80&auto=format&fit=crop" alt="VR"></div>
     </div>
   </div>
 
   <div class="svc-row rv d2">
     <div class="svc-header">
       <span class="svc-idx">v</span>
-      <span class="svc-title">Planning &amp; Interior Architecture</span>
-      <div class="svc-tags"><span class="svc-tag-pill">Strategy</span><span class="svc-tag-pill">Interiors</span></div>
+      <span class="svc-title">3D Printing</span>
+      <div class="svc-tags"><span class="svc-tag-pill">Models</span><span class="svc-tag-pill">Prototyping</span></div>
       <div class="svc-toggle"><svg viewBox="0 0 10 10" fill="none" stroke-width="1.2"><line x1="5" y1="1" x2="5" y2="9"/><line x1="1" y1="5" x2="9" y2="5"/></svg></div>
     </div>
     <div class="svc-panel">
       <div class="svc-panel-text">
-        <p>Pre-application advice, planning strategy and appeals — we know Calderdale and West Yorkshire planning inside-out. Our interior architecture service resolves material, light and proportion as a seamless part of the whole.</p>
-        <a href="#">Get in touch →</a>
+        <p>Physical scale models produced through 3D printing give clients, planners and communities a tangible sense of a proposed development — a powerful tool for consultation and sign-off.</p>
+        <a href="#">Learn more →</a>
       </div>
-      <div class="svc-panel-img"><img src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=800&q=80&auto=format&fit=crop" alt="Interiors"></div>
+      <div class="svc-panel-img"><img src="https://images.unsplash.com/photo-1609081219090-a6d81d3085bf?w=800&q=80&auto=format&fit=crop" alt="3D Printing"></div>
     </div>
   </div>
 </section>
@@ -1101,6 +1166,46 @@ setTimeout(()=>{
   intro.classList.add('out');
   setTimeout(()=>{ intro.style.display='none'; main.classList.add('show'); }, 660);
 }, 2400);
+
+// Hero image crossfade — arrow controls + progress bar
+const img1=document.querySelector('.hero-img-1');
+const img2=document.querySelector('.hero-img-2');
+const ctrl0=document.getElementById('ctrl0');
+const ctrl1=document.getElementById('ctrl1');
+const fill=document.getElementById('heroFill');
+const DURATION=12000;
+let current=0, timer, prog, progStart;
+
+function goToSlide(idx){
+  current=idx;
+  img1.style.opacity=idx===0?'1':'0';
+  img2.style.opacity=idx===1?'1':'0';
+  ctrl0.classList.toggle('active',idx===0);
+  ctrl1.classList.toggle('active',idx===1);
+  startProgress();
+}
+
+function startProgress(){
+  cancelAnimationFrame(prog);
+  progStart=performance.now();
+  function tick(now){
+    const pct=Math.min((now-progStart)/DURATION*100,100);
+    fill.style.width=pct+'%';
+    if(pct<100) prog=requestAnimationFrame(tick);
+  }
+  prog=requestAnimationFrame(tick);
+}
+
+function startTimer(){
+  clearInterval(timer);
+  timer=setInterval(()=>goToSlide(current===0?1:0),DURATION);
+}
+
+ctrl0.addEventListener('click',()=>{goToSlide(0);startTimer();});
+ctrl1.addEventListener('click',()=>{goToSlide(1);startTimer();});
+
+goToSlide(0);
+startTimer();
 
 // Reveal
 const obs=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('vis')}),{threshold:.07,rootMargin:'0px 0px -20px 0px'});
