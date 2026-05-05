@@ -95,8 +95,9 @@ nav {
   letter-spacing: .16em; text-transform: uppercase;
   background: var(--b); color: var(--w); border: none;
   padding: 10px 24px; transition: opacity .2s;
+  text-decoration: none; display: inline-block;
 }
-.nav-cta:hover { opacity: .75; }
+.nav-cta:hover { opacity: .75; color: var(--w); }
 .nav-right { display: flex; align-items: center; gap: 12px; }
 
 /* Burger button — hidden on desktop */
@@ -645,7 +646,10 @@ footer a:hover { color: var(--w); }
 }
 .ft-bot span { font-size: 10px; font-weight: 300; letter-spacing: .1em; color: rgba(255,255,255,.3); }
 
-/* REVEAL */
+/* ── ANCHOR SCROLL OFFSET (accounts for fixed nav ~100px) ── */
+#practice, #projects, #services, #news, #contact {
+  scroll-margin-top: 100px;
+}
 .rv { opacity: 0; transform: translateY(16px); transition: opacity .85s cubic-bezier(.16,1,.3,1), transform .85s cubic-bezier(.16,1,.3,1); }
 .rv.vis { opacity: 1; transform: none; }
 .d1{transition-delay:.08s} .d2{transition-delay:.16s} .d3{transition-delay:.24s} .d4{transition-delay:.32s}
@@ -654,141 +658,161 @@ footer a:hover { color: var(--w); }
    RESPONSIVE — MOBILE OPTIMISED
 ══════════════════════════════════ */
 
-/* Tablet — 768px to 900px */
 @media(max-width:900px){
-  /* Nav */
-  nav { padding: 16px 24px; }
-  .nav-links { display: none; }
-  .nav-logo-img { height: 52px; }
 
-  /* Hero */
+  /* ── Nav ── */
+  nav { padding: 14px 24px; }
+  .nav-links { display: none; }
+  .nav-logo-img { height: 50px; }
+
+  /* ── Hero ── */
   .hero { min-height: 100svh; }
   .hero-grad {
     background:
-      linear-gradient(to top, rgba(10,10,10,.95) 0%, rgba(10,10,10,.8) 45%, rgba(10,10,10,.45) 72%, rgba(10,10,10,.15) 100%),
-      linear-gradient(to right, rgba(10,10,10,.5) 0%, rgba(10,10,10,.1) 100%);
+      linear-gradient(to top, rgba(10,10,10,.96) 0%, rgba(10,10,10,.82) 42%, rgba(10,10,10,.45) 70%, rgba(10,10,10,.12) 100%),
+      linear-gradient(to right, rgba(10,10,10,.5) 0%, rgba(10,10,10,.08) 100%);
   }
   .hero-content {
     grid-template-columns: 1fr;
-    padding: 0 24px 52px;
+    padding: 100px 24px 64px;
     gap: 28px;
+    align-content: flex-end;
   }
-  .hero-h1 { font-size: clamp(40px, 8vw, 64px); }
-  .hero-scroll { display: none; }
-  .hero-controls { display: none; }
-  .hero-progress { display: none; }
-  .hero-slogan { max-width: 100%; }
+  .hero-h1 { font-size: clamp(34px, 7.5vw, 56px); line-height: 1.1; }
+  .hero-eyebrow { font-size: 9px; letter-spacing: .22em; }
+  .hero-slogan { font-size: 13px; max-width: 100%; line-height: 1.75; }
+  .hero-ctas { flex-direction: row; flex-wrap: wrap; gap: 16px; }
+  .hero-controls, .hero-progress { display: none; }
 
-  /* About */
+  /* ── Marquee ── */
+  .mq-t span { padding: 0 30px; font-size: 9px; }
+
+  /* ── About ── */
   .about { grid-template-columns: 1fr; }
-  .about-l { padding: 64px 24px 48px; border-right: none; border-bottom: 1px solid var(--br); }
-  .about-r { padding: 48px 24px 64px; }
-  .about-nums { gap: 32px; }
+  .about-l {
+    padding: 56px 24px 44px;
+    border-right: none;
+    border-bottom: 1px solid var(--br);
+  }
+  .about-r { padding: 44px 24px 56px; }
+  .about-nums {
+    grid-template-columns: auto auto;
+    gap: 0;
+  }
+  .stat-disciplines { grid-column: 1 / -1; border-top: 1px solid var(--br); border-right: none; padding: 20px 0 0; margin: 0; }
 
-  /* Projects */
-  .proj-top { padding: 48px 24px 36px; flex-direction: column; gap: 14px; align-items: flex-start; }
-  .proj-grid { grid-template-columns: 1fr 1fr; grid-template-rows: 240px 240px 200px; }
+  /* ── Projects ── */
+  .proj-top { padding: 44px 24px 32px; flex-direction: column; gap: 12px; align-items: flex-start; }
+  .proj-grid {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 220px 220px 180px;
+  }
   .pc:first-child { grid-column: 1 / -1; grid-row: auto; }
 
-  /* Statement */
-  .statement { padding: 72px 24px; }
+  /* ── Statement ── */
+  .statement { padding: 64px 24px; }
 
-  /* Services */
-  .svc-intro { grid-template-columns: 1fr; padding: 56px 24px; gap: 24px; }
-  .svc-header { padding: 0 24px; min-height: 72px; }
+  /* ── Services ── */
+  .svc-intro { grid-template-columns: 1fr; padding: 52px 24px 40px; gap: 20px; }
+  .svc-header { padding: 0 24px; min-height: 68px; }
   .svc-tags { display: none; }
+  .svc-title { font-size: clamp(15px, 3.5vw, 22px); }
   .svc-panel { grid-template-columns: 1fr; }
-  .svc-panel-text { padding: 28px 24px 32px; border-right: none; border-bottom: 1px solid var(--br); }
+  .svc-panel-text { padding: 24px 24px 28px; border-right: none; border-bottom: 1px solid var(--br); }
   .svc-panel-img { min-height: 200px; }
-  .svc-row.open .svc-panel { max-height: 700px; }
+  .svc-row.open .svc-panel { max-height: 720px; }
 
-  /* News */
-  .news { padding: 64px 24px; }
+  /* ── News ── */
+  .news { padding: 56px 24px; }
+  .news-hdr { flex-direction: column; gap: 12px; align-items: flex-start; margin-bottom: 36px; }
   .news-grid { grid-template-columns: 1fr; }
   .nc { padding: 28px 0; }
   .nc:not(:first-child) { padding-left: 0; border-left: none; }
 
-  /* CTA */
-  .cta { padding: 80px 24px; }
-  .cta-row { flex-direction: column; align-items: flex-start; gap: 20px; }
+  /* ── CTA ── */
+  .cta { padding: 72px 24px; }
+  .cta h2 { font-size: clamp(28px, 6vw, 48px); margin-bottom: 32px; }
+  .cta-row { flex-direction: column; align-items: flex-start; gap: 18px; }
   .cta-tel { margin-left: 0; }
 
-  /* Footer */
-  footer { padding: 52px 24px 32px; }
-  .ft { grid-template-columns: 1fr 1fr; gap: 36px; }
-  .ft-bot { flex-direction: column; gap: 8px; align-items: flex-start; }
+  /* ── Footer ── */
+  footer { padding: 48px 24px 28px; }
+  .ft { grid-template-columns: 1fr 1fr; gap: 32px; margin-bottom: 36px; }
+  .ft-bot { flex-direction: column; gap: 6px; align-items: flex-start; }
 }
 
-/* Mobile — up to 600px */
 @media(max-width:600px){
-  /* Nav */
-  nav { padding: 14px 20px; }
-  .nav-logo-img { height: 46px; }
-  .nav-cta { padding: 9px 18px; font-size: 9px; }
 
-  /* Hero */
-  .hero-content { padding: 0 20px 44px; gap: 20px; }
+  /* ── Nav ── */
+  nav { padding: 12px 20px; }
+  .nav-logo-img { height: 44px; }
+
+  /* ── Hero ── */
+  .hero-content { padding: 90px 20px 56px; gap: 24px; }
+  .hero-h1 { font-size: clamp(30px, 9vw, 46px); line-height: 1.08; }
+  .hero-eyebrow { font-size: 8px; letter-spacing: .2em; }
+  .hero-slogan { font-size: 12px; line-height: 1.7; }
+  .hero-ctas { flex-direction: column; align-items: flex-start; gap: 14px; }
+  .hero-btn { padding: 13px 22px; width: 100%; text-align: center; display: block; }
   .hero-grad {
     background:
-      linear-gradient(to top, rgba(10,10,10,.97) 0%, rgba(10,10,10,.85) 40%, rgba(10,10,10,.55) 68%, rgba(10,10,10,.2) 100%),
-      linear-gradient(to right, rgba(10,10,10,.6) 0%, rgba(10,10,10,.15) 100%);
+      linear-gradient(to top, rgba(10,10,10,.98) 0%, rgba(10,10,10,.88) 38%, rgba(10,10,10,.58) 66%, rgba(10,10,10,.18) 100%),
+      linear-gradient(to right, rgba(10,10,10,.6) 0%, rgba(10,10,10,.1) 100%);
   }
-  .hero-h1 { font-size: clamp(36px, 10vw, 52px); line-height: 1.05; }
-  .hero-eyebrow { font-size: 8px; letter-spacing: .24em; }
-  .hero-slogan { font-size: 12px; }
-  .hero-ctas { flex-direction: column; align-items: flex-start; gap: 16px; }
-  .hero-btn { padding: 13px 24px; }
 
-  /* Marquee — slow down slightly on mobile */
-  .mq-t { animation-duration: 20s; }
-  .mq-t span { padding: 0 28px; font-size: 8px; }
+  /* ── Marquee ── */
+  .mq-t { animation-duration: 22s; }
+  .mq-t span { padding: 0 22px; font-size: 8px; letter-spacing: .18em; }
 
-  /* About */
-  .about-l { padding: 52px 20px 40px; }
-  .about-r { padding: 40px 20px 52px; }
-  .about-nums { flex-wrap: wrap; gap: 24px; }
-  .stat .n { font-size: 36px; }
+  /* ── About ── */
+  .about-l { padding: 48px 20px 36px; }
+  .about-r { padding: 36px 20px 48px; }
+  .about-nums { display: flex; flex-wrap: wrap; gap: 0; border-top: 1px solid var(--br); }
+  .stat { padding: 20px 20px 20px 0; border-right: 1px solid var(--br); margin-right: 20px; }
+  .stat:last-child { border-right: none; margin-right: 0; }
+  .stat .n { font-size: 32px; }
+  .stat-disciplines { width: 100%; border-top: 1px solid var(--br); border-right: none !important; margin-right: 0 !important; padding: 18px 0 0; }
+  .stat-disciplines .n { font-size: 9px; line-height: 2.4; }
 
-  /* Projects */
-  .proj-top { padding: 40px 20px 28px; }
+  /* ── Projects ── */
+  .proj-top { padding: 36px 20px 24px; }
   .proj-grid { grid-template-columns: 1fr; grid-template-rows: auto; }
-  .pc { min-height: 260px; }
+  .pc { min-height: 250px; }
   .pc:first-child { grid-column: auto; }
-  /* Always show info on mobile since no hover */
   .pc-info { opacity: 1; }
-  .pc img { filter: brightness(.6); }
+  .pc img { filter: brightness(.58); }
   .pc-arrow { opacity: 1; transform: scale(1); }
 
-  /* Statement */
-  .statement { padding: 56px 20px; }
-  .statement-text { font-size: clamp(18px, 5vw, 26px); }
+  /* ── Statement ── */
+  .statement { padding: 52px 20px; }
+  .statement-text { font-size: clamp(13px, 3.5vw, 16px); }
 
-  /* Services */
-  .svc-intro { padding: 48px 20px; }
-  .svc-header { padding: 0 20px; min-height: 64px; }
-  .svc-title { font-size: clamp(16px, 4.5vw, 22px); }
-  .svc-panel-text { padding: 24px 20px 28px; }
+  /* ── Services ── */
+  .svc-intro { padding: 44px 20px 32px; }
+  .svc-header { padding: 0 20px; min-height: 60px; }
+  .svc-panel-text { padding: 20px 20px 24px; }
   .svc-panel-img { min-height: 180px; }
 
-  /* News */
-  .news { padding: 52px 20px; }
-  .news-hdr { flex-direction: column; gap: 12px; align-items: flex-start; }
+  /* ── News ── */
+  .news { padding: 48px 20px; }
 
-  /* CTA */
-  .cta { padding: 64px 20px; }
-  .cta h2 { font-size: clamp(28px, 8vw, 46px); margin-bottom: 32px; }
-  .cta-btn { width: 100%; text-align: center; display: block; padding: 16px; }
+  /* ── CTA ── */
+  .cta { padding: 60px 20px; }
+  .cta h2 { font-size: clamp(26px, 8vw, 40px); margin-bottom: 28px; }
+  .cta-btn { width: 100%; text-align: center; padding: 15px; display: block; }
 
-  /* Footer */
-  footer { padding: 44px 20px 28px; }
-  .ft { grid-template-columns: 1fr; gap: 32px; }
-  .ft-bot { gap: 6px; }
+  /* ── Footer ── */
+  footer { padding: 40px 20px 24px; }
+  .ft { grid-template-columns: 1fr; gap: 28px; }
   .ft-bot span:last-child { display: none; }
 
-  /* Intro */
-  .i-name { font-size: clamp(26px, 8vw, 48px); letter-spacing: .05em; }
-  .i-rule { margin: 18px auto; }
-  .i-sub { font-size: 8px; letter-spacing: .3em; }
+  /* ── Mobile menu ── */
+  .mobile-menu { padding: 90px 28px 52px; }
+  .mobile-menu a { font-size: clamp(28px, 7vw, 44px); }
+
+  /* ── Intro ── */
+  .i-name { font-size: clamp(24px, 8vw, 44px); letter-spacing: .05em; }
+  .i-sub { font-size: 8px; letter-spacing: .28em; }
 }
 </style>
 </head>
@@ -810,18 +834,18 @@ footer a:hover { color: var(--w); }
 
 <!-- NAV -->
 <nav>
-  <a class="nav-logo" href="#">
+  <a class="nav-logo" href="#top">
     <img src="https://raw.githubusercontent.com/9s4pr6gvvk-bot/k-k/refs/heads/main/DRAFT%20LOGO%20KK.png" alt="Knapton & Knapton" class="nav-logo-img">
   </a>
   <ul class="nav-links">
-    <li><a href="#">Projects</a></li>
-    <li><a href="#">Services</a></li>
-    <li><a href="#">Practice</a></li>
-    <li><a href="#">News</a></li>
-    <li><a href="#">Contact</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#practice">Practice</a></li>
+    <li><a href="#news">News</a></li>
+    <li><a href="#contact">Contact</a></li>
   </ul>
   <div class="nav-right">
-    <button class="nav-cta">Enquire</button>
+    <a href="#contact" class="nav-cta">Enquire</a>
     <button class="nav-burger" id="burger" aria-label="Menu">
       <span></span><span></span>
     </button>
@@ -830,16 +854,16 @@ footer a:hover { color: var(--w); }
 
 <!-- Mobile menu -->
 <div class="mobile-menu" id="mobileMenu">
-  <a href="#" onclick="closeMenu()">Projects</a>
-  <a href="#" onclick="closeMenu()">Services</a>
-  <a href="#" onclick="closeMenu()">Practice</a>
-  <a href="#" onclick="closeMenu()">News</a>
-  <a href="#" onclick="closeMenu()">Contact</a>
-  <a href="#" class="mob-enquire" onclick="closeMenu()">Enquire</a>
+  <a href="#projects" onclick="closeMenu()">Projects</a>
+  <a href="#services" onclick="closeMenu()">Services</a>
+  <a href="#practice" onclick="closeMenu()">Practice</a>
+  <a href="#news" onclick="closeMenu()">News</a>
+  <a href="#contact" onclick="closeMenu()">Contact</a>
+  <a href="#contact" class="mob-enquire" onclick="closeMenu()">Enquire</a>
 </div>
 
 <!-- HERO -->
-<section class="hero">
+<section class="hero" id="top">
   <div class="hero-img hero-img-1"></div>
   <div class="hero-img hero-img-2"></div>
   <div class="hero-grad"></div>
@@ -861,8 +885,8 @@ footer a:hover { color: var(--w); }
         We are passionate about creating homes for today's lifestyles combining innovative design with creative living spaces where the designs put the people first. Creating developments that respond to community values, where everyone can recognise their own homes from the way it looks, with place making that makes children and play more important than cars.
       </p>
       <div class="hero-ctas">
-        <a href="#" class="hero-btn">View our work</a>
-        <a href="#" class="hero-lnk">About us</a>
+        <a href="#projects" class="hero-btn">View our work</a>
+        <a href="#practice" class="hero-lnk">About us</a>
       </div>
     </div>
   </div>
@@ -903,7 +927,7 @@ footer a:hover { color: var(--w); }
 </div>
 
 <!-- ABOUT -->
-<div class="about">
+<div class="about" id="practice">
   <div class="about-l">
     <div>
       <div style="font-family:var(--sans);font-size:9px;font-weight:300;letter-spacing:.34em;text-transform:uppercase;color:var(--g);margin-bottom:20px" class="rv">The Practice</div>
@@ -925,15 +949,15 @@ footer a:hover { color: var(--w); }
   </div>
   <div class="about-r">
     <p class="rv d1">The company was originally born in 1993 and since our inception we have become one of the market leaders in the design of residential and mixed use developments, having led a number of large scale and innovative schemes.</p>
-    <a href="#" class="lnk rv d3">About the practice →</a>
+    <a href="#practice" class="lnk rv d3">About the practice →</a>
   </div>
 </div>
 
 <!-- PROJECTS -->
-<section class="projects">
+<section class="projects" id="projects">
   <div class="proj-top rv">
     <h2>Selected <span class="dim">Projects</span></h2>
-    <a href="#">View all work</a>
+    <a href="#projects">View all work</a>
   </div>
   <div class="proj-grid">
     <div class="pc rv">
@@ -990,7 +1014,7 @@ footer a:hover { color: var(--w); }
 </section>
 
 <!-- SERVICES -->
-<section class="services">
+<section class="services" id="services">
   <div class="svc-intro">
     <div>
       <div class="svc-intro-label rv">Capabilities</div>
@@ -1009,7 +1033,7 @@ footer a:hover { color: var(--w); }
     <div class="svc-panel">
       <div class="svc-panel-text">
         <p>From single dwellings and extensions to major housing developments — homes that fit their landscape, respect their neighbours, and stand the test of time across West Yorkshire.</p>
-        <a href="#">View residential projects →</a>
+        <a href="#contact">View residential projects →</a>
       </div>
       <div class="svc-panel-img"><img src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=800&q=80&auto=format&fit=crop" alt="Residential"></div>
     </div>
@@ -1025,7 +1049,7 @@ footer a:hover { color: var(--w); }
     <div class="svc-panel">
       <div class="svc-panel-text">
         <p>Workplaces, retail and mixed-use schemes that perform for clients, occupants and the wider neighbourhood — designed to attract people and sustain communities.</p>
-        <a href="#">View commercial projects →</a>
+        <a href="#contact">View commercial projects →</a>
       </div>
       <div class="svc-panel-img"><img src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&q=80&auto=format&fit=crop" alt="Commercial"></div>
     </div>
@@ -1041,7 +1065,7 @@ footer a:hover { color: var(--w); }
     <div class="svc-panel">
       <div class="svc-panel-text">
         <p>We use Building Information Modelling across all stages of design and construction, enabling greater coordination, fewer errors on site, and better outcomes for clients and contractors alike.</p>
-        <a href="#">Learn more →</a>
+        <a href="#contact">Learn more →</a>
       </div>
       <div class="svc-panel-img"><img src="https://images.unsplash.com/photo-1531403009284-440f080d1e12?w=800&q=80&auto=format&fit=crop" alt="BIM"></div>
     </div>
@@ -1057,7 +1081,7 @@ footer a:hover { color: var(--w); }
     <div class="svc-panel">
       <div class="svc-panel-text">
         <p>We offer immersive virtual reality walkthroughs that allow clients to experience their building before a single brick is laid — transforming the way design decisions are made and communicated.</p>
-        <a href="#">Learn more →</a>
+        <a href="#contact">Learn more →</a>
       </div>
       <div class="svc-panel-img"><img src="https://images.unsplash.com/photo-1617802690992-15d93263d3a9?w=800&q=80&auto=format&fit=crop" alt="VR"></div>
     </div>
@@ -1073,7 +1097,7 @@ footer a:hover { color: var(--w); }
     <div class="svc-panel">
       <div class="svc-panel-text">
         <p>Physical scale models produced through 3D printing give clients, planners and communities a tangible sense of a proposed development — a powerful tool for consultation and sign-off.</p>
-        <a href="#">Learn more →</a>
+        <a href="#contact">Learn more →</a>
       </div>
       <div class="svc-panel-img"><img src="https://images.unsplash.com/photo-1609081219090-a6d81d3085bf?w=800&q=80&auto=format&fit=crop" alt="3D Printing"></div>
     </div>
@@ -1081,10 +1105,10 @@ footer a:hover { color: var(--w); }
 </section>
 
 <!-- NEWS -->
-<section class="news">
+<section class="news" id="news">
   <div class="news-hdr rv">
     <h2>Latest <span class="dim">News</span></h2>
-    <a href="#">All news</a>
+    <a href="#news">All news</a>
   </div>
   <div class="news-grid">
     <div class="nc rv">
@@ -1106,7 +1130,7 @@ footer a:hover { color: var(--w); }
 </section>
 
 <!-- CTA -->
-<section class="cta">
+<section class="cta" id="contact">
   <h2 class="rv">Let's Build<br>Something <span class="dim">Remarkable.</span></h2>
   <div class="cta-row rv d1">
     <a href="mailto:studio@knaptonknapton.co.uk" class="cta-btn">Start a project</a>
@@ -1143,10 +1167,10 @@ footer a:hover { color: var(--w); }
     <div>
       <h4>Contact</h4>
       <ul>
-        <li><a href="#">studio@knaptonknapton.co.uk</a></li>
-        <li><a href="#">01422 380 047</a></li>
-        <li><a href="#">LinkedIn</a></li>
-        <li><a href="#">Instagram</a></li>
+        <li><a href="mailto:studio@knaptonknapton.co.uk">studio@knaptonknapton.co.uk</a></li>
+        <li><a href="tel:01422380047">01422 380 047</a></li>
+        <li><a href="https://www.linkedin.com/company/knapton-and-knapton-architects" target="_blank" rel="noopener">LinkedIn</a></li>
+        <li><a href="https://www.instagram.com" target="_blank" rel="noopener">Instagram</a></li>
       </ul>
     </div>
   </div>
