@@ -52,20 +52,24 @@ body { background: var(--w); color: var(--b); font-family: var(--sans); overflow
 }
 @keyframes seamDrop { to { transform: scaleY(1); } }
 
-/* Logo centred over panels */
+/* Logo centred over panels — wipes up: top half visible first, then full reveal */
 .intro-logo-wrap {
   position: absolute; inset: 0; z-index: 4;
   display: flex; flex-direction: column;
   align-items: center; justify-content: center;
   gap: 0;
 }
-.i-logo {
+.i-logo-clip {
   max-width: min(300px, 60vw);
-  opacity: 0; transform: scale(.94);
-  animation: iReveal .9s cubic-bezier(.16,1,.3,1) .35s forwards;
+  clip-path: inset(0 0 100% 0);
+  animation: logoWipe 1.6s cubic-bezier(.16,1,.3,1) .15s forwards;
 }
-@keyframes iReveal {
-  to { opacity: 1; transform: scale(1); }
+.i-logo { width: 100%; display: block; }
+@keyframes logoWipe {
+  0%   { clip-path: inset(0 0 100% 0); }
+  35%  { clip-path: inset(0 0 58% 0); }
+  55%  { clip-path: inset(0 0 58% 0); }
+  100% { clip-path: inset(0 0 0% 0); }
 }
 
 /* Thin rule + sub fade in after logo */
@@ -583,17 +587,19 @@ nav {
 .svc-row.open .svc-toggle svg { stroke: var(--w); }
 
 .svc-panel {
-  display: grid; grid-template-columns: 1fr 1fr;
+  display: grid; grid-template-columns: 1.4fr 1fr;
   max-height: 0; overflow: hidden;
   transition: max-height .58s cubic-bezier(.16,1,.3,1);
 }
-.svc-row.open .svc-panel { max-height: 360px; }
+.svc-row.open .svc-panel { max-height: 1000px; }
 .svc-panel-text {
   padding: 36px 52px 48px;
   border-right: 1px solid var(--br);
-  display: flex; flex-direction: column; gap: 18px;
+  display: flex; flex-direction: column; gap: 20px;
+  overflow-y: auto;
 }
-.svc-panel-text p { font-size: 14px; font-weight: 300; line-height: 1.9; color: #555; max-width: 400px; }
+.svc-panel-text p { font-size: 13px; font-weight: 300; line-height: 1.9; color: #555; max-width: 100%; }
+.svc-panel-text p strong { color: var(--b); font-weight: 500; font-family: var(--sans); font-size: 9px; letter-spacing: .16em; text-transform: uppercase; display: block; margin-bottom: 5px; margin-top: 4px; }
 .svc-panel-text a {
   font-family: var(--sans); font-size: 10px; font-weight: 300;
   letter-spacing: .18em; text-transform: uppercase;
@@ -602,6 +608,18 @@ nav {
   width: fit-content; transition: color .2s, border-color .2s;
 }
 .svc-panel-text a:hover { color: var(--g); border-color: var(--g); }
+.svc-bullets {
+  list-style: none; padding: 0; margin: 0;
+  display: flex; flex-direction: column; gap: 8px;
+}
+.svc-bullets li {
+  font-size: 13px; font-weight: 300; line-height: 1.6; color: #555;
+  padding-left: 16px; position: relative;
+}
+.svc-bullets li::before {
+  content: '—'; position: absolute; left: 0;
+  color: var(--b); font-weight: 400;
+}
 .svc-panel-img { overflow: hidden; background: var(--lg); min-height: 240px; }
 .svc-panel-img img {
   width: 100%; height: 100%; object-fit: cover; display: block;
@@ -789,7 +807,7 @@ footer a:hover { color: var(--w); }
   .svc-panel { grid-template-columns: 1fr; }
   .svc-panel-text { padding: 24px 24px 28px; border-right: none; border-bottom: 1px solid var(--br); }
   .svc-panel-img { min-height: 200px; }
-  .svc-row.open .svc-panel { max-height: 720px; }
+  .svc-row.open .svc-panel { max-height: 1600px; }
 
   /* ── News ── */
   .news { padding: 56px 24px; }
@@ -893,7 +911,9 @@ footer a:hover { color: var(--w); }
   <div class="intro-panel intro-panel-r"></div>
   <div class="intro-seam"></div>
   <div class="intro-logo-wrap">
-    <img src="https://raw.githubusercontent.com/9s4pr6gvvk-bot/k-k/refs/heads/main/Logo%20(1).jpg" alt="Knapton & Knapton" class="i-logo">
+    <div class="i-logo-clip">
+      <img src="https://raw.githubusercontent.com/9s4pr6gvvk-bot/k-k/refs/heads/main/Logo%20(1).jpg" alt="Knapton & Knapton" class="i-logo">
+    </div>
     <div class="i-rule"></div>
     <div class="i-sub">Architects · Halifax · Est. 1993</div>
   </div>
@@ -984,7 +1004,6 @@ footer a:hover { color: var(--w); }
     <span>3D Printing</span><span class="dot">•</span>
     <span>Multi Disciplined</span><span class="dot">•</span>
     <span>Established 1993</span><span class="dot">•</span>
-    <span>Halifax · West Yorkshire</span><span class="dot">•</span>
     <span>Residential</span><span class="dot">•</span>
     <span>Commercial</span><span class="dot">•</span>
     <span>BIM — Building Information Modelling</span><span class="dot">•</span>
@@ -992,7 +1011,6 @@ footer a:hover { color: var(--w); }
     <span>3D Printing</span><span class="dot">•</span>
     <span>Multi Disciplined</span><span class="dot">•</span>
     <span>Established 1993</span><span class="dot">•</span>
-    <span>Halifax · West Yorkshire</span><span class="dot">•</span>
   </div>
 </div>
 
@@ -1142,8 +1160,17 @@ footer a:hover { color: var(--w); }
     </div>
     <div class="svc-panel">
       <div class="svc-panel-text">
-        <p>We use Building Information Modelling across all stages of design and construction, enabling greater coordination, fewer errors on site, and better outcomes for clients and contractors alike.</p>
-        <a href="#contact">Learn more →</a>
+        <p><strong>When did it all begin</strong><br>For over 15 years Knapton and Knapton has developed the use of Building Information Modelling software to deliver projects. We now use this software platform to deliver all projects within the office, even in situations where the client has not requested BIM it is our preferred software platform.</p>
+        <p><strong>What does it mean</strong><br>Throughout this time we have become market leaders with our considerable knowledge, intellect and expertise in the use and application of BIM software in the working environment. Some people mistakenly think of BIM as just a new variety of software drawing package. BIM is actually a process that relies on information-rich models. Project teams can use information contained in the BIM models to perform a variety of complementary tasks, including energy or environmental analysis, visualization, construction simulation and improving the accuracy of documentation.</p>
+        <p><strong>Value added</strong><br>Early access to the rich information in the models helps stakeholders on the project team gain more insight into their projects. As a result, the team can make more informed decisions much earlier in the planning, design, construction, or renovation process when decisions can have the greatest impact on project cost, schedule, and sustainability. To realise these benefits it is imperative that BIM standards are set up early and accurately and adhered to.</p>
+        <p><strong>What we do well</strong></p>
+        <ul class="svc-bullets">
+          <li>Content creation — Families and Materials</li>
+          <li>Training and support</li>
+          <li>Advice on hardware requirements</li>
+          <li>Partnering solutions with clients on project delivery</li>
+        </ul>
+        <a href="#contact">Get in touch →</a>
       </div>
       <div class="svc-panel-img"><img src="https://images.unsplash.com/photo-1531403009284-440f080d1e12?w=800&q=80&auto=format&fit=crop" alt="BIM"></div>
     </div>
@@ -1152,14 +1179,16 @@ footer a:hover { color: var(--w); }
   <div class="svc-row rv d2">
     <div class="svc-header">
       <span class="svc-idx">iv</span>
-      <span class="svc-title">VR — Virtual Reality</span>
+      <span class="svc-title">V.R. — Virtual Reality</span>
       <div class="svc-tags"><span class="svc-tag-pill">Visualisation</span><span class="svc-tag-pill">Client Experience</span></div>
       <div class="svc-toggle"><svg viewBox="0 0 10 10" fill="none" stroke-width="1.2"><line x1="5" y1="1" x2="5" y2="9"/><line x1="1" y1="5" x2="9" y2="5"/></svg></div>
     </div>
     <div class="svc-panel">
       <div class="svc-panel-text">
-        <p>We offer immersive virtual reality walkthroughs that allow clients to experience their building before a single brick is laid — transforming the way design decisions are made and communicated.</p>
-        <a href="#contact">Learn more →</a>
+        <p><strong>Why V.R.? Virtual Reality</strong><br>The introduction of the V.R. platform within the company was born out of a need for us to be able to give our clients a high level of 3D visual information that we had access to via the BIM platform. The problem with the BIM platform is the specialist nature of the operating hardware, and we needed to find a 3D software system that was less demanding.</p>
+        <p><strong>How it works</strong><br>Using the BIM 3D model created for Planning and construction provides opportunities for better understanding of projects through accurate technical 3D visualisation. Through the development of a software bridge we are able to import technically accurate models into the V.R. package, allowing us to create accessible real time 3D models for our clients. This allows the client to explore the 3D environment in real time with ease.</p>
+        <p><strong>What are the results?</strong><br>VR software, unlike traditional visualisation methods provides the possibility of fast still and moving HD image production and even real time exploration of sites directly from the planning or construction information without the need for render farms and weeks of expensive computer processing time. This proves invaluable for project team members and stakeholders to gain a greater understanding of the project and spot issues or opportunities early in the process before it is too late to make amendments. Marketing teams benefit from a vast amount of 3D images and animations giving them the opportunity to engage at pre build stage with potential clients.</p>
+        <a href="#contact">Get in touch →</a>
       </div>
       <div class="svc-panel-img"><img src="https://images.unsplash.com/photo-1617802690992-15d93263d3a9?w=800&q=80&auto=format&fit=crop" alt="VR"></div>
     </div>
@@ -1209,7 +1238,7 @@ footer a:hover { color: var(--w); }
 
 <!-- CTA -->
 <section class="cta" id="contact">
-  <h2 class="rv">Let's Build<br>Something <span class="dim">Remarkable.</span></h2>
+  <h2 class="rv">An Idea Is<br>Salvation By <span class="dim">Imagination.</span></h2>
   <div class="cta-row rv d1">
     <a href="mailto:studio@knaptonknapton.co.uk" class="cta-btn">Start a project</a>
     <span class="cta-tel">or call <a href="tel:01422380047">01422 380 047</a></span>
