@@ -21,43 +21,20 @@ html { scroll-behavior: smooth; }
 body { background: var(--w); color: var(--b); font-family: var(--sans); overflow-x: hidden; }
 
 /* ══════════════════════════════════
-   INTRO — SWIPE REVEAL
+   INTRO — LOGO REVEAL + FADE EXIT
 ══════════════════════════════════ */
 #intro {
   position: fixed; inset: 0; z-index: 9000;
-  pointer-events: none;
-  overflow: hidden;
+  background: var(--w);
+  display: flex; align-items: center; justify-content: center;
+  transition: opacity 1.2s cubic-bezier(.4,0,.2,1);
 }
+#intro.out { opacity: 0; pointer-events: none; }
+#intro.done { display: none; }
 
-/* Two panels that slide apart to reveal site */
-.intro-panel {
-  position: absolute; top: 0; bottom: 0;
-  width: 50%; background: var(--w);
-  transition: transform 1.1s cubic-bezier(.86,0,.07,1);
-  z-index: 2;
-}
-.intro-panel-l { left: 0; transform: translateX(0); }
-.intro-panel-r { right: 0; transform: translateX(0); }
-
-#intro.swipe .intro-panel-l { transform: translateX(-101%); }
-#intro.swipe .intro-panel-r { transform: translateX(101%); }
-
-/* Thin vertical centre seam */
-.intro-seam {
-  position: absolute; left: 50%; top: 0; bottom: 0;
-  width: 1px; background: var(--br);
-  z-index: 3;
-  transform: scaleY(0); transform-origin: top;
-  animation: seamDrop .6s cubic-bezier(.16,1,.3,1) .1s forwards;
-}
-@keyframes seamDrop { to { transform: scaleY(1); } }
-
-/* Logo centred over panels — wipes up: top half visible first, then full reveal */
 .intro-logo-wrap {
-  position: absolute; inset: 0; z-index: 4;
   display: flex; flex-direction: column;
   align-items: center; justify-content: center;
-  gap: 0;
 }
 .i-logo-clip {
   max-width: min(300px, 60vw);
@@ -71,8 +48,6 @@ body { background: var(--w); color: var(--b); font-family: var(--sans); overflow
   55%  { clip-path: inset(0 0 58% 0); }
   100% { clip-path: inset(0 0 0% 0); }
 }
-
-/* Thin rule + sub fade in after logo */
 .i-rule {
   width: 0; height: 1px; background: var(--br);
   margin: 22px auto 0;
@@ -87,23 +62,10 @@ body { background: var(--w); color: var(--b); font-family: var(--sans); overflow
 }
 @keyframes iFade { to { opacity: 1; } }
 
-/* When swiping — logo fades out first */
-#intro.swipe .intro-logo-wrap {
-  animation: logoFade .35s cubic-bezier(.4,0,.2,1) forwards;
-}
-@keyframes logoFade { to { opacity: 0; } }
-#intro.swipe .intro-seam { opacity: 0; transition: opacity .2s; }
-
-/* After panels leave, hide intro entirely */
-#intro.done { display: none; }
-
 /* ══════════════════════════════════
-   MAIN — fades in after intro swipes out
+   MAIN — fades in underneath intro
 ══════════════════════════════════ */
-#main {
-  opacity: 0;
-  transition: opacity 1s cubic-bezier(.22,1,.36,1);
-}
+#main { opacity: 0; transition: opacity 1.4s cubic-bezier(.22,1,.36,1); }
 #main.show { opacity: 1; }
 
 /* ── NAV ── */
@@ -512,7 +474,46 @@ nav {
 .pc:hover .pc-arrow { opacity: 1; transform: scale(1); }
 .pc-arrow svg { width: 10px; height: 10px; stroke: white; }
 
-/* ── STATEMENT ── */
+/* ── PROJECT DETAIL PANEL ── */
+.proj-detail {
+  max-height: 0; overflow: hidden;
+  transition: max-height .7s cubic-bezier(.16,1,.3,1);
+  border-bottom: 1px solid var(--br);
+  background: var(--lg);
+}
+.proj-detail.open { max-height: 800px; }
+.proj-detail-inner { padding: 64px 52px; }
+.proj-detail-close {
+  display: flex; align-items: center; gap: 10px;
+  font-family: var(--sans); font-size: 10px; font-weight: 300;
+  letter-spacing: .18em; text-transform: uppercase;
+  background: none; border: none; color: var(--g);
+  cursor: pointer; margin-bottom: 40px;
+  transition: color .2s;
+}
+.proj-detail-close:hover { color: var(--b); }
+.proj-detail-close svg { width: 12px; height: 12px; }
+.proj-detail-content {
+  display: grid; grid-template-columns: 1fr 1.6fr; gap: 64px;
+}
+.proj-detail-type {
+  font-family: var(--sans); font-size: 9px; font-weight: 300;
+  letter-spacing: .24em; text-transform: uppercase;
+  color: var(--g); margin-bottom: 16px;
+}
+.proj-detail-title {
+  font-family: var(--serif); font-size: clamp(20px, 2.2vw, 32px);
+  font-weight: 400; line-height: 1.25; letter-spacing: .02em;
+}
+.proj-detail-right { display: flex; flex-direction: column; gap: 18px; }
+.proj-detail-right p {
+  font-size: 14px; font-weight: 300; line-height: 1.9; color: #555;
+}
+@media(max-width:900px){
+  .proj-detail-inner { padding: 44px 24px; }
+  .proj-detail-content { grid-template-columns: 1fr; gap: 28px; }
+  .proj-detail.open { max-height: 1400px; }
+}
 .statement {
   padding: 80px 52px;
   border-top: 1px solid var(--br);
@@ -621,6 +622,40 @@ nav {
   color: var(--b); font-weight: 400;
 }
 .svc-panel-img { overflow: hidden; background: var(--lg); min-height: 240px; }
+
+/* BIM carousel */
+.bim-carousel { position: relative; height: 320px; overflow: hidden; }
+.bim-track {
+  display: flex; width: 200%;
+  height: 100%; transition: transform .6s cubic-bezier(.16,1,.3,1);
+}
+.bim-track img {
+  width: 50%; height: 100%; object-fit: cover; object-position: center;
+  display: block; flex-shrink: 0; filter: brightness(.9);
+}
+.bim-nav {
+  position: absolute; bottom: 16px; left: 50%;
+  transform: translateX(-50%);
+  display: flex; align-items: center; gap: 12px;
+  background: rgba(0,0,0,.3); backdrop-filter: blur(6px);
+  padding: 7px 14px; border-radius: 40px;
+}
+.bim-btn {
+  width: 24px; height: 24px;
+  background: none; border: none; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  color: rgba(255,255,255,.7); transition: color .2s;
+  padding: 0;
+}
+.bim-btn:hover { color: var(--w); }
+.bim-btn svg { width: 12px; height: 12px; }
+.bim-dots { display: flex; gap: 6px; align-items: center; }
+.bim-dot {
+  width: 5px; height: 5px; border-radius: 50%;
+  background: rgba(255,255,255,.35);
+  transition: background .3s, transform .3s; cursor: pointer;
+}
+.bim-dot.active { background: var(--w); transform: scale(1.3); }
 .svc-panel-img img {
   width: 100%; height: 100%; object-fit: cover; display: block;
   transform: scale(1.07); transition: transform .7s cubic-bezier(.16,1,.3,1); filter: brightness(.88);
@@ -907,9 +942,6 @@ footer a:hover { color: var(--w); }
 
 <!-- INTRO -->
 <div id="intro">
-  <div class="intro-panel intro-panel-l"></div>
-  <div class="intro-panel intro-panel-r"></div>
-  <div class="intro-seam"></div>
   <div class="intro-logo-wrap">
     <div class="i-logo-clip">
       <img src="https://raw.githubusercontent.com/9s4pr6gvvk-bot/k-k/refs/heads/main/Untitled%20design%20(4).jpg" alt="Knapton & Knapton" class="i-logo">
@@ -998,14 +1030,14 @@ footer a:hover { color: var(--w); }
 <div class="mq">
   <div class="mq-t">
     <span>Residential</span><span class="dot">•</span>
-    <span>Commercial</span><span class="dot">•</span>
+
     <span>BIM — Building Information Modelling</span><span class="dot">•</span>
     <span>Virtual Reality</span><span class="dot">•</span>
     <span>3D Printing</span><span class="dot">•</span>
     <span>Multi Disciplined</span><span class="dot">•</span>
     <span>Established 1993</span><span class="dot">•</span>
     <span>Residential</span><span class="dot">•</span>
-    <span>Commercial</span><span class="dot">•</span>
+
     <span>BIM — Building Information Modelling</span><span class="dot">•</span>
     <span>Virtual Reality</span><span class="dot">•</span>
     <span>3D Printing</span><span class="dot">•</span>
@@ -1060,53 +1092,75 @@ footer a:hover { color: var(--w); }
     <a href="#projects">View all work</a>
   </div>
   <div class="proj-grid">
-    <div class="pc rv">
-      <img src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=900&q=80&auto=format&fit=crop" alt="Project 1">
+    <div class="pc rv" id="proj-neighbourhood">
+      <img src="https://raw.githubusercontent.com/9s4pr6gvvk-bot/k-k/refs/heads/main/7%20(1).jpg" alt="A New Neighbourhood">
       <div class="pc-info">
-        <p class="pc-type">Residential · 2024</p>
-        <h3 class="pc-title">Riverside Quarter</h3>
-        <p class="pc-loc">Sowerby Bridge, Halifax</p>
+        <p class="pc-type">Residential · Masterplan</p>
+        <h3 class="pc-title">A New Neighbourhood Shaped By The Spirit Of The Local Area</h3>
+        <p class="pc-loc">Knapton &amp; Knapton</p>
       </div>
       <div class="pc-arrow"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 6h8M6 2l4 4-4 4"/></svg></div>
     </div>
     <div class="pc rv d1">
-      <img src="https://images.unsplash.com/photo-1486325212027-8081e485255e?w=800&q=80&auto=format&fit=crop" alt="Project 2">
+      <img src="https://raw.githubusercontent.com/9s4pr6gvvk-bot/k-k/refs/heads/main/6.jpg" alt="Project 2">
       <div class="pc-info">
-        <p class="pc-type">Commercial · 2023</p>
-        <h3 class="pc-title">City Centre Development</h3>
-        <p class="pc-loc">Leeds</p>
+        <p class="pc-type">Residential · Masterplan</p>
+        <h3 class="pc-title">A New Neighbourhood</h3>
+        <p class="pc-loc">Knapton &amp; Knapton</p>
       </div>
       <div class="pc-arrow"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 6h8M6 2l4 4-4 4"/></svg></div>
     </div>
     <div class="pc rv d2">
-      <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&q=80&auto=format&fit=crop" alt="Project 3">
+      <img src="https://raw.githubusercontent.com/9s4pr6gvvk-bot/k-k/refs/heads/main/3%20(2).jpg" alt="Project 3">
       <div class="pc-info">
-        <p class="pc-type">Interior · 2023</p>
-        <h3 class="pc-title">Design Studio</h3>
-        <p class="pc-loc">Halifax</p>
+        <p class="pc-type">Residential · Masterplan</p>
+        <h3 class="pc-title">A New Neighbourhood</h3>
+        <p class="pc-loc">Knapton &amp; Knapton</p>
       </div>
       <div class="pc-arrow"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 6h8M6 2l4 4-4 4"/></svg></div>
     </div>
     <div class="pc rv d1">
-      <img src="https://images.unsplash.com/photo-1464938050520-ef2270bb8ce8?w=800&q=80&auto=format&fit=crop" alt="Project 4">
+      <img src="https://raw.githubusercontent.com/9s4pr6gvvk-bot/k-k/refs/heads/main/2%20(5).jpg" alt="Project 4">
       <div class="pc-info">
-        <p class="pc-type">Planning · 2022</p>
-        <h3 class="pc-title">Masterplan Scheme</h3>
-        <p class="pc-loc">West Yorkshire</p>
+        <p class="pc-type">Residential · Masterplan</p>
+        <h3 class="pc-title">A New Neighbourhood</h3>
+        <p class="pc-loc">Knapton &amp; Knapton</p>
       </div>
       <div class="pc-arrow"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 6h8M6 2l4 4-4 4"/></svg></div>
     </div>
     <div class="pc rv d2">
-      <img src="https://images.unsplash.com/photo-1470723710355-95304d8aece4?w=800&q=80&auto=format&fit=crop" alt="Project 5">
+      <img src="https://raw.githubusercontent.com/9s4pr6gvvk-bot/k-k/refs/heads/main/1%20(5).jpg" alt="Project 5">
       <div class="pc-info">
-        <p class="pc-type">Residential · 2022</p>
-        <h3 class="pc-title">Urban Living Quarter</h3>
-        <p class="pc-loc">Bradford</p>
+        <p class="pc-type">Residential · Masterplan</p>
+        <h3 class="pc-title">A New Neighbourhood</h3>
+        <p class="pc-loc">Knapton &amp; Knapton</p>
       </div>
       <div class="pc-arrow"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 6h8M6 2l4 4-4 4"/></svg></div>
     </div>
   </div>
 </section>
+
+<!-- PROJECT DETAIL PANEL -->
+<div class="proj-detail" id="projDetail">
+  <div class="proj-detail-inner">
+    <button class="proj-detail-close" id="projDetailClose">
+      <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 1l12 12M13 1L1 13"/></svg>
+      Close
+    </button>
+    <div class="proj-detail-content">
+      <div class="proj-detail-left">
+        <p class="proj-detail-type">Residential · Masterplan</p>
+        <h2 class="proj-detail-title">A New Neighbourhood Shaped By The Spirit Of The Local Area</h2>
+      </div>
+      <div class="proj-detail-right">
+        <p>With this development Knapton &amp; Knapton is proposing more than just homes – we're proposing the creation of a community. The vision for the proposals will be to create a development that feels like it has evolved over time, from the feature entrance walls and railings over the water feature at the entrance, through to the character-led housing typologies proposed throughout the development.</p>
+        <p>Sustainability underpins the design and its construction, its enhancement of the natural environment and through Knapton &amp; Knapton placemaking initiatives. The design of the homes, landscape and facilities centre on creating easily accessible and social spaces, rich with biodiversity and ecology. Cycle paths, trim trails and walkways encourage active and social lifestyles, providing links across the proposals to the wider green open spaces and the local town.</p>
+        <p>The homes will reflect the vernacular architecture of the area, traditional, elegant and sophisticated with contemporary interiors to suit the lifestyles of modern dwellers. The development will be surrounded by proposed areas of landscaping, retaining the existing trees and hedges and interspersed with open health and well-being initiatives creating a distinctive landscape and promoting healthy lifestyles.</p>
+        <p>Two Formal Village Greens will provide wonderful places for residents to gather, with a traditionally inspired bandstand alongside landscaped areas and natural play areas. When combined, the placemaking initiatives will create what we believe will be an award-winning residential development, with a sense of place that is unrivalled in modern house building but one that is comparable to the beauty and distinctiveness.</p>
+      </div>
+    </div>
+  </div>
+</div>
 
 
 <!-- SERVICES -->
@@ -1128,28 +1182,17 @@ footer a:hover { color: var(--w); }
     </div>
     <div class="svc-panel">
       <div class="svc-panel-text">
-        <p>From single dwellings and extensions to major housing developments — homes that fit their landscape, respect their neighbours, and stand the test of time across West Yorkshire.</p>
-        <a href="#contact">View residential projects →</a>
+        <p>At Knapton &amp; Knapton we are passionate about good buildings and the spaces in between. But we know that unless our internal and external team of experts truly engage with design, these buildings and spaces become inert, unloved and engage no one.</p>
+        <p>For places to be successful they need to be attractive, safe and resilient; they need to stand the test of time and they should flourish as they age.</p>
+        <p>High quality architecture, urban design and place making has the opportunity to change society. It is essential that we as designers and developers get this right.</p>
+        <p>It is only when buildings and spaces respond to people's needs that they can truly be called a 'place'. And this is what we really care about creating — great places.</p>
+        <p>To create a successful 'place' we use well established principles to build up layers of design decisions, each having a positive impact on the next, and all creating a composition which is pleasing, attractive, safe and loved.</p>
+        <a href="#contact">Get in touch →</a>
       </div>
-      <div class="svc-panel-img"><img src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=800&q=80&auto=format&fit=crop" alt="Residential"></div>
+      <div class="svc-panel-img"><img src="https://raw.githubusercontent.com/9s4pr6gvvk-bot/k-k/refs/heads/main/Residential.jpg" alt="Residential"></div>
     </div>
   </div>
 
-  <div class="svc-row rv d1">
-    <div class="svc-header">
-      <span class="svc-idx">ii</span>
-      <span class="svc-title">Commercial</span>
-      <div class="svc-tags"><span class="svc-tag-pill">Offices</span><span class="svc-tag-pill">Mixed-Use</span></div>
-      <div class="svc-toggle"><svg viewBox="0 0 10 10" fill="none" stroke-width="1.2"><line x1="5" y1="1" x2="5" y2="9"/><line x1="1" y1="5" x2="9" y2="5"/></svg></div>
-    </div>
-    <div class="svc-panel">
-      <div class="svc-panel-text">
-        <p>Workplaces, retail and mixed-use schemes that perform for clients, occupants and the wider neighbourhood — designed to attract people and sustain communities.</p>
-        <a href="#contact">View commercial projects →</a>
-      </div>
-      <div class="svc-panel-img"><img src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&q=80&auto=format&fit=crop" alt="Commercial"></div>
-    </div>
-  </div>
 
   <div class="svc-row rv d1">
     <div class="svc-header">
@@ -1172,7 +1215,20 @@ footer a:hover { color: var(--w); }
         </ul>
         <a href="#contact">Get in touch →</a>
       </div>
-      <div class="svc-panel-img"><img src="https://images.unsplash.com/photo-1531403009284-440f080d1e12?w=800&q=80&auto=format&fit=crop" alt="BIM"></div>
+      <div class="svc-panel-img bim-carousel">
+        <div class="bim-track" id="bimTrack">
+          <img src="https://raw.githubusercontent.com/9s4pr6gvvk-bot/k-k/refs/heads/main/Picture1.png" alt="BIM 1">
+          <img src="https://raw.githubusercontent.com/9s4pr6gvvk-bot/k-k/refs/heads/main/Picture2.png" alt="BIM 2">
+        </div>
+        <div class="bim-nav">
+          <button class="bim-btn" id="bimPrev"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 2L4 6l4 4"/></svg></button>
+          <div class="bim-dots">
+            <span class="bim-dot active" data-i="0"></span>
+            <span class="bim-dot" data-i="1"></span>
+          </div>
+          <button class="bim-btn" id="bimNext"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 2l4 4-4 4"/></svg></button>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -1190,7 +1246,20 @@ footer a:hover { color: var(--w); }
         <p><strong>What are the results?</strong><br>VR software, unlike traditional visualisation methods provides the possibility of fast still and moving HD image production and even real time exploration of sites directly from the planning or construction information without the need for render farms and weeks of expensive computer processing time. This proves invaluable for project team members and stakeholders to gain a greater understanding of the project and spot issues or opportunities early in the process before it is too late to make amendments. Marketing teams benefit from a vast amount of 3D images and animations giving them the opportunity to engage at pre build stage with potential clients.</p>
         <a href="#contact">Get in touch →</a>
       </div>
-      <div class="svc-panel-img"><img src="https://images.unsplash.com/photo-1617802690992-15d93263d3a9?w=800&q=80&auto=format&fit=crop" alt="VR"></div>
+      <div class="svc-panel-img bim-carousel" id="vrCarouselWrap">
+        <div class="bim-track" id="vrTrack">
+          <img src="https://raw.githubusercontent.com/9s4pr6gvvk-bot/k-k/refs/heads/main/WhatsApp%20Image%202026-05-12%20at%204.11.16%20PM%202.jpeg" alt="VR 1">
+          <img src="https://raw.githubusercontent.com/9s4pr6gvvk-bot/k-k/refs/heads/main/WhatsApp%20Image%202026-05-12%20at%204.11.16%20PM.jpeg" alt="VR 2">
+        </div>
+        <div class="bim-nav">
+          <button class="bim-btn" id="vrPrev"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 2L4 6l4 4"/></svg></button>
+          <div class="bim-dots">
+            <span class="bim-dot active" data-i="0" data-carousel="vr"></span>
+            <span class="bim-dot" data-i="1" data-carousel="vr"></span>
+          </div>
+          <button class="bim-btn" id="vrNext"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 2l4 4-4 4"/></svg></button>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -1203,8 +1272,14 @@ footer a:hover { color: var(--w); }
     </div>
     <div class="svc-panel">
       <div class="svc-panel-text">
-        <p>Physical scale models produced through 3D printing give clients, planners and communities a tangible sense of a proposed development — a powerful tool for consultation and sign-off.</p>
-        <a href="#contact">Learn more →</a>
+        <p>3D printed architectural models are physical, scaled representations of building designs created using additive manufacturing, offering high precision, speed, and cost-effective alternatives to manual modelling. They are crucial for visualizing complex geometries, communicating concepts to clients, and conducting site analysis, typically using materials like PLA or resin to show intricate details, structures, and site context.</p>
+        <ul class="svc-bullets">
+          <li><strong>Concept Models</strong> — Abstract, quick models used early in the design phase to explore ideas</li>
+          <li><strong>Working Models</strong> — Functional prototypes allowing architects to test structural elements, lighting, or spatial arrangements</li>
+          <li><strong>Presentation Models</strong> — Highly detailed, aesthetically finished models for client meetings, demonstrating colours, textures, and final design</li>
+          <li><strong>Context/Site Models</strong> — Large-scale models representing surrounding urban or geographical areas, often using real topographic data</li>
+        </ul>
+        <a href="#contact">Get in touch →</a>
       </div>
       <div class="svc-panel-img"><img src="https://images.unsplash.com/photo-1609081219090-a6d81d3085bf?w=800&q=80&auto=format&fit=crop" alt="3D Printing"></div>
     </div>
@@ -1255,7 +1330,7 @@ footer a:hover { color: var(--w); }
       <h4>Services</h4>
       <ul>
         <li><a href="#">Residential</a></li>
-        <li><a href="#">Commercial</a></li>
+
         <li><a href="#">Heritage</a></li>
         <li><a href="#">Civic &amp; Education</a></li>
         <li><a href="#">Planning</a></li>
@@ -1290,16 +1365,15 @@ footer a:hover { color: var(--w); }
 </div>
 
 <script>
-// Intro — swipe reveal sequence
+// Intro — logo animation then smooth cross-dissolve into site
 const intro=document.getElementById('intro');
 const main=document.getElementById('main');
 setTimeout(()=>{
-  intro.classList.add('swipe');
-  setTimeout(()=>{
-    main.classList.add('show');
-    setTimeout(()=>{ intro.classList.add('done'); }, 900);
-  }, 400);
-}, 2200);
+  // Both fire simultaneously — site fades in as intro fades out
+  intro.classList.add('out');
+  main.classList.add('show');
+  setTimeout(()=>{ intro.classList.add('done'); }, 1300);
+}, 2600);
 
 // Hero image crossfade — arrow controls + progress bar
 const img1=document.querySelector('.hero-img-1');
@@ -1341,7 +1415,42 @@ ctrl1.addEventListener('click',()=>{goToSlide(1);startTimer();});
 goToSlide(0);
 startTimer();
 
-// Reveal on scroll — trigger earlier, feel more natural
+// BIM carousel
+const bimTrack = document.getElementById('bimTrack');
+const bimDots = document.querySelectorAll('.bim-dot:not([data-carousel])');
+let bimIdx = 0;
+function bimGo(idx) {
+  bimIdx = idx;
+  bimTrack.style.transform = `translateX(-${idx * 50}%)`;
+  bimDots.forEach((d,i) => d.classList.toggle('active', i === idx));
+}
+document.getElementById('bimNext').addEventListener('click', () => bimGo(bimIdx === 0 ? 1 : 0));
+document.getElementById('bimPrev').addEventListener('click', () => bimGo(bimIdx === 0 ? 1 : 0));
+bimDots.forEach(d => d.addEventListener('click', () => bimGo(+d.dataset.i)));
+setInterval(() => { if(document.querySelector('.svc-row.open .bim-carousel')) bimGo(bimIdx === 0 ? 1 : 0); }, 4000);
+
+// VR carousel
+const vrTrack = document.getElementById('vrTrack');
+const vrDots = document.querySelectorAll('.bim-dot[data-carousel="vr"]');
+let vrIdx = 0;
+function vrGo(idx) {
+  vrIdx = idx;
+  vrTrack.style.transform = `translateX(-${idx * 50}%)`;
+  vrDots.forEach((d,i) => d.classList.toggle('active', i === idx));
+}
+document.getElementById('vrNext').addEventListener('click', () => vrGo(vrIdx === 0 ? 1 : 0));
+document.getElementById('vrPrev').addEventListener('click', () => vrGo(vrIdx === 0 ? 1 : 0));
+vrDots.forEach(d => d.addEventListener('click', () => vrGo(+d.dataset.i)));
+setInterval(() => { if(document.querySelector('#vrCarouselWrap')) vrGo(vrIdx === 0 ? 1 : 0); }, 4500);
+const projDetail = document.getElementById('projDetail');
+const projDetailClose = document.getElementById('projDetailClose');
+document.querySelectorAll('.pc').forEach(card => {
+  card.addEventListener('click', () => {
+    projDetail.classList.add('open');
+    setTimeout(() => projDetail.scrollIntoView({behavior:'smooth', block:'start'}), 50);
+  });
+});
+projDetailClose.addEventListener('click', () => projDetail.classList.remove('open'));
 const obs=new IntersectionObserver(e=>e.forEach(x=>{
   if(x.isIntersecting) x.target.classList.add('vis');
 }),{threshold:0.04, rootMargin:'0px 0px -40px 0px'});
