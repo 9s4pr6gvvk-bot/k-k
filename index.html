@@ -745,7 +745,7 @@ nav {
 }
 .nc p { font-size: 13px; font-weight: 300; line-height: 1.8; color: #888; }
 
-/* ── CTA ── */
+/* ── CTA / CONTACT ── */
 .cta {
   padding: 110px 52px;
   background: var(--b); color: var(--w);
@@ -757,27 +757,83 @@ nav {
   background: radial-gradient(ellipse 70% 80% at 80% 50%, rgba(180,170,160,.08) 0%, transparent 60%);
   pointer-events: none;
 }
+.cta-inner {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 88px; align-items: start; position: relative;
+}
 .cta h2 {
   font-family: var(--serif); font-size: clamp(30px, 4.2vw, 64px);
   font-weight: 400; line-height: 1.08; letter-spacing: .03em;
   text-transform: uppercase;
-  margin-bottom: 44px; max-width: 700px; position: relative;
+  margin-bottom: 32px;
 }
 .cta h2 .dim { color: rgba(255,255,255,.25); }
-.cta-row { display: flex; align-items: center; gap: 36px; flex-wrap: wrap; position: relative; }
-.cta-btn {
+.cta-meta { display: flex; flex-direction: column; gap: 10px; }
+.cta-meta a {
+  font-family: var(--sans); font-size: 12px; font-weight: 300;
+  letter-spacing: .1em; color: rgba(255,255,255,.45);
+  text-decoration: none; transition: color .2s;
+}
+.cta-meta a:hover { color: var(--w); }
+
+/* Contact form */
+.cta-form { display: flex; flex-direction: column; gap: 0; }
+.cf-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; }
+.cf-field {
+  display: flex; flex-direction: column;
+  border-bottom: 1px solid rgba(255,255,255,.12);
+  position: relative;
+}
+.cf-field.full { grid-column: 1 / -1; }
+.cf-field label {
+  font-family: var(--sans); font-size: 8px; font-weight: 400;
+  letter-spacing: .28em; text-transform: uppercase;
+  color: rgba(255,255,255,.3); padding: 18px 0 6px;
+}
+.cf-field input,
+.cf-field select,
+.cf-field textarea {
+  font-family: var(--sans); font-size: 13px; font-weight: 300;
+  color: var(--w); background: transparent; border: none; outline: none;
+  padding: 0 0 16px; resize: none; letter-spacing: .02em;
+  -webkit-appearance: none;
+}
+.cf-field input::placeholder,
+.cf-field textarea::placeholder { color: rgba(255,255,255,.2); }
+.cf-field select option { background: var(--b); color: var(--w); }
+.cf-field::after {
+  content: ''; position: absolute; bottom: -1px; left: 0;
+  width: 0; height: 1px; background: rgba(255,255,255,.55);
+  transition: width .35s cubic-bezier(.16,1,.3,1);
+}
+.cf-field:focus-within::after { width: 100%; }
+.cf-field:focus-within label { color: rgba(255,255,255,.55); }
+.cf-submit {
+  margin-top: 32px;
   font-family: var(--sans); font-size: 10px; font-weight: 400;
   letter-spacing: .2em; text-transform: uppercase;
   background: var(--w); color: var(--b);
-  border: none; padding: 14px 30px; text-decoration: none; transition: opacity .2s;
+  border: none; padding: 14px 32px; cursor: pointer;
+  transition: opacity .2s; align-self: flex-start;
 }
-.cta-btn:hover { opacity: .85; }
-.cta-tel {
+.cf-submit:hover { opacity: .82; }
+.cf-note {
+  margin-top: 14px;
   font-family: var(--sans); font-size: 10px; font-weight: 200;
-  letter-spacing: .14em; color: rgba(255,255,255,.3);
+  letter-spacing: .06em; color: rgba(255,255,255,.2);
 }
-.cta-tel a { color: rgba(255,255,255,.5); text-decoration: none; transition: color .2s; }
-.cta-tel a:hover { color: var(--w); }
+
+@media(max-width:900px){
+  .cta { padding: 72px 24px; }
+  .cta-inner { grid-template-columns: 1fr; gap: 52px; }
+  .cta h2 { font-size: clamp(28px, 6vw, 48px); margin-bottom: 24px; }
+}
+@media(max-width:600px){
+  .cta { padding: 60px 20px; }
+  .cta h2 { font-size: clamp(26px, 8vw, 40px); }
+  .cf-row { grid-template-columns: 1fr; }
+  .cf-submit { width: 100%; text-align: center; padding: 15px; }
+}
 
 /* ── FOOTER ── */
 footer {
@@ -1152,12 +1208,12 @@ footer a:hover { color: var(--w); }
       <div class="pc-arrow"><svg viewBox="0 0 12 12" fill="none" stroke="white" stroke-width="1.5"><path d="M2 6h8M6 2l4 4-4 4"/></svg></div>
     </div>
 
-    <!-- Project 4 -->
-    <div class="pc rv d1" data-proj="2">
-      <img src="https://raw.githubusercontent.com/9s4pr6gvvk-bot/k-k/refs/heads/main/2%20(5).jpg" alt="Residential Development">
+    <!-- Project 4: Future Homes -->
+    <div class="pc rv d1" data-proj="4">
+      <img src="https://raw.githubusercontent.com/9s4pr6gvvk-bot/k-k/refs/heads/main/Plot%202%20HR.jpg" alt="Future Homes">
       <div class="pc-info">
-        <p class="pc-type">Residential · Masterplan</p>
-        <h3 class="pc-title">A New Neighbourhood</h3>
+        <p class="pc-type">Residential · Future Homes Standard</p>
+        <h3 class="pc-title">Future Homes</h3>
         <p class="pc-loc">Knapton &amp; Knapton</p>
       </div>
       <div class="pc-arrow"><svg viewBox="0 0 12 12" fill="none" stroke="white" stroke-width="1.5"><path d="M2 6h8M6 2l4 4-4 4"/></svg></div>
@@ -1234,6 +1290,18 @@ footer a:hover { color: var(--w); }
         <p>The house does not sit on the land; it grows from it. The design respects the site topography, integrating with it rather than battling it. Natural materials — local stone and timber — are used to ground the building, ensuring it feels like a continuation of the landscape. Portals and large glass panes are curated to frame views like scenes in a film, changing with the seasons.</p>
         <p>The arrival is a process of shedding tension. The journey from the car, through a secure courtyard entrance, into a bright open-plan space creates an intentional emotional shift — a sensory entry sequence with a covered, quiet walkway leading to a dramatic, light-filled foyer.</p>
         <p>There is a subtle spatial dialogue where public areas — living and dining — are expansive and social, transitioning into private, intimate spaces for retreat. The vertical connections are treated as sculptures, encouraging physical movement and changing perspectives of the home, linking and creating a central hub which makes sense of the proportions.</p>
+      </div>
+    </div>
+
+    <!-- Content 4: Future Homes -->
+    <div class="proj-detail-content" id="projContent4" style="display:none">
+      <div class="proj-detail-left">
+        <p class="proj-detail-type">Residential · Future Homes Standard</p>
+        <h2 class="proj-detail-title">Future Homes</h2>
+      </div>
+      <div class="proj-detail-right">
+        <p>New master house type range to keep ahead in a changing market. The Future Homes Building Regulation standard is evolving towards a regenerative narrative, where buildings do more than just shelter — they actively improve their environment, reducing energy usage by up to 80% and aiming for the Future Home Standard.</p>
+        <p>These homes adapt to changing demographics such as single-occupancy living, responding to the way people actually live today and into the future. The architectural narrative for 2026 focuses on blending natural, tactile materials — timber and stone — with advanced, invisible technology, moving away from purely sterile minimalism to create homes that feel both grounded and forward-looking.</p>
       </div>
     </div>
 
@@ -1403,12 +1471,71 @@ footer a:hover { color: var(--w); }
   </div>
 </section>
 
-<!-- CTA -->
+<!-- CTA / CONTACT -->
 <section class="cta" id="contact">
-  <h2 class="rv">An Idea Is<br>Salvation By <span class="dim">Imagination.</span></h2>
-  <div class="cta-row rv d1">
-    <a href="mailto:studio@knaptonknapton.co.uk" class="cta-btn">Start a project</a>
-    <span class="cta-tel">or call <a href="tel:01422380047">01422 380 047</a></span>
+  <div class="cta-inner">
+
+    <!-- Left: heading + contact details -->
+    <div class="cta-left rv">
+      <h2>Start A<br><span class="dim">Conversation.</span></h2>
+      <div class="cta-meta">
+        <a href="mailto:studio@knaptonknapton.co.uk">studio@knaptonknapton.co.uk</a>
+        <a href="tel:01422380047">01422 380 047</a>
+        <a href="https://www.linkedin.com/company/knapton-and-knapton-architects" target="_blank" rel="noopener">LinkedIn</a>
+      </div>
+    </div>
+
+    <!-- Right: contact form (replace YOUR_FORMSPREE_ID with your Formspree endpoint) -->
+    <div class="rv d1">
+      <form class="cta-form" action="https://formspree.io/YOUR_FORMSPREE_ID" method="POST">
+
+        <div class="cf-row">
+          <div class="cf-field">
+            <label for="cf-name">Name</label>
+            <input type="text" id="cf-name" name="name" placeholder="Your name" required>
+          </div>
+          <div class="cf-field">
+            <label for="cf-company">Company</label>
+            <input type="text" id="cf-company" name="company" placeholder="Company (optional)">
+          </div>
+        </div>
+
+        <div class="cf-row">
+          <div class="cf-field">
+            <label for="cf-email">Email</label>
+            <input type="email" id="cf-email" name="email" placeholder="your@email.com" required>
+          </div>
+          <div class="cf-field">
+            <label for="cf-phone">Phone</label>
+            <input type="tel" id="cf-phone" name="phone" placeholder="Optional">
+          </div>
+        </div>
+
+        <div class="cf-field full">
+          <label for="cf-service">Service</label>
+          <select id="cf-service" name="service">
+            <option value="" disabled selected>Select a service</option>
+            <option>Residential — New Build</option>
+            <option>Residential — Extension</option>
+            <option>BIM — Building Information Modelling</option>
+            <option>Virtual Reality</option>
+            <option>3D Printing</option>
+            <option>Future Homes</option>
+            <option>Other</option>
+          </select>
+        </div>
+
+        <div class="cf-field full">
+          <label for="cf-message">Message</label>
+          <textarea id="cf-message" name="message" rows="4" placeholder="Tell us about your project…" required></textarea>
+        </div>
+
+        <button type="submit" class="cf-submit">Send Enquiry</button>
+        <p class="cf-note">We aim to respond within one working day.</p>
+
+      </form>
+    </div>
+
   </div>
 </section>
 
@@ -1560,7 +1687,8 @@ const allContents     = [
   document.getElementById('projContent0'),
   document.getElementById('projContent1'),
   document.getElementById('projContent2'),
-  document.getElementById('projContent3')
+  document.getElementById('projContent3'),
+  document.getElementById('projContent4')
 ];
 
 document.querySelectorAll('.pc').forEach(card => {
