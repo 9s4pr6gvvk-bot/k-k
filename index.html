@@ -9,162 +9,53 @@
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 :root {
-  --w: #ffffff;
-  --b: #080808;
-  --g: #999;
-  --lg: #f6f6f6;
-  --br: #e6e6e6;
-  --serif: 'Liter', Georgia, serif;
-  --sans: 'Jost', sans-serif;
+  --w: #ffffff; --b: #080808; --g: #999; --lg: #f6f6f6; --br: #e6e6e6;
+  --serif: 'Liter', Georgia, serif; --sans: 'Jost', sans-serif;
 }
 html { scroll-behavior: smooth; }
 body { background: var(--w); color: var(--b); font-family: var(--sans); overflow-x: hidden; }
 
-/* ══════════════════════════════════
-   INTRO — LOGO REVEAL + FADE EXIT
-══════════════════════════════════ */
-#intro {
-  position: fixed; inset: 0; z-index: 9000;
-  background: var(--w);
-  display: flex; align-items: center; justify-content: center;
-  transition: opacity 1.2s cubic-bezier(.4,0,.2,1);
-}
+/* INTRO */
+#intro { position: fixed; inset: 0; z-index: 9000; background: var(--w); display: flex; align-items: center; justify-content: center; transition: opacity 1.2s cubic-bezier(.4,0,.2,1); }
 #intro.out { opacity: 0; pointer-events: none; }
 #intro.done { display: none; }
-
-.intro-logo-wrap {
-  display: flex; flex-direction: column;
-  align-items: center; justify-content: center;
-}
-.i-logo-clip {
-  max-width: min(300px, 60vw);
-  clip-path: inset(0 0 100% 0);
-  animation: logoWipe 1.6s cubic-bezier(.16,1,.3,1) .15s forwards;
-}
+.intro-logo-wrap { display: flex; flex-direction: column; align-items: center; justify-content: center; }
+.i-logo-clip { max-width: min(300px, 60vw); clip-path: inset(0 0 100% 0); animation: logoWipe 1.6s cubic-bezier(.16,1,.3,1) .15s forwards; }
 .i-logo { width: 100%; display: block; }
-@keyframes logoWipe {
-  0%   { clip-path: inset(0 0 100% 0); }
-  35%  { clip-path: inset(0 0 58% 0); }
-  55%  { clip-path: inset(0 0 58% 0); }
-  100% { clip-path: inset(0 0 0% 0); }
-}
-.i-rule {
-  width: 0; height: 1px; background: var(--br);
-  margin: 22px auto 0;
-  animation: iRule .6s cubic-bezier(.16,1,.3,1) .9s forwards;
-}
+@keyframes logoWipe { 0%{clip-path:inset(0 0 100% 0)} 35%{clip-path:inset(0 0 58% 0)} 55%{clip-path:inset(0 0 58% 0)} 100%{clip-path:inset(0 0 0% 0)} }
+.i-rule { width: 0; height: 1px; background: var(--br); margin: 22px auto 0; animation: iRule .6s cubic-bezier(.16,1,.3,1) .9s forwards; }
 @keyframes iRule { to { width: 160px; } }
-.i-sub {
-  font-family: var(--sans); font-weight: 200;
-  font-size: 9px; letter-spacing: .36em; text-transform: uppercase; color: var(--g);
-  margin-top: 14px;
-  opacity: 0; animation: iFade .5s 1.1s forwards;
-}
+.i-sub { font-family: var(--sans); font-weight: 200; font-size: 9px; letter-spacing: .36em; text-transform: uppercase; color: var(--g); margin-top: 14px; opacity: 0; animation: iFade .5s 1.1s forwards; }
 @keyframes iFade { to { opacity: 1; } }
 
-/* ══════════════════════════════════
-   MAIN — fades in underneath intro
-══════════════════════════════════ */
+/* MAIN */
 #main { opacity: 0; transition: opacity 1.4s cubic-bezier(.22,1,.36,1); }
 #main.show { opacity: 1; }
 
-/* ── NAV ── */
-nav {
-  position: fixed; top: 0; left: 0; right: 0; z-index: 500;
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 16px 52px;
-  background: #fefdfe;
-  border-bottom: 1px solid var(--br);
-}
-.nav-logo {
-  display: flex; align-items: center; text-decoration: none;
-}
-.nav-logo-img {
-  height: 68px; width: auto;
-  display: block;
-}
+/* NAV */
+nav { position: fixed; top: 0; left: 0; right: 0; z-index: 500; display: flex; align-items: center; justify-content: space-between; padding: 16px 52px; background: #fefdfe; border-bottom: 1px solid var(--br); }
+.nav-logo { display: flex; align-items: center; text-decoration: none; }
+.nav-logo-img { height: 68px; width: auto; display: block; }
 .nav-links { display: flex; gap: 38px; list-style: none; }
-.nav-links a {
-  font-family: var(--sans); font-size: 10px; font-weight: 300;
-  letter-spacing: .18em; text-transform: uppercase;
-  color: var(--b); text-decoration: none; transition: color .2s;
-}
+.nav-links a { font-family: var(--sans); font-size: 10px; font-weight: 300; letter-spacing: .18em; text-transform: uppercase; color: var(--b); text-decoration: none; transition: color .2s; }
 .nav-links a:hover { color: var(--g); }
-.nav-cta {
-  font-family: var(--sans); font-size: 10px; font-weight: 400;
-  letter-spacing: .16em; text-transform: uppercase;
-  background: var(--b); color: var(--w); border: none;
-  padding: 10px 24px; transition: opacity .2s;
-  text-decoration: none; display: inline-block;
-}
+.nav-cta { font-family: var(--sans); font-size: 10px; font-weight: 400; letter-spacing: .16em; text-transform: uppercase; background: var(--b); color: var(--w); border: none; padding: 10px 24px; transition: opacity .2s; text-decoration: none; display: inline-block; }
 .nav-cta:hover { opacity: .75; color: var(--w); }
 .nav-right { display: flex; align-items: center; gap: 12px; }
-
-/* Burger button — hidden on desktop */
-.nav-burger {
-  display: none; flex-direction: column; justify-content: center;
-  gap: 5px; width: 36px; height: 36px;
-  background: none; border: none; cursor: pointer; padding: 6px;
-}
-.nav-burger span {
-  display: block; width: 100%; height: 1px; background: var(--b);
-  transition: transform .3s, opacity .3s;
-}
+.nav-burger { display: none; flex-direction: column; justify-content: center; gap: 5px; width: 36px; height: 36px; background: none; border: none; cursor: pointer; padding: 6px; }
+.nav-burger span { display: block; width: 100%; height: 1px; background: var(--b); transition: transform .3s, opacity .3s; }
 .nav-burger.open span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
 .nav-burger.open span:nth-child(2) { transform: translateY(-6px) rotate(-45deg); }
-
-/* Mobile full-screen menu */
-.mobile-menu {
-  position: fixed; inset: 0; z-index: 490;
-  background: var(--w);
-  display: flex; flex-direction: column; justify-content: center;
-  align-items: flex-start; gap: 0;
-  padding: 100px 32px 60px;
-  transform: translateX(100%);
-  transition: transform .45s cubic-bezier(.16,1,.3,1);
-}
+.mobile-menu { position: fixed; inset: 0; z-index: 490; background: var(--w); display: flex; flex-direction: column; justify-content: center; align-items: flex-start; padding: 100px 32px 60px; transform: translateX(100%); transition: transform .45s cubic-bezier(.16,1,.3,1); }
 .mobile-menu.open { transform: translateX(0); }
-.mobile-menu a {
-  font-family: var(--serif); font-size: clamp(32px, 8vw, 52px);
-  font-weight: 400; letter-spacing: .03em; text-transform: uppercase;
-  color: var(--b); text-decoration: none; line-height: 1.3;
-  border-bottom: 1px solid transparent;
-  transition: border-color .2s;
-  padding: 6px 0;
-}
+.mobile-menu a { font-family: var(--serif); font-size: clamp(32px, 8vw, 52px); font-weight: 400; letter-spacing: .03em; text-transform: uppercase; color: var(--b); text-decoration: none; line-height: 1.3; border-bottom: 1px solid transparent; transition: border-color .2s; padding: 6px 0; }
 .mobile-menu a:hover { border-color: var(--br); }
-.mob-enquire {
-  font-family: var(--sans) !important; font-size: 11px !important;
-  font-weight: 400 !important; letter-spacing: .2em !important;
-  text-transform: uppercase !important;
-  background: var(--b); color: var(--w) !important;
-  padding: 14px 28px !important; margin-top: 32px;
-  border: none !important;
-}
+.mob-enquire { font-family: var(--sans) !important; font-size: 11px !important; font-weight: 400 !important; letter-spacing: .2em !important; text-transform: uppercase !important; background: var(--b); color: var(--w) !important; padding: 14px 28px !important; margin-top: 32px; border: none !important; }
+@media(max-width:900px){ .nav-burger { display: flex; } .nav-cta { display: none; } }
 
-@media(max-width:900px){
-  .nav-burger { display: flex; }
-  .nav-cta { display: none; }
-}
-
-/* ══════════════════════════════════
-   HERO — full-screen crossfade (8 images)
-══════════════════════════════════ */
-.hero {
-  height: 100vh; height: 100svh;
-  min-height: 600px;
-  position: relative; overflow: hidden;
-  display: flex; flex-direction: column; justify-content: flex-end;
-}
-
-.hero-img {
-  position: absolute; inset: 0; z-index: 0;
-  background-size: cover;
-  background-position: center 30%;
-  filter: grayscale(15%);
-  transition: opacity 1.5s ease;
-  opacity: 0;
-}
+/* HERO */
+.hero { height: 100vh; height: 100svh; min-height: 600px; position: relative; overflow: hidden; display: flex; flex-direction: column; justify-content: flex-end; }
+.hero-img { position: absolute; inset: 0; z-index: 0; background-size: cover; background-position: center 30%; filter: grayscale(15%); transition: opacity 1.5s ease; opacity: 0; }
 .hero-img.active { opacity: 1; }
 .hero-img-1 { background-image: url('https://raw.githubusercontent.com/9s4pr6gvvk-bot/k-k/refs/heads/main/7%20(1).jpg'); }
 .hero-img-2 { background-image: url('https://raw.githubusercontent.com/9s4pr6gvvk-bot/k-k/refs/heads/main/Enscape_2024-05-24-15-35-05.jpg'); }
@@ -174,759 +65,247 @@ nav {
 .hero-img-6 { background-image: url('https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1800&q=80&auto=format&fit=crop'); }
 .hero-img-7 { background-image: url('https://raw.githubusercontent.com/9s4pr6gvvk-bot/k-k/refs/heads/main/3%20(2).jpg'); }
 .hero-img-8 { background-image: url('https://images.unsplash.com/photo-1464082354059-27db6ce50048?w=1800&q=80&auto=format&fit=crop'); }
-
-/* Gradient — desktop */
-.hero-grad {
-  position: absolute; inset: 0; z-index: 1;
-  background:
-    linear-gradient(to top, rgba(10,10,10,.88) 0%, rgba(10,10,10,.6) 40%, rgba(10,10,10,.2) 68%, rgba(10,10,10,.05) 100%),
-    linear-gradient(to right, rgba(10,10,10,.35) 0%, transparent 65%);
-}
-
-/* Animated grain overlay */
-.hero-grain {
-  position: absolute; inset: -50%;
-  width: 200%; height: 200%;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
-  opacity: .045;
-  animation: grain 7s steps(1) infinite;
-  z-index: 2; pointer-events: none;
-}
-@keyframes grain {
-  0%{transform:translate(0,0)} 10%{transform:translate(-2%,-3%)} 20%{transform:translate(3%,1%)}
-  30%{transform:translate(-1%,4%)} 40%{transform:translate(4%,-2%)} 50%{transform:translate(-3%,2%)}
-  60%{transform:translate(1%,-4%)} 70%{transform:translate(-4%,1%)} 80%{transform:translate(2%,3%)}
-  90%{transform:translate(-2%,-1%)} 100%{transform:translate(0,0)}
-}
-
-/* Subtle grid lines */
-.hero-grid {
-  position: absolute; inset: 0; z-index: 1;
-  background-image:
-    linear-gradient(rgba(255,255,255,.04) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,.04) 1px, transparent 1px);
-  background-size: 88px 88px;
-  mask-image: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,.6) 30%, rgba(0,0,0,.3) 70%, transparent 100%);
-}
-
-.hero-content {
-  position: relative; z-index: 3;
-  padding: 120px 64px 80px;
-  display: grid; grid-template-columns: 1fr 1fr;
-  align-items: flex-end; gap: 64px;
-  min-height: 100%;
-  justify-content: flex-end;
-  align-content: flex-end;
-}
-
-.hero-eyebrow {
-  font-family: var(--sans); font-weight: 200;
-  font-size: 9px; letter-spacing: .38em; text-transform: uppercase;
-  color: rgba(255,255,255,.45);
-  margin-bottom: 20px;
-  display: flex; align-items: center; gap: 14px;
-}
+.hero-grad { position: absolute; inset: 0; z-index: 1; background: linear-gradient(to top, rgba(10,10,10,.88) 0%, rgba(10,10,10,.6) 40%, rgba(10,10,10,.2) 68%, rgba(10,10,10,.05) 100%), linear-gradient(to right, rgba(10,10,10,.35) 0%, transparent 65%); }
+.hero-grain { position: absolute; inset: -50%; width: 200%; height: 200%; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E"); opacity: .045; animation: grain 7s steps(1) infinite; z-index: 2; pointer-events: none; }
+@keyframes grain { 0%{transform:translate(0,0)} 10%{transform:translate(-2%,-3%)} 20%{transform:translate(3%,1%)} 30%{transform:translate(-1%,4%)} 40%{transform:translate(4%,-2%)} 50%{transform:translate(-3%,2%)} 60%{transform:translate(1%,-4%)} 70%{transform:translate(-4%,1%)} 80%{transform:translate(2%,3%)} 90%{transform:translate(-2%,-1%)} 100%{transform:translate(0,0)} }
+.hero-grid { position: absolute; inset: 0; z-index: 1; background-image: linear-gradient(rgba(255,255,255,.04) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.04) 1px, transparent 1px); background-size: 88px 88px; mask-image: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,.6) 30%, rgba(0,0,0,.3) 70%, transparent 100%); }
+.hero-content { position: relative; z-index: 3; padding: 120px 64px 80px; display: grid; grid-template-columns: 1fr 1fr; align-items: flex-end; gap: 64px; min-height: 100%; justify-content: flex-end; align-content: flex-end; }
+.hero-eyebrow { font-family: var(--sans); font-weight: 200; font-size: 9px; letter-spacing: .38em; text-transform: uppercase; color: rgba(255,255,255,.45); margin-bottom: 20px; display: flex; align-items: center; gap: 14px; }
 .hero-eyebrow::before { content: ''; width: 28px; height: 1px; background: rgba(255,255,255,.3); flex-shrink: 0; }
-
-.hero-h1 {
-  font-family: var(--serif);
-  font-size: clamp(36px, 4.2vw, 68px);
-  font-weight: 400; line-height: 1.1;
-  letter-spacing: .04em;
-  color: var(--w);
-  text-transform: uppercase;
-  margin-bottom: 0;
-  max-width: 560px;
-}
+.hero-h1 { font-family: var(--serif); font-size: clamp(36px, 4.2vw, 68px); font-weight: 400; line-height: 1.1; letter-spacing: .04em; color: var(--w); text-transform: uppercase; margin-bottom: 0; max-width: 560px; }
 .hero-h1 .dim { color: rgba(255,255,255,.32); }
-
-.hero-right {
-  display: flex; flex-direction: column; justify-content: flex-end;
-  align-items: flex-start; gap: 28px;
-  padding-bottom: 6px;
-}
-
-.hero-slogan {
-  font-family: var(--sans); font-weight: 200;
-  font-size: 13px; line-height: 1.75;
-  color: rgba(255,255,255,.55);
-  max-width: 340px;
-  letter-spacing: .02em;
-}
-.hero-slogan strong {
-  color: rgba(255,255,255,.85);
-  font-weight: 300;
-}
-
+.hero-right { display: flex; flex-direction: column; justify-content: flex-end; align-items: flex-start; gap: 28px; padding-bottom: 6px; }
+.hero-slogan { font-family: var(--sans); font-weight: 200; font-size: 13px; line-height: 1.75; color: rgba(255,255,255,.55); max-width: 340px; letter-spacing: .02em; }
 .hero-ctas { display: flex; align-items: center; gap: 28px; }
-.hero-btn {
-  font-family: var(--sans); font-size: 10px; font-weight: 400;
-  letter-spacing: .2em; text-transform: uppercase;
-  background: var(--w); color: var(--b);
-  text-decoration: none; padding: 13px 28px;
-  transition: opacity .2s;
-}
+.hero-btn { font-family: var(--sans); font-size: 10px; font-weight: 400; letter-spacing: .2em; text-transform: uppercase; background: var(--w); color: var(--b); text-decoration: none; padding: 13px 28px; transition: opacity .2s; }
 .hero-btn:hover { opacity: .85; }
-.hero-lnk {
-  font-family: var(--sans); font-size: 10px; font-weight: 300;
-  letter-spacing: .18em; text-transform: uppercase;
-  color: rgba(255,255,255,.5); text-decoration: none;
-  border-bottom: 1px solid rgba(255,255,255,.2); padding-bottom: 2px;
-  transition: color .2s, border-color .2s;
-}
+.hero-lnk { font-family: var(--sans); font-size: 10px; font-weight: 300; letter-spacing: .18em; text-transform: uppercase; color: rgba(255,255,255,.5); text-decoration: none; border-bottom: 1px solid rgba(255,255,255,.2); padding-bottom: 2px; transition: color .2s, border-color .2s; }
 .hero-lnk:hover { color: rgba(255,255,255,.85); border-color: rgba(255,255,255,.5); }
-
-/* Hero slide controls */
-.hero-controls {
-  position: absolute; right: 52px; bottom: 90px; z-index: 4;
-  display: flex; align-items: center; gap: 4px;
-}
-.hero-ctrl {
-  width: 32px; height: 32px;
-  border: 1px solid rgba(255,255,255,.22);
-  display: flex; align-items: center; justify-content: center;
-  cursor: pointer; background: rgba(0,0,0,.15);
-  backdrop-filter: blur(6px);
-  transition: background .22s, border-color .22s;
-}
+.hero-controls { position: absolute; right: 52px; bottom: 90px; z-index: 4; display: flex; align-items: center; gap: 4px; }
+.hero-ctrl { width: 32px; height: 32px; border: 1px solid rgba(255,255,255,.22); display: flex; align-items: center; justify-content: center; cursor: pointer; background: rgba(0,0,0,.15); backdrop-filter: blur(6px); transition: background .22s, border-color .22s; }
 .hero-ctrl:hover { background: rgba(255,255,255,.14); border-color: rgba(255,255,255,.5); }
 .hero-ctrl svg { width: 12px; height: 12px; stroke: rgba(255,255,255,.7); stroke-width: 1.5; fill: none; transition: stroke .22s; }
 .hero-ctrl:hover svg { stroke: var(--w); }
-
-/* Hero slide counter */
-.hero-counter {
-  position: absolute; right: 52px; bottom: 58px; z-index: 4;
-  font-family: var(--sans); font-size: 10px; font-weight: 200;
-  letter-spacing: .12em; color: rgba(255,255,255,.4);
-}
+.hero-counter { position: absolute; right: 52px; bottom: 58px; z-index: 4; font-family: var(--sans); font-size: 10px; font-weight: 200; letter-spacing: .12em; color: rgba(255,255,255,.4); }
 .hero-counter .cur { color: rgba(255,255,255,.8); }
+.hero-progress { position: absolute; left: 0; right: 0; bottom: 0; z-index: 4; height: 2px; background: rgba(255,255,255,.08); overflow: hidden; }
+.hero-progress-fill { height: 100%; width: 0%; background: rgba(255,255,255,.4); transition: width .1s linear; }
 
-/* Progress bar */
-.hero-progress {
-  position: absolute; left: 0; right: 0; bottom: 0; z-index: 4;
-  height: 2px; background: rgba(255,255,255,.08); overflow: hidden;
-}
-.hero-progress-fill {
-  height: 100%; width: 0%;
-  background: rgba(255,255,255,.4);
-  transition: width .1s linear;
-}
-
-/* ── MARQUEE ── */
-.mq {
-  overflow: hidden; white-space: nowrap;
-  padding: 14px 0; border-bottom: 1px solid var(--br);
-  background: var(--w);
-}
+/* MARQUEE */
+.mq { overflow: hidden; white-space: nowrap; padding: 14px 0; border-bottom: 1px solid var(--br); background: var(--w); }
 .mq-t { display: inline-flex; animation: mq 32s linear infinite; }
-.mq-t span {
-  font-family: var(--sans); font-size: 10px; font-weight: 500;
-  letter-spacing: .22em; text-transform: uppercase;
-  color: var(--b); padding: 0 44px;
-}
+.mq-t span { font-family: var(--sans); font-size: 10px; font-weight: 500; letter-spacing: .22em; text-transform: uppercase; color: var(--b); padding: 0 44px; }
 .mq-t .dot { color: var(--g); padding: 0; font-size: 5px; vertical-align: middle; }
 @keyframes mq { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
 
-/* ── ABOUT ── */
-.about {
-  display: grid; grid-template-columns: 1fr 1fr;
-  border-bottom: 1px solid var(--br);
-}
-.about-l {
-  padding: 88px 52px;
-  border-right: 1px solid var(--br);
-  display: flex; flex-direction: column; justify-content: space-between;
-  gap: 48px;
-}
-.about-l h2 {
-  font-family: var(--serif); font-size: clamp(20px, 2.2vw, 32px);
-  font-weight: 400; line-height: 1.45; letter-spacing: .02em;
-  color: var(--b);
-  border-left: 2px solid var(--b);
-  padding-left: 22px;
-  margin-top: 8px;
-}
+/* ABOUT */
+.about { display: grid; grid-template-columns: 1fr 1fr; border-bottom: 1px solid var(--br); }
+.about-l { padding: 88px 52px; border-right: 1px solid var(--br); display: flex; flex-direction: column; justify-content: space-between; gap: 48px; }
+.about-l h2 { font-family: var(--serif); font-size: clamp(20px, 2.2vw, 32px); font-weight: 400; line-height: 1.45; letter-spacing: .02em; color: var(--b); border-left: 2px solid var(--b); padding-left: 22px; margin-top: 8px; }
 .about-l h2 .dim { color: #888; }
-.about-nums {
-  display: grid;
-  grid-template-columns: auto auto 1fr;
-  gap: 0;
-  margin-top: 52px;
-  border-top: 1px solid var(--br);
-}
-.stat {
-  padding: 24px 24px 24px 0;
-  border-right: 1px solid var(--br);
-  padding-right: 24px;
-  margin-right: 24px;
-}
+.about-nums { display: grid; grid-template-columns: auto auto 1fr; gap: 0; margin-top: 52px; border-top: 1px solid var(--br); }
+.stat { padding: 24px 24px 24px 0; border-right: 1px solid var(--br); padding-right: 24px; margin-right: 24px; }
 .stat:last-child { border-right: none; margin-right: 0; }
-.stat .n {
-  font-family: var(--serif); font-size: 40px; font-weight: 400;
-  letter-spacing: .02em; line-height: 1; color: var(--b);
-}
+.stat .n { font-family: var(--serif); font-size: 40px; font-weight: 400; letter-spacing: .02em; line-height: 1; color: var(--b); }
 .stat .n sup { font-size: 16px; color: var(--g); }
-.stat-disciplines { display: flex; flex-direction: column; justify-content: center; padding: 20px 0 20px 0; }
-.stat-disciplines .n {
-  font-size: 10px; font-weight: 400; letter-spacing: .16em;
-  line-height: 2.2; text-transform: uppercase; color: #444;
-  font-family: var(--sans);
-}
-.stat .l {
-  font-family: var(--sans); font-size: 9px; font-weight: 300;
-  letter-spacing: .2em; text-transform: uppercase; color: var(--g); margin-top: 6px;
-}
-.about-r {
-  padding: 88px 52px;
-  display: flex; flex-direction: column; gap: 36px;
-}
+.stat-disciplines { display: flex; flex-direction: column; justify-content: center; padding: 20px 0; }
+.stat-disciplines .n { font-size: 10px; font-weight: 400; letter-spacing: .16em; line-height: 2.2; text-transform: uppercase; color: #444; font-family: var(--sans); }
+.stat .l { font-family: var(--sans); font-size: 9px; font-weight: 300; letter-spacing: .2em; text-transform: uppercase; color: var(--g); margin-top: 6px; }
+.about-r { padding: 88px 52px; display: flex; flex-direction: column; gap: 36px; }
 .about-copy { display: flex; flex-direction: column; gap: 12px; }
-.about-copy-label {
-  font-family: var(--sans); font-size: 9px; font-weight: 400;
-  letter-spacing: .28em; text-transform: uppercase; color: var(--g);
-  padding-bottom: 10px; border-bottom: 1px solid var(--br);
-  margin-bottom: 4px;
-}
+.about-copy-label { font-family: var(--sans); font-size: 9px; font-weight: 400; letter-spacing: .28em; text-transform: uppercase; color: var(--g); padding-bottom: 10px; border-bottom: 1px solid var(--br); margin-bottom: 4px; }
 .about-copy p { font-size: 14px; font-weight: 300; line-height: 1.9; color: #555; }
-.about-copy p strong { color: var(--b); font-weight: 400; }
-.about-quote {
-  font-family: var(--serif) !important;
-  font-size: 16px !important; font-style: italic;
-  color: var(--b) !important; font-weight: 400 !important;
-  line-height: 1.5 !important; letter-spacing: .01em;
-  border-left: 2px solid var(--b); padding-left: 16px;
-  margin-top: 4px;
-}
-.about-culture { display: grid; grid-template-columns: 140px 1fr; gap: 20px; align-items: start; }
-.culture-disciplines {
-  display: flex; flex-direction: column; gap: 0;
-  border-right: 1px solid var(--br); padding-right: 20px;
-}
-.culture-disciplines span {
-  font-family: var(--sans); font-size: 9px; font-weight: 400;
-  letter-spacing: .16em; text-transform: uppercase;
-  color: var(--b); line-height: 2.4;
-}
-.lnk {
-  font-family: var(--sans); font-size: 10px; font-weight: 300;
-  letter-spacing: .2em; text-transform: uppercase;
-  color: var(--b); text-decoration: none;
-  border-bottom: 1px solid var(--b); padding-bottom: 2px;
-  transition: color .2s, border-color .2s; width: fit-content; margin-top: 8px;
-}
+.lnk { font-family: var(--sans); font-size: 10px; font-weight: 300; letter-spacing: .2em; text-transform: uppercase; color: var(--b); text-decoration: none; border-bottom: 1px solid var(--b); padding-bottom: 2px; transition: color .2s, border-color .2s; width: fit-content; margin-top: 8px; }
 .lnk:hover { color: var(--g); border-color: var(--g); }
 
-/* ── PROJECTS ── */
+/* PROJECTS */
 .projects { border-bottom: 1px solid var(--br); }
-.proj-top {
-  padding: 56px 52px 44px;
-  display: flex; align-items: baseline; justify-content: space-between;
-  border-bottom: 1px solid var(--br);
-}
-.proj-top h2 {
-  font-family: var(--serif); font-size: clamp(26px, 2.8vw, 44px);
-  font-weight: 400; letter-spacing: .03em; text-transform: uppercase;
-}
+.proj-top { padding: 56px 52px 44px; display: flex; align-items: baseline; justify-content: space-between; border-bottom: 1px solid var(--br); }
+.proj-top h2 { font-family: var(--serif); font-size: clamp(26px, 2.8vw, 44px); font-weight: 400; letter-spacing: .03em; text-transform: uppercase; }
 .proj-top h2 .dim { color: var(--g); }
-.proj-top a {
-  font-family: var(--sans); font-size: 10px; font-weight: 200;
-  letter-spacing: .2em; text-transform: uppercase;
-  color: var(--g); text-decoration: none; transition: color .2s;
-}
+.proj-top a { font-family: var(--sans); font-size: 10px; font-weight: 200; letter-spacing: .2em; text-transform: uppercase; color: var(--g); text-decoration: none; transition: color .2s; }
 .proj-top a:hover { color: var(--b); }
-
-/* Photo grid */
-.proj-grid {
-  display: grid;
-  grid-template-columns: 1.35fr 1fr 1fr;
-  grid-template-rows: 500px 340px;
-  gap: 2px; background: var(--br);
-}
+.proj-grid { display: grid; grid-template-columns: 1.35fr 1fr 1fr; grid-template-rows: 500px 340px; gap: 2px; background: var(--br); }
 .pc { position: relative; overflow: hidden; background: #ddd; cursor: pointer; }
 .pc:first-child { grid-row: 1 / 3; }
-.pc img {
-  width: 100%; height: 100%; object-fit: cover; object-position: center;
-  display: block; transition: transform .9s cubic-bezier(.16,1,.3,1);
-  filter: brightness(.9);
-}
-.pc:hover img { transform: scale(1.06); filter: brightness(.55); }
-.pc-info {
-  position: absolute; inset: 0;
-  display: flex; flex-direction: column; justify-content: flex-end;
-  padding: 28px; opacity: 0; transition: opacity .38s;
-}
+.pc img { width: 100%; height: 100%; object-fit: cover; object-position: center; display: block; transition: transform .9s cubic-bezier(.16,1,.3,1); filter: brightness(.9); }
+.pc:hover img { transform: scale(1.06); filter: brightness(.35); }
+/* Permanent dark gradient at bottom */
+.pc::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,.72) 0%, rgba(0,0,0,.3) 35%, transparent 65%); z-index: 1; pointer-events: none; transition: opacity .4s; }
+.pc:hover::after { opacity: 0; }
+.pc-info { position: absolute; inset: 0; z-index: 2; display: flex; flex-direction: column; justify-content: flex-end; padding: 28px; opacity: 0; transition: opacity .38s; }
 .pc:hover .pc-info { opacity: 1; }
-.pc-type {
-  font-family: var(--sans); font-size: 9px; font-weight: 200;
-  letter-spacing: .26em; text-transform: uppercase;
-  color: rgba(255,255,255,.55); margin-bottom: 8px;
-}
-.pc-title {
-  font-family: var(--serif); font-size: 22px; font-weight: 400;
-  color: var(--w); line-height: 1.1; letter-spacing: .02em;
-}
+.pc-type { font-family: var(--sans); font-size: 9px; font-weight: 200; letter-spacing: .26em; text-transform: uppercase; color: rgba(255,255,255,.65); margin-bottom: 8px; }
+.pc-title { font-family: var(--serif); font-size: 22px; font-weight: 400; color: var(--w); line-height: 1.1; letter-spacing: .02em; }
 .pc:first-child .pc-title { font-size: 30px; }
-.pc-loc {
-  font-family: var(--sans); font-size: 10px; font-weight: 200;
-  letter-spacing: .14em; color: rgba(255,255,255,.4); margin-top: 6px;
+.pc-loc { font-family: var(--sans); font-size: 10px; font-weight: 200; letter-spacing: .14em; color: rgba(255,255,255,.55); margin-top: 6px; }
+/* Permanent bottom label */
+.pc-tap {
+  position: absolute; bottom: 0; left: 0; right: 0; z-index: 2;
+  padding: 14px 20px;
+  font-family: var(--sans); font-size: 8px; font-weight: 400;
+  letter-spacing: .22em; text-transform: uppercase;
+  color: rgba(255,255,255,.7);
+  display: flex; align-items: center; justify-content: space-between;
+  transition: opacity .3s;
 }
-.pc-arrow {
-  position: absolute; top: 20px; right: 20px;
-  width: 30px; height: 30px; border: 1px solid rgba(255,255,255,.25);
-  border-radius: 50%; display: flex; align-items: center; justify-content: center;
-  opacity: 0; transform: scale(.8); transition: opacity .38s, transform .38s;
-}
+.pc:hover .pc-tap { opacity: 0; }
+.pc-tap-line { display: flex; align-items: center; gap: 8px; }
+.pc-tap svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 1.3; }
+.pc-arrow { position: absolute; top: 20px; right: 20px; z-index: 2; width: 34px; height: 34px; border: 1px solid rgba(255,255,255,.4); border-radius: 50%; display: flex; align-items: center; justify-content: center; opacity: 0; transform: scale(.8); transition: opacity .38s, transform .38s; background: rgba(255,255,255,.1); }
 .pc:hover .pc-arrow { opacity: 1; transform: scale(1); }
-.pc-arrow svg { width: 10px; height: 10px; stroke: white; fill: none; }
+.pc-arrow svg { width: 11px; height: 11px; stroke: white; fill: none; }
 
-/* ── PROJECT DETAIL PANEL ── */
-.proj-detail {
-  max-height: 0; overflow: hidden;
-  transition: max-height .7s cubic-bezier(.16,1,.3,1);
-  border-bottom: 1px solid var(--br);
-  background: var(--lg);
-}
+/* PROJECT DETAIL */
+.proj-detail { max-height: 0; overflow: hidden; transition: max-height .7s cubic-bezier(.16,1,.3,1); border-bottom: 1px solid var(--br); background: var(--lg); }
 .proj-detail.open { max-height: 1000px; }
 .proj-detail-inner { padding: 64px 52px; }
-.proj-detail-close {
-  display: flex; align-items: center; gap: 10px;
-  font-family: var(--sans); font-size: 10px; font-weight: 300;
-  letter-spacing: .18em; text-transform: uppercase;
-  background: none; border: none; color: var(--g);
-  cursor: pointer; margin-bottom: 40px;
-  transition: color .2s;
-}
+.proj-detail-close { display: flex; align-items: center; gap: 10px; font-family: var(--sans); font-size: 10px; font-weight: 300; letter-spacing: .18em; text-transform: uppercase; background: none; border: none; color: var(--g); cursor: pointer; margin-bottom: 40px; transition: color .2s; }
 .proj-detail-close:hover { color: var(--b); }
 .proj-detail-close svg { width: 12px; height: 12px; fill: none; stroke: currentColor; stroke-width: 1.5; }
-.proj-detail-content {
-  display: grid; grid-template-columns: 1fr 1.6fr; gap: 64px;
-}
-.proj-detail-type {
-  font-family: var(--sans); font-size: 9px; font-weight: 300;
-  letter-spacing: .24em; text-transform: uppercase;
-  color: var(--g); margin-bottom: 16px;
-}
-.proj-detail-title {
-  font-family: var(--serif); font-size: clamp(20px, 2.2vw, 32px);
-  font-weight: 400; line-height: 1.25; letter-spacing: .02em;
-}
+.proj-detail-content { display: grid; grid-template-columns: 1fr 1.6fr; gap: 64px; }
+.proj-detail-type { font-family: var(--sans); font-size: 9px; font-weight: 300; letter-spacing: .24em; text-transform: uppercase; color: var(--g); margin-bottom: 16px; }
+.proj-detail-title { font-family: var(--serif); font-size: clamp(20px, 2.2vw, 32px); font-weight: 400; line-height: 1.25; letter-spacing: .02em; }
 .proj-detail-right { display: flex; flex-direction: column; gap: 18px; }
-.proj-detail-right p {
-  font-size: 14px; font-weight: 300; line-height: 1.9; color: #555;
-}
-@media(max-width:900px){
-  .proj-detail-inner { padding: 44px 24px; }
-  .proj-detail-content { grid-template-columns: 1fr; gap: 28px; }
-  .proj-detail.open { max-height: 2000px; }
-}
+.proj-detail-right p { font-size: 14px; font-weight: 300; line-height: 1.9; color: #555; }
 
-.statement {
-  padding: 80px 52px;
-  border-top: 1px solid var(--br);
-  border-bottom: 1px solid var(--br);
-  background: var(--lg);
-}
-.statement-text {
-  font-family: var(--sans);
-  font-size: clamp(14px, 1.4vw, 18px);
-  font-weight: 300; line-height: 1.85; letter-spacing: .01em;
-  max-width: 860px; color: #555;
-}
-.statement-text strong { font-weight: 500; color: var(--b); font-family: var(--serif); font-size: 1.15em; }
-.statement-text .dim { color: #666; }
-
-/* ══════════════════════════════════
-   SERVICES — accordion with image panel
-══════════════════════════════════ */
+/* SERVICES */
 .services { border-bottom: 1px solid var(--br); }
-
-.svc-intro {
-  padding: 72px 52px 56px;
-  display: grid; grid-template-columns: 1fr 1fr;
-  gap: 80px; align-items: end;
-  border-bottom: 1px solid var(--br);
-}
-.svc-intro-label {
-  font-family: var(--sans); font-size: 9px; font-weight: 200;
-  letter-spacing: .34em; text-transform: uppercase; color: var(--g); margin-bottom: 18px;
-}
-.svc-intro h2 {
-  font-family: var(--serif); font-size: clamp(26px, 2.8vw, 44px);
-  font-weight: 400; letter-spacing: .03em; line-height: 1.1; text-transform: uppercase;
-}
+.svc-intro { padding: 72px 52px 56px; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: end; border-bottom: 1px solid var(--br); }
+.svc-intro-label { font-family: var(--sans); font-size: 9px; font-weight: 200; letter-spacing: .34em; text-transform: uppercase; color: var(--g); margin-bottom: 18px; }
+.svc-intro h2 { font-family: var(--serif); font-size: clamp(26px, 2.8vw, 44px); font-weight: 400; letter-spacing: .03em; line-height: 1.1; text-transform: uppercase; }
 .svc-intro h2 .dim { color: var(--g); }
 .svc-intro p { font-size: 13px; font-weight: 300; line-height: 1.9; color: #777; max-width: 380px; }
-
 .svc-row { border-bottom: 1px solid var(--br); overflow: hidden; }
 .svc-row:last-child { border-bottom: none; }
-.svc-header {
-  display: flex; align-items: center;
-  padding: 0 52px; min-height: 84px;
-  transition: background .22s; cursor: pointer;
-}
-.svc-row.open .svc-header,
-.svc-header:hover { background: var(--lg); }
-.svc-idx {
-  font-family: var(--serif); font-size: 11px; color: var(--g);
-  width: 40px; flex-shrink: 0; letter-spacing: .04em;
-}
-.svc-title {
-  font-family: var(--serif); font-size: clamp(18px, 2vw, 28px);
-  font-weight: 400; letter-spacing: .03em; flex: 1; text-transform: uppercase;
-}
+.svc-header { display: flex; align-items: center; padding: 0 52px; min-height: 84px; transition: background .22s; cursor: pointer; }
+.svc-row.open .svc-header, .svc-header:hover { background: var(--lg); }
+.svc-idx { font-family: var(--serif); font-size: 11px; color: var(--g); width: 40px; flex-shrink: 0; letter-spacing: .04em; }
+.svc-title { font-family: var(--serif); font-size: clamp(18px, 2vw, 28px); font-weight: 400; letter-spacing: .03em; flex: 1; text-transform: uppercase; }
 .svc-tags { display: flex; gap: 8px; margin-right: 36px; }
-.svc-tag-pill {
-  font-family: var(--sans); font-size: 9px; font-weight: 200;
-  letter-spacing: .16em; text-transform: uppercase;
-  color: var(--g); border: 1px solid var(--br); padding: 4px 10px;
-  transition: border-color .22s, color .22s;
-}
-.svc-row.open .svc-tag-pill,
-.svc-header:hover .svc-tag-pill { border-color: #ccc; color: #555; }
-.svc-toggle {
-  width: 26px; height: 26px; flex-shrink: 0;
-  display: flex; align-items: center; justify-content: center;
-  border: 1px solid var(--br); border-radius: 50%;
-  transition: transform .4s cubic-bezier(.16,1,.3,1), background .22s, border-color .22s;
-}
+.svc-tag-pill { font-family: var(--sans); font-size: 9px; font-weight: 200; letter-spacing: .16em; text-transform: uppercase; color: var(--g); border: 1px solid var(--br); padding: 4px 10px; transition: border-color .22s, color .22s; }
+.svc-row.open .svc-tag-pill, .svc-header:hover .svc-tag-pill { border-color: #ccc; color: #555; }
+.svc-toggle { width: 26px; height: 26px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; border: 1px solid var(--br); border-radius: 50%; transition: transform .4s cubic-bezier(.16,1,.3,1), background .22s, border-color .22s; }
 .svc-row.open .svc-toggle { transform: rotate(45deg); background: var(--b); border-color: var(--b); }
 .svc-toggle svg { width: 10px; height: 10px; stroke: var(--b); transition: stroke .22s; fill: none; stroke-width: 1.2; }
 .svc-row.open .svc-toggle svg { stroke: var(--w); }
-
-.svc-panel {
-  display: grid; grid-template-columns: 1.4fr 1fr;
-  max-height: 0; overflow: hidden;
-  transition: max-height .58s cubic-bezier(.16,1,.3,1);
-}
+.svc-panel { display: grid; grid-template-columns: 1.4fr 1fr; max-height: 0; overflow: hidden; transition: max-height .58s cubic-bezier(.16,1,.3,1); }
 .svc-row.open .svc-panel { max-height: 1200px; }
-.svc-panel-text {
-  padding: 36px 52px 48px;
-  border-right: 1px solid var(--br);
-  display: flex; flex-direction: column; gap: 20px;
-}
+.svc-panel-text { padding: 36px 52px 48px; border-right: 1px solid var(--br); display: flex; flex-direction: column; gap: 20px; }
 .svc-panel-text p { font-size: 13px; font-weight: 300; line-height: 1.9; color: #555; }
 .svc-panel-text p strong { color: var(--b); font-weight: 500; font-family: var(--sans); font-size: 9px; letter-spacing: .16em; text-transform: uppercase; display: block; margin-bottom: 5px; margin-top: 4px; }
-.svc-panel-text a {
-  font-family: var(--sans); font-size: 10px; font-weight: 300;
-  letter-spacing: .18em; text-transform: uppercase;
-  color: var(--b); text-decoration: none;
-  border-bottom: 1px solid var(--b); padding-bottom: 2px;
-  width: fit-content; transition: color .2s, border-color .2s;
-}
+.svc-panel-text a { font-family: var(--sans); font-size: 10px; font-weight: 300; letter-spacing: .18em; text-transform: uppercase; color: var(--b); text-decoration: none; border-bottom: 1px solid var(--b); padding-bottom: 2px; width: fit-content; transition: color .2s, border-color .2s; }
 .svc-panel-text a:hover { color: var(--g); border-color: var(--g); }
-.svc-bullets {
-  list-style: none; padding: 0; margin: 0;
-  display: flex; flex-direction: column; gap: 8px;
-}
-.svc-bullets li {
-  font-size: 13px; font-weight: 300; line-height: 1.6; color: #555;
-  padding-left: 16px; position: relative;
-}
-.svc-bullets li::before {
-  content: '—'; position: absolute; left: 0;
-  color: var(--b); font-weight: 400;
-}
-
-/* ── SERVICE PANEL IMAGE — fixed taller height ── */
-.svc-panel-img {
-  overflow: hidden; background: var(--lg);
-  min-height: 480px;
-}
-.svc-panel-img > img {
-  width: 100%; height: 100%; object-fit: cover; display: block;
-  transform: scale(1.07); transition: transform .7s cubic-bezier(.16,1,.3,1); filter: brightness(.88);
-}
+.svc-bullets { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 8px; }
+.svc-bullets li { font-size: 13px; font-weight: 300; line-height: 1.6; color: #555; padding-left: 16px; position: relative; }
+.svc-bullets li::before { content: '—'; position: absolute; left: 0; color: var(--b); font-weight: 400; }
+.svc-panel-img { overflow: hidden; background: var(--lg); min-height: 480px; }
+.svc-panel-img > img { width: 100%; height: 100%; object-fit: cover; display: block; transform: scale(1.07); transition: transform .7s cubic-bezier(.16,1,.3,1); filter: brightness(.88); }
 .svc-row.open .svc-panel-img > img { transform: scale(1); }
-
-/* ── BIM / VR CAROUSEL ── */
-.bim-carousel {
-  position: relative;
-  min-height: 480px;
-  overflow: hidden;
-}
-.bim-track {
-  display: flex; width: 200%;
-  height: 100%; min-height: 480px;
-  transition: transform .6s cubic-bezier(.16,1,.3,1);
-}
-.bim-track img {
-  width: 50%; height: 100%; object-fit: cover; object-position: center;
-  display: block; flex-shrink: 0; filter: brightness(.9);
-  min-height: 480px;
-}
-.bim-nav {
-  position: absolute; bottom: 16px; left: 50%;
-  transform: translateX(-50%);
-  display: flex; align-items: center; gap: 12px;
-  background: rgba(0,0,0,.3); backdrop-filter: blur(6px);
-  padding: 7px 14px; border-radius: 40px;
-  z-index: 2;
-}
-.bim-btn {
-  width: 24px; height: 24px;
-  background: none; border: none; cursor: pointer;
-  display: flex; align-items: center; justify-content: center;
-  color: rgba(255,255,255,.7); transition: color .2s;
-  padding: 0;
-}
+.bim-carousel { position: relative; min-height: 480px; overflow: hidden; }
+.bim-track { display: flex; width: 200%; height: 100%; min-height: 480px; transition: transform .6s cubic-bezier(.16,1,.3,1); }
+.bim-track img { width: 50%; height: 100%; object-fit: cover; object-position: center; display: block; flex-shrink: 0; filter: brightness(.9); min-height: 480px; }
+.bim-nav { position: absolute; bottom: 16px; left: 50%; transform: translateX(-50%); display: flex; align-items: center; gap: 12px; background: rgba(0,0,0,.3); backdrop-filter: blur(6px); padding: 7px 14px; border-radius: 40px; z-index: 2; }
+.bim-btn { width: 24px; height: 24px; background: none; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; color: rgba(255,255,255,.7); transition: color .2s; padding: 0; }
 .bim-btn:hover { color: var(--w); }
 .bim-btn svg { width: 12px; height: 12px; fill: none; stroke: currentColor; stroke-width: 1.5; }
 .bim-dots { display: flex; gap: 6px; align-items: center; }
-.bim-dot {
-  width: 5px; height: 5px; border-radius: 50%;
-  background: rgba(255,255,255,.35);
-  transition: background .3s, transform .3s; cursor: pointer;
-}
+.bim-dot { width: 5px; height: 5px; border-radius: 50%; background: rgba(255,255,255,.35); transition: background .3s, transform .3s; cursor: pointer; }
 .bim-dot.active { background: var(--w); transform: scale(1.3); }
 
-/* ── PHIL KNAPTON QUOTE ── */
-.phil-quote {
-  padding: 80px 52px;
-  border-top: 1px solid var(--br);
-  border-bottom: 1px solid var(--br);
-  background: var(--b);
-}
-.phil-q p {
-  font-family: var(--serif); font-size: clamp(18px, 2.2vw, 30px);
-  font-weight: 400; line-height: 1.5; letter-spacing: .02em;
-  color: var(--w); max-width: 800px; margin-bottom: 20px;
-}
-.phil-q cite {
-  font-family: var(--sans); font-size: 10px; font-weight: 300;
-  letter-spacing: .22em; text-transform: uppercase;
-  color: rgba(255,255,255,.4); font-style: normal;
-}
-@media(max-width:900px){ .phil-quote { padding: 60px 24px; } }
-@media(max-width:600px){ .phil-quote { padding: 48px 20px; } }
+/* PHIL KNAPTON QUOTE */
+.phil-quote { padding: 80px 52px; border-top: 1px solid var(--br); border-bottom: 1px solid var(--br); background: var(--b); }
+.phil-q p { font-family: var(--serif); font-size: clamp(18px, 2.2vw, 30px); font-weight: 400; line-height: 1.5; letter-spacing: .02em; color: var(--w); max-width: 800px; margin-bottom: 20px; }
+.phil-q cite { font-family: var(--sans); font-size: 10px; font-weight: 300; letter-spacing: .22em; text-transform: uppercase; color: rgba(255,255,255,.4); font-style: normal; }
 
-/* ── NEWS ── */
+/* NEWS */
 .news { padding: 88px 52px; border-bottom: 1px solid var(--br); }
-.news-hdr {
-  display: flex; justify-content: space-between; align-items: baseline;
-  margin-bottom: 52px;
-}
-.news-hdr h2 {
-  font-family: var(--serif); font-size: clamp(24px, 2.6vw, 40px);
-  font-weight: 400; letter-spacing: .03em; text-transform: uppercase;
-}
+.news-hdr { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 52px; }
+.news-hdr h2 { font-family: var(--serif); font-size: clamp(24px, 2.6vw, 40px); font-weight: 400; letter-spacing: .03em; text-transform: uppercase; }
 .news-hdr h2 .dim { color: var(--g); }
-.news-hdr a {
-  font-family: var(--sans); font-size: 10px; font-weight: 300;
-  letter-spacing: .22em; text-transform: uppercase; color: var(--g);
-  text-decoration: none; transition: color .2s;
-}
+.news-hdr a { font-family: var(--sans); font-size: 10px; font-weight: 300; letter-spacing: .22em; text-transform: uppercase; color: var(--g); text-decoration: none; transition: color .2s; }
 .news-hdr a:hover { color: var(--b); }
-.news-grid {
-  display: grid; grid-template-columns: repeat(3,1fr);
-  border-top: 1px solid var(--br);
-}
-.nc {
-  padding: 36px 44px 36px 0;
-  border-bottom: 1px solid var(--br);
-  transition: opacity .22s;
-  display: flex; flex-direction: column; gap: 0;
-  cursor: pointer;
-}
+.news-grid { display: grid; grid-template-columns: repeat(3,1fr); border-top: 1px solid var(--br); }
+.nc { padding: 36px 44px 36px 0; border-bottom: 1px solid var(--br); transition: opacity .22s; display: flex; flex-direction: column; cursor: pointer; }
 .nc:not(:first-child) { padding-left: 44px; padding-right: 0; border-left: 1px solid var(--br); }
 .nc:hover { opacity: .6; }
-.nc-date {
-  font-family: var(--sans); font-size: 9px; font-weight: 300;
-  letter-spacing: .24em; text-transform: uppercase;
-  color: var(--g); margin-bottom: 8px; display: block;
-}
-.nc-tag {
-  font-family: var(--sans); font-size: 9px; font-weight: 500;
-  letter-spacing: .22em; text-transform: uppercase;
-  color: var(--b); margin-bottom: 14px; display: block;
-}
-.nc h3 {
-  font-family: var(--serif); font-size: 17px; font-weight: 400;
-  line-height: 1.35; margin-bottom: 14px; letter-spacing: .02em;
-}
-.nc p { font-size: 13px; font-weight: 300; line-height: 1.8; color: #888; }
+.nc-date { font-family: var(--sans); font-size: 9px; font-weight: 300; letter-spacing: .24em; text-transform: uppercase; color: var(--g); margin-bottom: 8px; display: block; }
+.nc-tag { font-family: var(--sans); font-size: 9px; font-weight: 500; letter-spacing: .22em; text-transform: uppercase; color: var(--b); margin-bottom: 14px; display: block; }
+.nc h3 { font-family: var(--serif); font-size: 17px; font-weight: 400; line-height: 1.35; margin-bottom: 14px; letter-spacing: .02em; }
 
-/* ── CTA / CONTACT ── */
-.cta {
-  padding: 110px 52px;
-  background: var(--b); color: var(--w);
-  position: relative; overflow: hidden;
-}
-.cta::before {
-  content: '';
-  position: absolute; inset: 0;
-  background: radial-gradient(ellipse 70% 80% at 80% 50%, rgba(180,170,160,.08) 0%, transparent 60%);
-  pointer-events: none;
-}
-.cta-inner {
-  display: grid; grid-template-columns: 1fr 1fr;
-  gap: 88px; align-items: start; position: relative;
-}
-.cta h2 {
-  font-family: var(--serif); font-size: clamp(30px, 4.2vw, 64px);
-  font-weight: 400; line-height: 1.08; letter-spacing: .03em;
-  text-transform: uppercase;
-  margin-bottom: 32px;
-}
+/* CTA / CONTACT */
+.cta { padding: 110px 52px; background: var(--b); color: var(--w); position: relative; overflow: hidden; }
+.cta::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 70% 80% at 80% 50%, rgba(180,170,160,.08) 0%, transparent 60%); pointer-events: none; }
+.cta-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 88px; align-items: start; position: relative; }
+.cta h2 { font-family: var(--serif); font-size: clamp(30px, 4.2vw, 64px); font-weight: 400; line-height: 1.08; letter-spacing: .03em; text-transform: uppercase; margin-bottom: 32px; }
 .cta h2 .dim { color: rgba(255,255,255,.25); }
 .cta-meta { display: flex; flex-direction: column; gap: 10px; }
-.cta-meta a {
-  font-family: var(--sans); font-size: 12px; font-weight: 300;
-  letter-spacing: .1em; color: rgba(255,255,255,.45);
-  text-decoration: none; transition: color .2s;
-}
+.cta-meta a { font-family: var(--sans); font-size: 12px; font-weight: 300; letter-spacing: .1em; color: rgba(255,255,255,.45); text-decoration: none; transition: color .2s; }
 .cta-meta a:hover { color: var(--w); }
-
-/* Contact form */
 .cta-form { display: flex; flex-direction: column; gap: 0; }
 .cf-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; }
-.cf-field {
-  display: flex; flex-direction: column;
-  border-bottom: 1px solid rgba(255,255,255,.12);
-  position: relative;
-}
+.cf-field { display: flex; flex-direction: column; border-bottom: 1px solid rgba(255,255,255,.12); position: relative; }
 .cf-field.full { grid-column: 1 / -1; }
-.cf-field label {
-  font-family: var(--sans); font-size: 8px; font-weight: 400;
-  letter-spacing: .28em; text-transform: uppercase;
-  color: rgba(255,255,255,.3); padding: 18px 0 6px;
-}
-.cf-field input,
-.cf-field select,
-.cf-field textarea {
-  font-family: var(--sans); font-size: 13px; font-weight: 300;
-  color: var(--w); background: transparent; border: none; outline: none;
-  padding: 0 0 16px; resize: none; letter-spacing: .02em;
-  -webkit-appearance: none;
-}
-.cf-field input::placeholder,
-.cf-field textarea::placeholder { color: rgba(255,255,255,.2); }
+.cf-field label { font-family: var(--sans); font-size: 8px; font-weight: 400; letter-spacing: .28em; text-transform: uppercase; color: rgba(255,255,255,.3); padding: 18px 0 6px; }
+.cf-field input, .cf-field select, .cf-field textarea { font-family: var(--sans); font-size: 13px; font-weight: 300; color: var(--w); background: transparent; border: none; outline: none; padding: 0 0 16px; resize: none; letter-spacing: .02em; -webkit-appearance: none; }
+.cf-field input::placeholder, .cf-field textarea::placeholder { color: rgba(255,255,255,.2); }
 .cf-field select option { background: var(--b); color: var(--w); }
-.cf-field::after {
-  content: ''; position: absolute; bottom: -1px; left: 0;
-  width: 0; height: 1px; background: rgba(255,255,255,.55);
-  transition: width .35s cubic-bezier(.16,1,.3,1);
-}
+.cf-field::after { content: ''; position: absolute; bottom: -1px; left: 0; width: 0; height: 1px; background: rgba(255,255,255,.55); transition: width .35s cubic-bezier(.16,1,.3,1); }
 .cf-field:focus-within::after { width: 100%; }
 .cf-field:focus-within label { color: rgba(255,255,255,.55); }
-.cf-submit {
-  margin-top: 32px;
-  font-family: var(--sans); font-size: 10px; font-weight: 400;
-  letter-spacing: .2em; text-transform: uppercase;
-  background: var(--w); color: var(--b);
-  border: none; padding: 14px 32px; cursor: pointer;
-  transition: opacity .2s; align-self: flex-start;
-}
+.cf-submit { margin-top: 32px; font-family: var(--sans); font-size: 10px; font-weight: 400; letter-spacing: .2em; text-transform: uppercase; background: var(--w); color: var(--b); border: none; padding: 14px 32px; cursor: pointer; transition: opacity .2s; align-self: flex-start; }
 .cf-submit:hover { opacity: .82; }
-.cf-note {
-  margin-top: 14px;
-  font-family: var(--sans); font-size: 10px; font-weight: 200;
-  letter-spacing: .06em; color: rgba(255,255,255,.2);
-}
+.cf-note { margin-top: 14px; font-family: var(--sans); font-size: 10px; font-weight: 200; letter-spacing: .06em; color: rgba(255,255,255,.2); }
 
-@media(max-width:900px){
-  .cta { padding: 72px 24px; }
-  .cta-inner { grid-template-columns: 1fr; gap: 52px; }
-  .cta h2 { font-size: clamp(28px, 6vw, 48px); margin-bottom: 24px; }
-}
-@media(max-width:600px){
-  .cta { padding: 60px 20px; }
-  .cta h2 { font-size: clamp(26px, 8vw, 40px); }
-  .cf-row { grid-template-columns: 1fr; }
-  .cf-submit { width: 100%; text-align: center; padding: 15px; }
-}
+/* IMAGINATION QUOTE */
+.imagination-quote { padding: 110px 52px; background: var(--b); border-bottom: 1px solid rgba(255,255,255,.08); }
+.iq-text { font-family: var(--serif); font-size: clamp(28px, 4.2vw, 72px); font-weight: 400; line-height: 1.05; letter-spacing: .04em; text-transform: uppercase; color: var(--w); max-width: 1000px; }
+.iq-dim { color: rgba(255,255,255,.25); }
 
-/* ── FOOTER ── */
-footer {
-  padding: 56px 52px 36px;
-  background: var(--b); color: var(--w);
-  border-top: 1px solid rgba(255,255,255,.08);
-}
+/* FOOTER */
+footer { padding: 56px 52px 36px; background: var(--b); color: var(--w); border-top: 1px solid rgba(255,255,255,.08); }
 .ft { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 48px; margin-bottom: 48px; }
-.ft-sub { font-size: 13px; font-weight: 300; line-height: 1.8; color: rgba(255,255,255,.5); max-width: 240px; }
-footer h4 {
-  font-family: var(--sans); font-size: 9px; font-weight: 400;
-  letter-spacing: .28em; text-transform: uppercase;
-  color: rgba(255,255,255,.4); margin-bottom: 18px;
-}
+.ft-sub { font-size: 13px; font-weight: 300; line-height: 1.8; color: rgba(255,255,255,.5); max-width: 240px; margin-bottom: 16px; }
+.ft-address { font-size: 12px; font-weight: 300; line-height: 1.9; color: rgba(255,255,255,.3); font-style: normal; }
+.ft-social { display: flex; gap: 14px; margin-top: 16px; }
+.ft-social a { display: flex; align-items: center; justify-content: center; width: 32px; height: 32px; border: 1px solid rgba(255,255,255,.15); border-radius: 50%; color: rgba(255,255,255,.4); transition: color .2s, border-color .2s; }
+.ft-social a:hover { color: var(--w); border-color: rgba(255,255,255,.5); }
+.ft-social svg { width: 14px; height: 14px; }
+.cta-address { font-size: 12px; font-weight: 300; line-height: 1.9; color: rgba(255,255,255,.3); font-style: normal; margin-top: 20px; }
+footer h4 { font-family: var(--sans); font-size: 9px; font-weight: 400; letter-spacing: .28em; text-transform: uppercase; color: rgba(255,255,255,.4); margin-bottom: 18px; }
 footer ul { list-style: none; }
 footer li { margin-bottom: 10px; }
 footer a { font-size: 13px; font-weight: 300; color: rgba(255,255,255,.6); text-decoration: none; transition: color .2s; }
 footer a:hover { color: var(--w); }
-.ft-bot {
-  border-top: 1px solid rgba(255,255,255,.07); padding-top: 22px;
-  display: flex; justify-content: space-between; align-items: center;
-}
+.ft-bot { border-top: 1px solid rgba(255,255,255,.07); padding-top: 22px; display: flex; justify-content: space-between; align-items: center; }
 .ft-bot span { font-size: 10px; font-weight: 300; letter-spacing: .1em; color: rgba(255,255,255,.3); }
 
-/* ── ANCHOR SCROLL OFFSET ── */
-#practice, #projects, #services, #news, #contact {
-  scroll-margin-top: 100px;
-}
+/* ANCHORS */
+#practice, #projects, #services, #news, #contact { scroll-margin-top: 100px; }
 
-/* ── REVEAL ANIMATIONS ── */
-.rv {
-  opacity: 0; transform: translateY(20px);
-  transition: opacity 1.1s cubic-bezier(.22,1,.36,1), transform 1.1s cubic-bezier(.22,1,.36,1);
-}
+/* REVEAL */
+.rv { opacity: 0; transform: translateY(20px); transition: opacity 1.1s cubic-bezier(.22,1,.36,1), transform 1.1s cubic-bezier(.22,1,.36,1); }
 .rv.vis { opacity: 1; transform: none; }
-.d1 { transition-delay: .12s; }
-.d2 { transition-delay: .24s; }
-.d3 { transition-delay: .38s; }
-.d4 { transition-delay: .52s; }
+.d1{transition-delay:.12s} .d2{transition-delay:.24s} .d3{transition-delay:.38s} .d4{transition-delay:.52s}
 
-/* ══════════════════════════════════
-   RESPONSIVE — MOBILE OPTIMISED
-══════════════════════════════════ */
+/* RESPONSIVE */
 @media(max-width:900px){
-  nav { padding: 14px 24px; }
-  .nav-links { display: none; }
-  .nav-logo-img { height: 50px; }
-
+  nav { padding: 14px 24px; } .nav-links { display: none; } .nav-logo-img { height: 50px; }
   .hero { min-height: 100svh; }
-  .hero-grad {
-    background:
-      linear-gradient(to top, rgba(10,10,10,.96) 0%, rgba(10,10,10,.82) 42%, rgba(10,10,10,.45) 70%, rgba(10,10,10,.12) 100%),
-      linear-gradient(to right, rgba(10,10,10,.5) 0%, rgba(10,10,10,.08) 100%);
-  }
-  .hero-content {
-    grid-template-columns: 1fr;
-    padding: 100px 24px 64px;
-    gap: 28px;
-    align-content: flex-end;
-  }
-  .hero-h1 { font-size: clamp(34px, 7.5vw, 56px); line-height: 1.1; }
-  .hero-eyebrow { font-size: 9px; letter-spacing: .22em; }
-  .hero-slogan { font-size: 13px; max-width: 100%; line-height: 1.75; }
-  .hero-ctas { flex-direction: row; flex-wrap: wrap; gap: 16px; }
+  .hero-grad { background: linear-gradient(to top, rgba(10,10,10,.96) 0%, rgba(10,10,10,.82) 42%, rgba(10,10,10,.45) 70%, rgba(10,10,10,.12) 100%), linear-gradient(to right, rgba(10,10,10,.5) 0%, rgba(10,10,10,.08) 100%); }
+  .hero-content { grid-template-columns: 1fr; padding: 100px 24px 64px; gap: 28px; align-content: flex-end; }
+  .hero-h1 { font-size: clamp(34px, 7.5vw, 56px); }
+  .hero-slogan { max-width: 100%; }
   .hero-controls, .hero-counter, .hero-progress { display: none; }
-
   .mq-t span { padding: 0 30px; font-size: 9px; }
-
   .about { grid-template-columns: 1fr; }
-  .about-l {
-    padding: 56px 24px 44px;
-    border-right: none;
-    border-bottom: 1px solid var(--br);
-  }
+  .about-l { padding: 56px 24px 44px; border-right: none; border-bottom: 1px solid var(--br); }
   .about-r { padding: 44px 24px 56px; gap: 28px; }
-  .about-culture { grid-template-columns: 1fr; }
-  .culture-disciplines { border-right: none; border-bottom: 1px solid var(--br); padding-right: 0; padding-bottom: 12px; flex-direction: row; flex-wrap: wrap; gap: 8px 20px; }
-  .about-nums {
-    grid-template-columns: auto auto;
-    gap: 0;
-  }
+  .about-nums { grid-template-columns: auto auto; }
   .stat-disciplines { grid-column: 1 / -1; border-top: 1px solid var(--br); border-right: none; padding: 20px 0 0; margin: 0; }
-
   .proj-top { padding: 44px 24px 32px; flex-direction: column; gap: 12px; align-items: flex-start; }
-  .proj-grid {
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 220px 220px 180px;
-  }
+  .proj-grid { grid-template-columns: 1fr 1fr; grid-template-rows: 220px 220px 180px; }
   .pc:first-child { grid-column: 1 / -1; grid-row: auto; }
-  .pc[style*="grid-column"] { grid-column: 1 / -1 !important; }
-
-  .statement { padding: 64px 24px; }
-
   .svc-intro { grid-template-columns: 1fr; padding: 52px 24px 40px; gap: 20px; }
   .svc-header { padding: 0 24px; min-height: 68px; }
   .svc-tags { display: none; }
@@ -936,83 +315,52 @@ footer a:hover { color: var(--w); }
   .svc-panel-img, .bim-carousel { min-height: 280px; }
   .bim-track, .bim-track img { min-height: 280px; }
   .svc-row.open .svc-panel { max-height: 2000px; }
-
+  .phil-quote { padding: 60px 24px; }
   .news { padding: 56px 24px; }
   .news-hdr { flex-direction: column; gap: 12px; align-items: flex-start; margin-bottom: 36px; }
   .news-grid { grid-template-columns: 1fr; }
   .nc { padding: 28px 0; }
   .nc:not(:first-child) { padding-left: 0; border-left: none; }
-
   .cta { padding: 72px 24px; }
-  .cta h2 { font-size: clamp(28px, 6vw, 48px); margin-bottom: 32px; }
-  .cta-row { flex-direction: column; align-items: flex-start; gap: 18px; }
-
+  .cta-inner { grid-template-columns: 1fr; gap: 52px; }
+  .cta h2 { font-size: clamp(28px, 6vw, 48px); margin-bottom: 24px; }
+  .imagination-quote { padding: 72px 24px; } .iq-text { font-size: clamp(22px, 6vw, 44px); }
   footer { padding: 48px 24px 28px; }
   .ft { grid-template-columns: 1fr 1fr; gap: 32px; margin-bottom: 36px; }
   .ft-bot { flex-direction: column; gap: 6px; align-items: flex-start; }
+  .proj-detail-inner { padding: 44px 24px; }
+  .proj-detail-content { grid-template-columns: 1fr; gap: 28px; }
+  .proj-detail.open { max-height: 2000px; }
 }
-
 @media(max-width:600px){
-  nav { padding: 12px 20px; }
-  .nav-logo-img { height: 44px; }
-
+  nav { padding: 12px 20px; } .nav-logo-img { height: 44px; }
   .hero-content { padding: 90px 20px 56px; gap: 24px; }
-  .hero-h1 { font-size: clamp(30px, 9vw, 46px); line-height: 1.08; }
-  .hero-eyebrow { font-size: 8px; letter-spacing: .2em; }
-  .hero-slogan { font-size: 12px; line-height: 1.7; }
+  .hero-h1 { font-size: clamp(30px, 9vw, 46px); }
+  .hero-slogan { font-size: 12px; }
   .hero-ctas { flex-direction: column; align-items: flex-start; gap: 14px; }
-  .hero-btn { padding: 13px 22px; width: 100%; text-align: center; display: block; }
-  .hero-grad {
-    background:
-      linear-gradient(to top, rgba(10,10,10,.98) 0%, rgba(10,10,10,.88) 38%, rgba(10,10,10,.58) 66%, rgba(10,10,10,.18) 100%),
-      linear-gradient(to right, rgba(10,10,10,.6) 0%, rgba(10,10,10,.1) 100%);
-  }
-
-  .mq-t { animation-duration: 22s; }
-  .mq-t span { padding: 0 22px; font-size: 8px; letter-spacing: .18em; }
-
-  .about-l { padding: 48px 20px 36px; }
-  .about-r { padding: 36px 20px 48px; }
-  .about-nums { display: flex; flex-wrap: wrap; gap: 0; border-top: 1px solid var(--br); }
-  .stat { padding: 20px 20px 20px 0; border-right: 1px solid var(--br); margin-right: 20px; }
-  .stat:last-child { border-right: none; margin-right: 0; }
-  .stat .n { font-size: 32px; }
+  .hero-btn { width: 100%; text-align: center; display: block; }
+  .hero-grad { background: linear-gradient(to top, rgba(10,10,10,.98) 0%, rgba(10,10,10,.88) 38%, rgba(10,10,10,.58) 66%, rgba(10,10,10,.18) 100%), linear-gradient(to right, rgba(10,10,10,.6) 0%, rgba(10,10,10,.1) 100%); }
+  .mq-t { animation-duration: 22s; } .mq-t span { padding: 0 22px; font-size: 8px; }
+  .about-l { padding: 48px 20px 36px; } .about-r { padding: 36px 20px 48px; }
+  .about-nums { display: flex; flex-wrap: wrap; } .stat { padding: 20px 20px 20px 0; border-right: 1px solid var(--br); margin-right: 20px; }
+  .stat:last-child { border-right: none; margin-right: 0; } .stat .n { font-size: 32px; }
   .stat-disciplines { width: 100%; border-top: 1px solid var(--br); border-right: none !important; margin-right: 0 !important; padding: 18px 0 0; }
-  .stat-disciplines .n { font-size: 9px; line-height: 2.4; }
-
   .proj-top { padding: 36px 20px 24px; }
   .proj-grid { grid-template-columns: 1fr; grid-template-rows: auto; }
-  .pc { min-height: 250px; }
-  .pc:first-child { grid-column: auto; }
-  .pc[style*="grid-column"] { grid-column: auto !important; }
-  .pc-info { opacity: 1; }
-  .pc img { filter: brightness(.58); }
-  .pc-arrow { opacity: 1; transform: scale(1); }
-
-  .statement { padding: 52px 20px; }
-  .statement-text { font-size: clamp(13px, 3.5vw, 16px); }
-
-  .svc-intro { padding: 44px 20px 32px; }
-  .svc-header { padding: 0 20px; min-height: 60px; }
+  .pc { min-height: 250px; } .pc:first-child { grid-column: auto; }
+  .pc-info { opacity: 1; } .pc img { filter: brightness(.45); } .pc-arrow { opacity: 1; transform: scale(1); } .pc-tap { display: none; }
+  .svc-intro { padding: 44px 20px 32px; } .svc-header { padding: 0 20px; min-height: 60px; }
   .svc-panel-text { padding: 20px 20px 24px; }
-  .svc-panel-img, .bim-carousel { min-height: 220px; }
-  .bim-track, .bim-track img { min-height: 220px; }
-
+  .svc-panel-img, .bim-carousel { min-height: 220px; } .bim-track, .bim-track img { min-height: 220px; }
+  .phil-quote { padding: 48px 20px; }
   .news { padding: 48px 20px; }
-
-  .cta { padding: 60px 20px; }
-  .cta h2 { font-size: clamp(26px, 8vw, 40px); margin-bottom: 28px; }
-  .cta-btn { width: 100%; text-align: center; padding: 15px; display: block; }
-
-  footer { padding: 40px 20px 24px; }
-  .ft { grid-template-columns: 1fr; gap: 28px; }
+  .cta { padding: 60px 20px; } .cta h2 { font-size: clamp(26px, 8vw, 40px); }
+  .cf-row { grid-template-columns: 1fr; } .cf-submit { width: 100%; text-align: center; padding: 15px; align-self: stretch; }
+  .imagination-quote { padding: 64px 20px; } .iq-text { font-size: clamp(22px, 7vw, 36px); }
+  footer { padding: 40px 20px 24px; } .ft { grid-template-columns: 1fr; gap: 28px; }
   .ft-bot span:last-child { display: none; }
-
-  .mobile-menu { padding: 90px 28px 52px; }
-  .mobile-menu a { font-size: clamp(28px, 7vw, 44px); }
-
-  .i-logo { max-width: min(260px, 65vw); }
-  .i-sub { font-size: 8px; letter-spacing: .28em; }
+  .mobile-menu { padding: 90px 28px 52px; } .mobile-menu a { font-size: clamp(28px, 7vw, 44px); }
+  .i-logo { max-width: min(260px, 65vw); } .i-sub { font-size: 8px; }
 }
 </style>
 </head>
@@ -1043,9 +391,7 @@ footer a:hover { color: var(--w); }
   </ul>
   <div class="nav-right">
     <a href="#contact" class="nav-cta">Enquire</a>
-    <button class="nav-burger" id="burger" aria-label="Menu">
-      <span></span><span></span>
-    </button>
+    <button class="nav-burger" id="burger" aria-label="Menu"><span></span><span></span></button>
   </div>
 </nav>
 
@@ -1062,7 +408,7 @@ footer a:hover { color: var(--w); }
 <!-- MAIN -->
 <div id="main">
 
-<!-- HERO — 8 image crossfade -->
+<!-- HERO -->
 <section class="hero" id="top">
   <div class="hero-img hero-img-1 active"></div>
   <div class="hero-img hero-img-2"></div>
@@ -1075,40 +421,24 @@ footer a:hover { color: var(--w); }
   <div class="hero-grad"></div>
   <div class="hero-grain"></div>
   <div class="hero-grid"></div>
-
   <div class="hero-content">
     <div class="hero-left">
       <div class="hero-eyebrow">Established 1993</div>
-      <h1 class="hero-h1">
-        Why predict<br>
-        <span class="dim">the future</span><br>
-        when you<br>
-        can create it.
-      </h1>
+      <h1 class="hero-h1">Why predict<br><span class="dim">the future</span><br>when you<br>can create it.</h1>
     </div>
     <div class="hero-right">
-      <p class="hero-slogan">
-        We are passionate about creating homes for today's lifestyles combining innovative design with creative living spaces where the designs put the people first. Creating developments that respond to community values, where everyone can recognise their own homes from the way it looks, with place making that makes children and play more important than cars.
-      </p>
+      <p class="hero-slogan">We are passionate about creating homes for today's lifestyles combining innovative design with creative living spaces where the designs put the people first. Creating developments that respond to community values, where everyone can recognise their own homes from the way it looks, with place making that makes children and play more important than cars.</p>
       <div class="hero-ctas">
         <a href="#projects" class="hero-btn">View our work</a>
         <a href="#practice" class="hero-lnk">About us</a>
       </div>
     </div>
   </div>
-
-  <!-- Prev / Next arrows -->
   <div class="hero-controls" id="heroControls">
-    <div class="hero-ctrl" id="heroPrev">
-      <svg viewBox="0 0 12 12"><polyline points="8,2 4,6 8,10"/></svg>
-    </div>
-    <div class="hero-ctrl" id="heroNext">
-      <svg viewBox="0 0 12 12"><polyline points="4,2 8,6 4,10"/></svg>
-    </div>
+    <div class="hero-ctrl" id="heroPrev"><svg viewBox="0 0 12 12"><polyline points="8,2 4,6 8,10"/></svg></div>
+    <div class="hero-ctrl" id="heroNext"><svg viewBox="0 0 12 12"><polyline points="4,2 8,6 4,10"/></svg></div>
   </div>
-  <!-- Slide counter -->
   <div class="hero-counter" id="heroCounter"><span class="cur" id="heroCur">01</span> / 08</div>
-  <!-- Progress bar -->
   <div class="hero-progress"><div class="hero-progress-fill" id="heroFill"></div></div>
 </section>
 
@@ -1138,17 +468,9 @@ footer a:hover { color: var(--w); }
       <h2 class="rv d1">To deliver meaningful architecture is not to parody history, <span class="dim">but to articulate it.</span></h2>
     </div>
     <div class="about-nums rv d2">
-      <div class="stat">
-        <div class="n">33</div>
-        <div class="l">Years Experience</div>
-      </div>
-      <div class="stat">
-        <div class="n" style="font-size:28px;letter-spacing:.01em">Multi</div>
-        <div class="l">Disciplined</div>
-      </div>
-      <div class="stat stat-disciplines">
-        <div class="n">Architecture<br>BIM<br>Virtual Reality<br>3D Printing</div>
-      </div>
+      <div class="stat"><div class="n">33</div><div class="l">Years Experience</div></div>
+      <div class="stat"><div class="n" style="font-size:28px;letter-spacing:.01em">Multi</div><div class="l">Disciplined</div></div>
+      <div class="stat stat-disciplines"><div class="n">Architecture<br>BIM<br>Virtual Reality<br>3D Printing</div></div>
     </div>
   </div>
   <div class="about-r" id="practice-detail">
@@ -1174,79 +496,40 @@ footer a:hover { color: var(--w); }
     <a href="#projects">View all work</a>
   </div>
   <div class="proj-grid">
-
-    <!-- Project 1: large feature card -->
     <div class="pc rv" data-proj="0">
-      <img src="https://raw.githubusercontent.com/9s4pr6gvvk-bot/k-k/refs/heads/main/7%20(1).jpg" alt="A New Neighbourhood">
-      <div class="pc-info">
-        <p class="pc-type">Residential · Masterplan</p>
-        <h3 class="pc-title">A New Neighbourhood Shaped By The Spirit Of The Local Area</h3>
-        <p class="pc-loc">Knapton &amp; Knapton</p>
-      </div>
-      <div class="pc-arrow"><svg viewBox="0 0 12 12" fill="none" stroke="white" stroke-width="1.5"><path d="M2 6h8M6 2l4 4-4 4"/></svg></div>
+      <img src="https://raw.githubusercontent.com/9s4pr6gvvk-bot/k-k/refs/heads/main/3%20(2).jpg" alt="A New Neighbourhood">
+      <div class="pc-info"><p class="pc-type">Residential · Masterplan</p><h3 class="pc-title">A New Neighbourhood Shaped By The Spirit Of The Local Area</h3><p class="pc-loc">Knapton &amp; Knapton</p></div>
+      <div class="pc-tap"><span class="pc-tap-line">Learn More<svg viewBox="0 0 14 14"><path d="M2 7h10M7 2l5 5-5 5"/></svg></span></div><div class="pc-arrow"><svg viewBox="0 0 12 12" fill="none" stroke="white" stroke-width="1.5"><path d="M2 6h8M6 2l4 4-4 4"/></svg></div>
     </div>
-
-    <!-- Project 2: Offices to Apartments -->
     <div class="pc rv d1" data-proj="1">
       <img src="https://raw.githubusercontent.com/9s4pr6gvvk-bot/k-k/refs/heads/main/Enscape_2024-05-24-15-35-05.jpg" alt="Offices to Apartments">
-      <div class="pc-info">
-        <p class="pc-type">Conversion · Residential</p>
-        <h3 class="pc-title">Offices to Apartments</h3>
-        <p class="pc-loc">Knapton &amp; Knapton</p>
-      </div>
-      <div class="pc-arrow"><svg viewBox="0 0 12 12" fill="none" stroke="white" stroke-width="1.5"><path d="M2 6h8M6 2l4 4-4 4"/></svg></div>
+      <div class="pc-info"><p class="pc-type">Conversion · Residential</p><h3 class="pc-title">Offices to Apartments</h3><p class="pc-loc">Knapton &amp; Knapton</p></div>
+      <div class="pc-tap"><span class="pc-tap-line">Learn More<svg viewBox="0 0 14 14"><path d="M2 7h10M7 2l5 5-5 5"/></svg></span></div><div class="pc-arrow"><svg viewBox="0 0 12 12" fill="none" stroke="white" stroke-width="1.5"><path d="M2 6h8M6 2l4 4-4 4"/></svg></div>
     </div>
-
-    <!-- Project 3 -->
     <div class="pc rv d2" data-proj="2">
       <img src="https://raw.githubusercontent.com/9s4pr6gvvk-bot/k-k/refs/heads/main/3%20(2).jpg" alt="Residential Development">
-      <div class="pc-info">
-        <p class="pc-type">Residential · Masterplan</p>
-        <h3 class="pc-title">A New Neighbourhood</h3>
-        <p class="pc-loc">Knapton &amp; Knapton</p>
-      </div>
-      <div class="pc-arrow"><svg viewBox="0 0 12 12" fill="none" stroke="white" stroke-width="1.5"><path d="M2 6h8M6 2l4 4-4 4"/></svg></div>
+      <div class="pc-info"><p class="pc-type">Residential · Masterplan</p><h3 class="pc-title">A New Neighbourhood</h3><p class="pc-loc">Knapton &amp; Knapton</p></div>
+      <div class="pc-tap"><span class="pc-tap-line">Learn More<svg viewBox="0 0 14 14"><path d="M2 7h10M7 2l5 5-5 5"/></svg></span></div><div class="pc-arrow"><svg viewBox="0 0 12 12" fill="none" stroke="white" stroke-width="1.5"><path d="M2 6h8M6 2l4 4-4 4"/></svg></div>
     </div>
-
-    <!-- Project 4: Future Homes -->
     <div class="pc rv d1" data-proj="4">
       <img src="https://raw.githubusercontent.com/9s4pr6gvvk-bot/k-k/refs/heads/main/Plot%202%20HR.jpg" alt="Future Homes">
-      <div class="pc-info">
-        <p class="pc-type">Residential · Future Homes Standard</p>
-        <h3 class="pc-title">Future Homes</h3>
-        <p class="pc-loc">Knapton &amp; Knapton</p>
-      </div>
-      <div class="pc-arrow"><svg viewBox="0 0 12 12" fill="none" stroke="white" stroke-width="1.5"><path d="M2 6h8M6 2l4 4-4 4"/></svg></div>
+      <div class="pc-info"><p class="pc-type">Residential · Future Homes Standard</p><h3 class="pc-title">Future Homes</h3><p class="pc-loc">Knapton &amp; Knapton</p></div>
+      <div class="pc-tap"><span class="pc-tap-line">Learn More<svg viewBox="0 0 14 14"><path d="M2 7h10M7 2l5 5-5 5"/></svg></span></div><div class="pc-arrow"><svg viewBox="0 0 12 12" fill="none" stroke="white" stroke-width="1.5"><path d="M2 6h8M6 2l4 4-4 4"/></svg></div>
     </div>
-
-    <!-- Project 5: Super Home -->
     <div class="pc rv d2" data-proj="3">
       <img src="https://raw.githubusercontent.com/9s4pr6gvvk-bot/k-k/refs/heads/main/Enscape_2025-11-01-14-51-08.png" alt="Super Home">
-      <div class="pc-info">
-        <p class="pc-type">Luxury Residential · Bespoke</p>
-        <h3 class="pc-title">Super Home — 26,000 sqft</h3>
-        <p class="pc-loc">Knapton &amp; Knapton</p>
-      </div>
-      <div class="pc-arrow"><svg viewBox="0 0 12 12" fill="none" stroke="white" stroke-width="1.5"><path d="M2 6h8M6 2l4 4-4 4"/></svg></div>
+      <div class="pc-info"><p class="pc-type">Luxury Residential · Bespoke</p><h3 class="pc-title">Super Home — 26,000 sqft</h3><p class="pc-loc">Knapton &amp; Knapton</p></div>
+      <div class="pc-tap"><span class="pc-tap-line">Learn More<svg viewBox="0 0 14 14"><path d="M2 7h10M7 2l5 5-5 5"/></svg></span></div><div class="pc-arrow"><svg viewBox="0 0 12 12" fill="none" stroke="white" stroke-width="1.5"><path d="M2 6h8M6 2l4 4-4 4"/></svg></div>
     </div>
-
   </div>
 </section>
 
-<!-- PROJECT DETAIL PANEL -->
+<!-- PROJECT DETAIL -->
 <div class="proj-detail" id="projDetail">
   <div class="proj-detail-inner">
-    <button class="proj-detail-close" id="projDetailClose">
-      <svg viewBox="0 0 14 14"><path d="M1 1l12 12M13 1L1 13"/></svg>
-      Close
-    </button>
-
-    <!-- Content 0: A New Neighbourhood -->
+    <button class="proj-detail-close" id="projDetailClose"><svg viewBox="0 0 14 14"><path d="M1 1l12 12M13 1L1 13"/></svg> Close</button>
     <div class="proj-detail-content" id="projContent0">
-      <div class="proj-detail-left">
-        <p class="proj-detail-type">Residential · Masterplan</p>
-        <h2 class="proj-detail-title">A New Neighbourhood Shaped By The Spirit Of The Local Area</h2>
-      </div>
+      <div class="proj-detail-left"><p class="proj-detail-type">Residential · Masterplan</p><h2 class="proj-detail-title">A New Neighbourhood Shaped By The Spirit Of The Local Area</h2></div>
       <div class="proj-detail-right">
         <p>With this development Knapton &amp; Knapton is proposing more than just homes – we're proposing the creation of a community. The vision for the proposals will be to create a development that feels like it has evolved over time, from the feature entrance walls and railings over the water feature at the entrance, through to the character-led housing typologies proposed throughout the development.</p>
         <p>Sustainability underpins the design and its construction, its enhancement of the natural environment and through Knapton &amp; Knapton placemaking initiatives. The design of the homes, landscape and facilities centre on creating easily accessible and social spaces, rich with biodiversity and ecology. Cycle paths, trim trails and walkways encourage active and social lifestyles, providing links across the proposals to the wider green open spaces and the local town.</p>
@@ -1254,57 +537,35 @@ footer a:hover { color: var(--w); }
         <p>Two Formal Village Greens will provide wonderful places for residents to gather, with a traditionally inspired bandstand alongside landscaped areas and natural play areas. When combined, the placemaking initiatives will create what we believe will be an award-winning residential development, with a sense of place that is unrivalled in modern house building.</p>
       </div>
     </div>
-
-    <!-- Content 1: Offices to Apartments -->
     <div class="proj-detail-content" id="projContent1" style="display:none">
-      <div class="proj-detail-left">
-        <p class="proj-detail-type">Conversion · Residential</p>
-        <h2 class="proj-detail-title">Offices to Apartments</h2>
-      </div>
+      <div class="proj-detail-left"><p class="proj-detail-type">Conversion · Residential</p><h2 class="proj-detail-title">Offices to Apartments</h2></div>
       <div class="proj-detail-right">
         <p>Conversion of an existing two storey office building into high specification apartments, with a dramatic second floor penthouse addition. We used a sustainable architectural strategy that transformed this vacant commercial space into high-quality residential apartment units, featuring open-plan layouts, maximum natural light, and modern amenities.</p>
         <p>This process involved the redesigning of the floor plans, upgrading services for residential needs, and overcoming structural challenges to create comfortable, modern apartment layouts conforming with current NDSS standards — turning this once redundant building into places full of vibrant homes.</p>
       </div>
     </div>
-
-    <!-- Content 2: Generic neighbourhood -->
     <div class="proj-detail-content" id="projContent2" style="display:none">
-      <div class="proj-detail-left">
-        <p class="proj-detail-type">Residential · Masterplan</p>
-        <h2 class="proj-detail-title">A New Neighbourhood Shaped By The Spirit Of The Local Area</h2>
-      </div>
+      <div class="proj-detail-left"><p class="proj-detail-type">Residential · Masterplan</p><h2 class="proj-detail-title">A New Neighbourhood</h2></div>
       <div class="proj-detail-right">
-        <p>With this development Knapton &amp; Knapton is proposing more than just homes – we're proposing the creation of a community. The vision creates a development that feels like it has evolved over time, with character-led housing typologies that respect and celebrate the local vernacular.</p>
-        <p>Sustainability underpins the design and its construction, with placemaking initiatives centred on creating easily accessible and social spaces, rich with biodiversity and ecology, encouraging active and healthy lifestyles.</p>
+        <p>With this development Knapton &amp; Knapton is proposing more than just homes – we're proposing the creation of a community, with character-led housing typologies that respect and celebrate the local vernacular.</p>
+        <p>Sustainability underpins the design and its construction, with placemaking initiatives centred on creating easily accessible and social spaces, rich with biodiversity and ecology.</p>
       </div>
     </div>
-
-    <!-- Content 3: Super Home -->
     <div class="proj-detail-content" id="projContent3" style="display:none">
-      <div class="proj-detail-left">
-        <p class="proj-detail-type">Luxury Residential · Bespoke</p>
-        <h2 class="proj-detail-title">Super Home — 26,000 sqft</h2>
-      </div>
+      <div class="proj-detail-left"><p class="proj-detail-type">Luxury Residential · Bespoke</p><h2 class="proj-detail-title">Super Home — 26,000 sqft</h2></div>
       <div class="proj-detail-right">
-        <p>A 26,000 sqft Superhome designed to blend extreme sustainability — passive house standards — with high-end luxury, creating a design story that revolves around wellness, environmental harmony, and technological integration. The ambition is to achieve, from a guiding principle through inception to completion, the transformation of a functional brief into an emotional experience.</p>
-        <p>The house does not sit on the land; it grows from it. The design respects the site topography, integrating with it rather than battling it. Natural materials — local stone and timber — are used to ground the building, ensuring it feels like a continuation of the landscape. Portals and large glass panes are curated to frame views like scenes in a film, changing with the seasons.</p>
-        <p>The arrival is a process of shedding tension. The journey from the car, through a secure courtyard entrance, into a bright open-plan space creates an intentional emotional shift — a sensory entry sequence with a covered, quiet walkway leading to a dramatic, light-filled foyer.</p>
-        <p>There is a subtle spatial dialogue where public areas — living and dining — are expansive and social, transitioning into private, intimate spaces for retreat. The vertical connections are treated as sculptures, encouraging physical movement and changing perspectives of the home, linking and creating a central hub which makes sense of the proportions.</p>
+        <p>A 26,000 sqft Superhome designed to blend extreme sustainability — passive house standards — with high-end luxury, creating a design story that revolves around wellness, environmental harmony, and technological integration.</p>
+        <p>The house does not sit on the land; it grows from it. Natural materials — local stone and timber — are used to ground the building, ensuring it feels like a continuation of the landscape. Portals and large glass panes are curated to frame views like scenes in a film, changing with the seasons.</p>
+        <p>The arrival is a process of shedding tension. A sensory entry sequence leads to a dramatic, light-filled foyer. Public areas are expansive and social, transitioning into private, intimate spaces for retreat — with vertical connections treated as sculptures.</p>
       </div>
     </div>
-
-    <!-- Content 4: Future Homes -->
     <div class="proj-detail-content" id="projContent4" style="display:none">
-      <div class="proj-detail-left">
-        <p class="proj-detail-type">Residential · Future Homes Standard</p>
-        <h2 class="proj-detail-title">Future Homes</h2>
-      </div>
+      <div class="proj-detail-left"><p class="proj-detail-type">Residential · Future Homes Standard</p><h2 class="proj-detail-title">Future Homes</h2></div>
       <div class="proj-detail-right">
-        <p>New master house type range to keep ahead in a changing market. The Future Homes Building Regulation standard is evolving towards a regenerative narrative, where buildings do more than just shelter — they actively improve their environment, reducing energy usage by up to 80% and aiming for the Future Home Standard.</p>
-        <p>These homes adapt to changing demographics such as single-occupancy living, responding to the way people actually live today and into the future. The architectural narrative for 2026 focuses on blending natural, tactile materials — timber and stone — with advanced, invisible technology, moving away from purely sterile minimalism to create homes that feel both grounded and forward-looking.</p>
+        <p>New master house type range to keep ahead in a changing market. The Future Homes Building Regulation standard is evolving towards a regenerative narrative, where buildings actively improve their environment, reducing energy usage by up to 80%.</p>
+        <p>These homes adapt to changing demographics such as single-occupancy living, blending natural, tactile materials — timber and stone — with advanced, invisible technology, creating homes that feel both grounded and forward-looking.</p>
       </div>
     </div>
-
   </div>
 </div>
 
@@ -1317,15 +578,8 @@ footer a:hover { color: var(--w); }
     </div>
     <p class="rv d2">Our fundamental driver is the creation of modern, vibrant urban communities by combining forward thinking design with a people friendly environment. The defining word for the creation of peoples homes is choice, choice of elevation, choice of layout, choice in the mix of house types and choice in the way people want to live their lives.</p>
   </div>
-
-  <!-- Service: Residential -->
   <div class="svc-row rv">
-    <div class="svc-header">
-      <span class="svc-idx">i</span>
-      <span class="svc-title">Residential</span>
-      <div class="svc-tags"><span class="svc-tag-pill">New Build</span><span class="svc-tag-pill">Extensions</span></div>
-      <div class="svc-toggle"><svg viewBox="0 0 10 10"><line x1="5" y1="1" x2="5" y2="9"/><line x1="1" y1="5" x2="9" y2="5"/></svg></div>
-    </div>
+    <div class="svc-header"><span class="svc-idx">i</span><span class="svc-title">Residential</span><div class="svc-tags"><span class="svc-tag-pill">New Build</span><span class="svc-tag-pill">Extensions</span></div><div class="svc-toggle"><svg viewBox="0 0 10 10"><line x1="5" y1="1" x2="5" y2="9"/><line x1="1" y1="5" x2="9" y2="5"/></svg></div></div>
     <div class="svc-panel">
       <div class="svc-panel-text">
         <p>At Knapton &amp; Knapton we are passionate about good buildings and the spaces in between. But we know that unless our internal and external team of experts truly engage with design, these buildings and spaces become inert, unloved and engage no one.</p>
@@ -1338,20 +592,13 @@ footer a:hover { color: var(--w); }
       <div class="svc-panel-img"><img src="https://raw.githubusercontent.com/9s4pr6gvvk-bot/k-k/refs/heads/main/Residential.jpg" alt="Residential"></div>
     </div>
   </div>
-
-  <!-- Service: BIM -->
   <div class="svc-row rv d1">
-    <div class="svc-header">
-      <span class="svc-idx">iii</span>
-      <span class="svc-title">BIM — Building Information Modelling</span>
-      <div class="svc-tags"><span class="svc-tag-pill">Digital</span><span class="svc-tag-pill">Coordination</span></div>
-      <div class="svc-toggle"><svg viewBox="0 0 10 10"><line x1="5" y1="1" x2="5" y2="9"/><line x1="1" y1="5" x2="9" y2="5"/></svg></div>
-    </div>
+    <div class="svc-header"><span class="svc-idx">ii</span><span class="svc-title">BIM — Building Information Modelling</span><div class="svc-tags"><span class="svc-tag-pill">Digital</span><span class="svc-tag-pill">Coordination</span></div><div class="svc-toggle"><svg viewBox="0 0 10 10"><line x1="5" y1="1" x2="5" y2="9"/><line x1="1" y1="5" x2="9" y2="5"/></svg></div></div>
     <div class="svc-panel">
       <div class="svc-panel-text">
-        <p><strong>When did it all begin</strong>For over 15 years Knapton and Knapton has developed the use of Building Information Modelling software to deliver projects. We now use this software platform to deliver all projects within the office, even in situations where the client has not requested BIM it is our preferred software platform.</p>
-        <p><strong>What does it mean</strong>Throughout this time we have become market leaders with our considerable knowledge, intellect and expertise in the use and application of BIM software in the working environment. Some people mistakenly think of BIM as just a new variety of software drawing package. BIM is actually a process that relies on information-rich models. Project teams can use information contained in the BIM models to perform a variety of complementary tasks, including energy or environmental analysis, visualisation, construction simulation and improving the accuracy of documentation.</p>
-        <p><strong>Value added</strong>Early access to the rich information in the models helps stakeholders on the project team gain more insight into their projects. As a result, the team can make more informed decisions much earlier in the planning, design, construction, or renovation process when decisions can have the greatest impact on project cost, schedule, and sustainability.</p>
+        <p><strong>When did it all begin</strong><br>For over 15 years Knapton and Knapton has developed the use of Building Information Modelling software to deliver projects. We now use this software platform to deliver all projects within the office, even in situations where the client has not requested BIM it is our preferred software platform.</p>
+        <p><strong>What does it mean</strong><br>Throughout this time we have become market leaders with our considerable knowledge, intellect and expertise in the use and application of BIM software in the working environment. Some people mistakenly think of BIM as just a new variety of software drawing package. BIM is actually a process that relies on information-rich models. Project teams can use information contained in the BIM models to perform a variety of complementary tasks, including energy or environmental analysis, visualisation, construction simulation and improving the accuracy of documentation.</p>
+        <p><strong>Value added</strong><br>Early access to the rich information in the models helps stakeholders on the project team gain more insight into their projects. As a result, the team can make more informed decisions much earlier in the planning, design, construction, or renovation process when decisions can have the greatest impact on project cost, schedule, and sustainability. To realise these benefits it is imperative that BIM standards are set up early and accurately and adhered to.</p>
         <p><strong>What we do well</strong></p>
         <ul class="svc-bullets">
           <li>Content creation — Families and Materials</li>
@@ -1368,29 +615,19 @@ footer a:hover { color: var(--w); }
         </div>
         <div class="bim-nav">
           <button class="bim-btn" id="bimPrev"><svg viewBox="0 0 12 12"><path d="M8 2L4 6l4 4"/></svg></button>
-          <div class="bim-dots">
-            <span class="bim-dot active" data-i="0"></span>
-            <span class="bim-dot" data-i="1"></span>
-          </div>
+          <div class="bim-dots"><span class="bim-dot active" data-i="0"></span><span class="bim-dot" data-i="1"></span></div>
           <button class="bim-btn" id="bimNext"><svg viewBox="0 0 12 12"><path d="M4 2l4 4-4 4"/></svg></button>
         </div>
       </div>
     </div>
   </div>
-
-  <!-- Service: VR -->
   <div class="svc-row rv d2">
-    <div class="svc-header">
-      <span class="svc-idx">iv</span>
-      <span class="svc-title">V.R. — Virtual Reality</span>
-      <div class="svc-tags"><span class="svc-tag-pill">Visualisation</span><span class="svc-tag-pill">Client Experience</span></div>
-      <div class="svc-toggle"><svg viewBox="0 0 10 10"><line x1="5" y1="1" x2="5" y2="9"/><line x1="1" y1="5" x2="9" y2="5"/></svg></div>
-    </div>
+    <div class="svc-header"><span class="svc-idx">iii</span><span class="svc-title">V.R. — Virtual Reality</span><div class="svc-tags"><span class="svc-tag-pill">Visualisation</span><span class="svc-tag-pill">Client Experience</span></div><div class="svc-toggle"><svg viewBox="0 0 10 10"><line x1="5" y1="1" x2="5" y2="9"/><line x1="1" y1="5" x2="9" y2="5"/></svg></div></div>
     <div class="svc-panel">
       <div class="svc-panel-text">
-        <p><strong>Why V.R.?</strong>The introduction of the V.R. platform within the company was born out of a need for us to be able to give our clients a high level of 3D visual information that we had access to via the BIM platform. The problem with the BIM platform is the specialist nature of the operating hardware, and we needed to find a 3D software system that was less demanding.</p>
-        <p><strong>How it works</strong>Using the BIM 3D model created for Planning and construction provides opportunities for better understanding of projects through accurate technical 3D visualisation. Through the development of a software bridge we are able to import technically accurate models into the V.R. package, allowing us to create accessible real time 3D models for our clients. This allows the client to explore the 3D environment in real time with ease.</p>
-        <p><strong>What are the results?</strong>VR software, unlike traditional visualisation methods, provides the possibility of fast still and moving HD image production and even real time exploration of sites directly from the planning or construction information without the need for render farms and weeks of expensive computer processing time. Marketing teams benefit from a vast amount of 3D images and animations giving them the opportunity to engage at pre-build stage with potential clients.</p>
+        <p><strong>Why V.R.? Virtual Reality</strong><br>The introduction of the V.R. platform within the company was born out of a need for us to be able to give our clients a high level of 3D visual information that we had access to via the BIM platform. The problem with the BIM platform is the specialist nature of the operating hardware, and we needed to find a 3D software system that was less demanding.</p>
+        <p><strong>How it works</strong><br>Using the BIM 3D model created for Planning and construction provides opportunities for better understanding of projects through accurate technical 3D visualisation. Through the development of a software bridge we are able to import technically accurate models into the V.R. package, allowing us to create accessible real time 3D models for our clients. This allows the client to explore the 3D environment in real time with ease.</p>
+        <p><strong>What are the results?</strong><br>VR software, unlike traditional visualisation methods provides the possibility of fast still and moving HD image production and even real time exploration of sites directly from the planning or construction information without the need for render farms and weeks of expensive computer processing time. This proves invaluable for project team members and stakeholders to gain a greater understanding of the project and spot issues or opportunities early in the process before it is too late to make amendments. Marketing teams benefit from a vast amount of 3D images and animations giving them the opportunity to engage at pre build stage with potential clients.</p>
         <a href="#contact">Get in touch →</a>
       </div>
       <div class="svc-panel-img bim-carousel" id="vrCarouselWrap">
@@ -1400,24 +637,14 @@ footer a:hover { color: var(--w); }
         </div>
         <div class="bim-nav">
           <button class="bim-btn" id="vrPrev"><svg viewBox="0 0 12 12"><path d="M8 2L4 6l4 4"/></svg></button>
-          <div class="bim-dots">
-            <span class="bim-dot active" data-i="0" data-carousel="vr"></span>
-            <span class="bim-dot" data-i="1" data-carousel="vr"></span>
-          </div>
+          <div class="bim-dots"><span class="bim-dot active" data-i="0" data-carousel="vr"></span><span class="bim-dot" data-i="1" data-carousel="vr"></span></div>
           <button class="bim-btn" id="vrNext"><svg viewBox="0 0 12 12"><path d="M4 2l4 4-4 4"/></svg></button>
         </div>
       </div>
     </div>
   </div>
-
-  <!-- Service: 3D Printing -->
   <div class="svc-row rv d2">
-    <div class="svc-header">
-      <span class="svc-idx">v</span>
-      <span class="svc-title">3D Printing</span>
-      <div class="svc-tags"><span class="svc-tag-pill">Models</span><span class="svc-tag-pill">Prototyping</span></div>
-      <div class="svc-toggle"><svg viewBox="0 0 10 10"><line x1="5" y1="1" x2="5" y2="9"/><line x1="1" y1="5" x2="9" y2="5"/></svg></div>
-    </div>
+    <div class="svc-header"><span class="svc-idx">iv</span><span class="svc-title">3D Printing</span><div class="svc-tags"><span class="svc-tag-pill">Models</span><span class="svc-tag-pill">Prototyping</span></div><div class="svc-toggle"><svg viewBox="0 0 10 10"><line x1="5" y1="1" x2="5" y2="9"/><line x1="1" y1="5" x2="9" y2="5"/></svg></div></div>
     <div class="svc-panel">
       <div class="svc-panel-text">
         <p>3D printed architectural models are physical, scaled representations of building designs created using additive manufacturing, offering high precision, speed, and cost-effective alternatives to manual modelling. They are crucial for visualizing complex geometries, communicating concepts to clients, and conducting site analysis, typically using materials like PLA or resin to show intricate details, structures, and site context.</p>
@@ -1449,33 +676,27 @@ footer a:hover { color: var(--w); }
     <a href="#news">All news</a>
   </div>
   <div class="news-grid">
-
     <div class="nc rv">
       <span class="nc-date">April 2026</span>
       <span class="nc-tag">Mega Mansion</span>
       <h3>Plans submitted for 26,000 sqft super home in Menston</h3>
     </div>
-
     <div class="nc rv d1">
       <span class="nc-date">May 2026</span>
       <span class="nc-tag">Future Homes</span>
       <h3>New master house range commission for national house builder</h3>
     </div>
-
     <div class="nc rv d2">
       <span class="nc-date">May 2026</span>
       <span class="nc-tag">BIM Wins</span>
       <h3>National house builder takes BIM forward on housing development</h3>
     </div>
-
   </div>
 </section>
 
 <!-- CTA / CONTACT -->
 <section class="cta" id="contact">
   <div class="cta-inner">
-
-    <!-- Left: heading + contact details -->
     <div class="cta-left rv">
       <h2>Start A<br><span class="dim">Conversation.</span></h2>
       <div class="cta-meta">
@@ -1483,34 +704,18 @@ footer a:hover { color: var(--w); }
         <a href="tel:01422380047">01422 380 047</a>
         <a href="https://www.linkedin.com/company/knapton-and-knapton-architects" target="_blank" rel="noopener">LinkedIn</a>
       </div>
+      <address class="cta-address">D143, D Mill<br>Dean Clough Mills<br>Halifax, HX3 5AX</address>
     </div>
-
-    <!-- Right: contact form (replace YOUR_FORMSPREE_ID with your Formspree endpoint) -->
     <div class="rv d1">
       <form class="cta-form" action="https://formspree.io/YOUR_FORMSPREE_ID" method="POST">
-
         <div class="cf-row">
-          <div class="cf-field">
-            <label for="cf-name">Name</label>
-            <input type="text" id="cf-name" name="name" placeholder="Your name" required>
-          </div>
-          <div class="cf-field">
-            <label for="cf-company">Company</label>
-            <input type="text" id="cf-company" name="company" placeholder="Company (optional)">
-          </div>
+          <div class="cf-field"><label for="cf-name">Name</label><input type="text" id="cf-name" name="name" placeholder="Your name" required></div>
+          <div class="cf-field"><label for="cf-company">Company</label><input type="text" id="cf-company" name="company" placeholder="Company (optional)"></div>
         </div>
-
         <div class="cf-row">
-          <div class="cf-field">
-            <label for="cf-email">Email</label>
-            <input type="email" id="cf-email" name="email" placeholder="your@email.com" required>
-          </div>
-          <div class="cf-field">
-            <label for="cf-phone">Phone</label>
-            <input type="tel" id="cf-phone" name="phone" placeholder="Optional">
-          </div>
+          <div class="cf-field"><label for="cf-email">Email</label><input type="email" id="cf-email" name="email" placeholder="your@email.com" required></div>
+          <div class="cf-field"><label for="cf-phone">Phone</label><input type="tel" id="cf-phone" name="phone" placeholder="Optional"></div>
         </div>
-
         <div class="cf-field full">
           <label for="cf-service">Service</label>
           <select id="cf-service" name="service">
@@ -1524,19 +729,17 @@ footer a:hover { color: var(--w); }
             <option>Other</option>
           </select>
         </div>
-
-        <div class="cf-field full">
-          <label for="cf-message">Message</label>
-          <textarea id="cf-message" name="message" rows="4" placeholder="Tell us about your project…" required></textarea>
-        </div>
-
+        <div class="cf-field full"><label for="cf-message">Message</label><textarea id="cf-message" name="message" rows="4" placeholder="Tell us about your project…" required></textarea></div>
         <button type="submit" class="cf-submit">Send Enquiry</button>
         <p class="cf-note">We aim to respond within one working day.</p>
-
       </form>
     </div>
-
   </div>
+</section>
+
+<!-- IMAGINATION QUOTE -->
+<section class="imagination-quote">
+  <h2 class="iq-text rv">An Idea Is<br><span class="iq-dim">Salvation By</span><br>Imagination.</h2>
 </section>
 
 <!-- FOOTER -->
@@ -1544,24 +747,31 @@ footer a:hover { color: var(--w); }
   <div class="ft">
     <div>
       <p class="ft-sub">Independent architects at Dean Clough Mills, Halifax. Designing buildings that belong since 1993.</p>
+      <div class="ft-social">
+        <a href="https://www.linkedin.com/company/knapton-and-knapton-architects" target="_blank" rel="noopener" aria-label="LinkedIn">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.95v5.66H9.35V9h3.41v1.56h.05c.48-.9 1.63-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.07 2.07 0 110-4.14 2.07 2.07 0 010 4.14zM7.12 20.45H3.56V9h3.56v11.45z"/></svg>
+        </a>
+        <a href="https://x.com" target="_blank" rel="noopener" aria-label="X (Twitter)">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.24 3h3.17l-6.93 7.92L22.5 21h-6.38l-5-6.54L5.15 21H1.98l7.41-8.47L1.5 3h6.54l4.52 5.98L18.24 3zm-1.11 16.2h1.76L6.96 4.82H5.08l12.05 14.38z"/></svg>
+        </a>
+      </div>
     </div>
     <div>
       <h4>Services</h4>
       <ul>
-        <li><a href="#">Residential</a></li>
-        <li><a href="#">Heritage</a></li>
-        <li><a href="#">Civic &amp; Education</a></li>
-        <li><a href="#">Planning</a></li>
+        <li><a href="#services">Residential</a></li>
+        <li><a href="#services">BIM</a></li>
+        <li><a href="#services">Virtual Reality</a></li>
+        <li><a href="#services">3D Printing</a></li>
       </ul>
     </div>
     <div>
       <h4>Practice</h4>
       <ul>
-        <li><a href="#">About</a></li>
-        <li><a href="#">Projects</a></li>
-        <li><a href="#">Approach</a></li>
-        <li><a href="#">News</a></li>
-        <li><a href="#">Careers</a></li>
+        <li><a href="#practice">About</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#news">News</a></li>
+        <li><a href="#contact">Careers</a></li>
       </ul>
     </div>
     <div>
@@ -1580,164 +790,85 @@ footer a:hover { color: var(--w); }
   </div>
 </footer>
 
-</div><!-- /#main -->
+</div>
 
 <script>
-/* ══════════════════════════════════
-   INTRO → MAIN CROSSFADE
-══════════════════════════════════ */
-const intro = document.getElementById('intro');
-const main  = document.getElementById('main');
-setTimeout(() => {
-  intro.classList.add('out');
-  main.classList.add('show');
-  setTimeout(() => intro.classList.add('done'), 1300);
-}, 2600);
+/* INTRO */
+const intro = document.getElementById('intro'), main = document.getElementById('main');
+setTimeout(() => { intro.classList.add('out'); main.classList.add('show'); setTimeout(() => intro.classList.add('done'), 1300); }, 2600);
 
-/* ══════════════════════════════════
-   HERO — 8-image crossfade
-══════════════════════════════════ */
-const heroImgs   = document.querySelectorAll('.hero-img');
-const heroCurEl  = document.getElementById('heroCur');
-const heroFill   = document.getElementById('heroFill');
-const heroPrevBtn = document.getElementById('heroPrev');
-const heroNextBtn = document.getElementById('heroNext');
-const TOTAL      = heroImgs.length; // 8
-const DURATION   = 5000;
+/* HERO */
+const heroImgs = document.querySelectorAll('.hero-img');
+const heroCurEl = document.getElementById('heroCur');
+const heroFill = document.getElementById('heroFill');
+const TOTAL = heroImgs.length, DURATION = 5000;
 let heroIdx = 0, heroTimer, progRAF, progStart;
-
-function pad(n){ return n < 10 ? '0' + n : '' + n; }
-
+function pad(n){ return n < 10 ? '0'+n : ''+n; }
 function heroGo(idx) {
   heroImgs[heroIdx].classList.remove('active');
   heroIdx = (idx + TOTAL) % TOTAL;
   heroImgs[heroIdx].classList.add('active');
   heroCurEl.textContent = pad(heroIdx + 1);
-  startHeroProgress();
-}
-
-function startHeroProgress() {
   cancelAnimationFrame(progRAF);
   progStart = performance.now();
-  function tick(now) {
-    const pct = Math.min((now - progStart) / DURATION * 100, 100);
-    heroFill.style.width = pct + '%';
-    if (pct < 100) progRAF = requestAnimationFrame(tick);
-  }
+  function tick(now) { const p = Math.min((now-progStart)/DURATION*100,100); heroFill.style.width=p+'%'; if(p<100) progRAF=requestAnimationFrame(tick); }
   progRAF = requestAnimationFrame(tick);
 }
+function startHeroTimer() { clearInterval(heroTimer); heroTimer = setInterval(() => heroGo(heroIdx+1), DURATION); }
+document.getElementById('heroPrev').addEventListener('click', () => { heroGo(heroIdx-1); startHeroTimer(); });
+document.getElementById('heroNext').addEventListener('click', () => { heroGo(heroIdx+1); startHeroTimer(); });
+heroGo(0); startHeroTimer();
 
-function startHeroTimer() {
-  clearInterval(heroTimer);
-  heroTimer = setInterval(() => heroGo(heroIdx + 1), DURATION);
-}
-
-heroPrevBtn.addEventListener('click', () => { heroGo(heroIdx - 1); startHeroTimer(); });
-heroNextBtn.addEventListener('click', () => { heroGo(heroIdx + 1); startHeroTimer(); });
-
-heroImgs[0].classList.add('active');
-startHeroProgress();
-startHeroTimer();
-
-/* ══════════════════════════════════
-   BIM CAROUSEL
-══════════════════════════════════ */
+/* BIM CAROUSEL */
 const bimTrack = document.getElementById('bimTrack');
-const bimDots  = document.querySelectorAll('.bim-dot:not([data-carousel])');
+const bimDots = document.querySelectorAll('.bim-dot:not([data-carousel])');
 let bimIdx = 0;
+function bimGo(i) { bimIdx=i; bimTrack.style.transform='translateX(-'+(i*50)+'%)'; bimDots.forEach((d,j)=>d.classList.toggle('active',j===i)); }
+document.getElementById('bimNext').addEventListener('click',()=>bimGo(bimIdx===0?1:0));
+document.getElementById('bimPrev').addEventListener('click',()=>bimGo(bimIdx===0?1:0));
+bimDots.forEach(d=>d.addEventListener('click',()=>bimGo(+d.dataset.i)));
+setInterval(()=>{ if(document.querySelector('.svc-row.open .bim-carousel #bimTrack')) bimGo(bimIdx===0?1:0); },4000);
 
-function bimGo(idx) {
-  bimIdx = idx;
-  bimTrack.style.transform = 'translateX(-' + (idx * 50) + '%)';
-  bimDots.forEach((d, i) => d.classList.toggle('active', i === idx));
-}
-document.getElementById('bimNext').addEventListener('click', () => bimGo(bimIdx === 0 ? 1 : 0));
-document.getElementById('bimPrev').addEventListener('click', () => bimGo(bimIdx === 0 ? 1 : 0));
-bimDots.forEach(d => d.addEventListener('click', () => bimGo(+d.dataset.i)));
-setInterval(() => {
-  const bimRow = document.querySelector('.svc-row.open .bim-carousel #bimTrack');
-  if (bimRow) bimGo(bimIdx === 0 ? 1 : 0);
-}, 4000);
-
-/* ══════════════════════════════════
-   VR CAROUSEL
-══════════════════════════════════ */
+/* VR CAROUSEL */
 const vrTrack = document.getElementById('vrTrack');
-const vrDots  = document.querySelectorAll('.bim-dot[data-carousel="vr"]');
+const vrDots = document.querySelectorAll('.bim-dot[data-carousel="vr"]');
 let vrIdx = 0;
+function vrGo(i) { vrIdx=i; vrTrack.style.transform='translateX(-'+(i*50)+'%)'; vrDots.forEach((d,j)=>d.classList.toggle('active',j===i)); }
+document.getElementById('vrNext').addEventListener('click',()=>vrGo(vrIdx===0?1:0));
+document.getElementById('vrPrev').addEventListener('click',()=>vrGo(vrIdx===0?1:0));
+vrDots.forEach(d=>d.addEventListener('click',()=>vrGo(+d.dataset.i)));
+setInterval(()=>vrGo(vrIdx===0?1:0),4500);
 
-function vrGo(idx) {
-  vrIdx = idx;
-  vrTrack.style.transform = 'translateX(-' + (idx * 50) + '%)';
-  vrDots.forEach((d, i) => d.classList.toggle('active', i === idx));
-}
-document.getElementById('vrNext').addEventListener('click', () => vrGo(vrIdx === 0 ? 1 : 0));
-document.getElementById('vrPrev').addEventListener('click', () => vrGo(vrIdx === 0 ? 1 : 0));
-vrDots.forEach(d => d.addEventListener('click', () => vrGo(+d.dataset.i)));
-setInterval(() => {
-  if (document.getElementById('vrCarouselWrap')) vrGo(vrIdx === 0 ? 1 : 0);
-}, 4500);
-
-/* ══════════════════════════════════
-   PROJECT DETAIL PANEL
-══════════════════════════════════ */
-const projDetail      = document.getElementById('projDetail');
-const projDetailClose = document.getElementById('projDetailClose');
-const allContents     = [
-  document.getElementById('projContent0'),
-  document.getElementById('projContent1'),
-  document.getElementById('projContent2'),
-  document.getElementById('projContent3'),
-  document.getElementById('projContent4')
-];
-
+/* PROJECT DETAIL */
+const projDetail = document.getElementById('projDetail');
+const allContents = [0,1,2,3,4].map(i=>document.getElementById('projContent'+i));
 document.querySelectorAll('.pc').forEach(card => {
   card.addEventListener('click', () => {
-    const idx = parseInt(card.dataset.proj, 10) || 0;
-    allContents.forEach((c, i) => { c.style.display = i === idx ? 'grid' : 'none'; });
+    const idx = parseInt(card.dataset.proj,10)||0;
+    allContents.forEach((c,i)=>{ c.style.display = i===idx?'grid':'none'; });
     projDetail.classList.add('open');
-    setTimeout(() => projDetail.scrollIntoView({ behavior: 'smooth', block: 'start' }), 50);
+    setTimeout(()=>projDetail.scrollIntoView({behavior:'smooth',block:'start'}),50);
+  });
+});
+document.getElementById('projDetailClose').addEventListener('click',()=>projDetail.classList.remove('open'));
+
+/* SCROLL REVEAL */
+const obs = new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('vis');}),{threshold:0.04,rootMargin:'0px 0px -40px 0px'});
+document.querySelectorAll('.rv').forEach(el=>obs.observe(el));
+
+/* SERVICES ACCORDION */
+document.querySelectorAll('.svc-row').forEach(row=>{
+  row.querySelector('.svc-header').addEventListener('click',()=>{
+    const open=row.classList.contains('open');
+    document.querySelectorAll('.svc-row.open').forEach(r=>r.classList.remove('open'));
+    if(!open) row.classList.add('open');
   });
 });
 
-projDetailClose.addEventListener('click', () => projDetail.classList.remove('open'));
-
-/* ══════════════════════════════════
-   SCROLL REVEAL
-══════════════════════════════════ */
-const obs = new IntersectionObserver(entries => {
-  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('vis'); });
-}, { threshold: 0.04, rootMargin: '0px 0px -40px 0px' });
-document.querySelectorAll('.rv').forEach(el => obs.observe(el));
-
-/* ══════════════════════════════════
-   SERVICES ACCORDION
-══════════════════════════════════ */
-document.querySelectorAll('.svc-row').forEach(row => {
-  row.querySelector('.svc-header').addEventListener('click', () => {
-    const isOpen = row.classList.contains('open');
-    document.querySelectorAll('.svc-row.open').forEach(r => r.classList.remove('open'));
-    if (!isOpen) row.classList.add('open');
-  });
-});
-
-/* ══════════════════════════════════
-   MOBILE BURGER MENU
-══════════════════════════════════ */
-const burger     = document.getElementById('burger');
-const mobileMenu = document.getElementById('mobileMenu');
-
-burger.addEventListener('click', () => {
-  const open = mobileMenu.classList.toggle('open');
-  burger.classList.toggle('open', open);
-  document.body.style.overflow = open ? 'hidden' : '';
-});
-
-function closeMenu() {
-  mobileMenu.classList.remove('open');
-  burger.classList.remove('open');
-  document.body.style.overflow = '';
-}
+/* BURGER MENU */
+const burger=document.getElementById('burger'), mobileMenu=document.getElementById('mobileMenu');
+burger.addEventListener('click',()=>{ const o=mobileMenu.classList.toggle('open'); burger.classList.toggle('open',o); document.body.style.overflow=o?'hidden':''; });
+function closeMenu(){ mobileMenu.classList.remove('open'); burger.classList.remove('open'); document.body.style.overflow=''; }
 </script>
 </body>
 </html>
