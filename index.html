@@ -211,13 +211,16 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 500; display: flex; a
 .plb-close {
   position: absolute; top: 24px; right: 32px; z-index: 10;
   display: flex; align-items: center; gap: 8px;
-  font-family: var(--sans); font-size: 8px; font-weight: 300;
-  letter-spacing: .28em; text-transform: uppercase;
-  color: rgba(255,255,255,.4); background: none; border: none; cursor: pointer;
-  transition: color .2s; padding: 8px 0;
+  font-family: var(--sans); font-size: 8px; font-weight: 400;
+  letter-spacing: .22em; text-transform: uppercase;
+  color: rgba(255,255,255,.9); background: rgba(0,0,0,.55);
+  border: 1px solid rgba(255,255,255,.15);
+  backdrop-filter: blur(8px);
+  padding: 9px 16px; cursor: pointer;
+  transition: background .2s, color .2s;
 }
-.plb-close:hover { color: var(--w); }
-.plb-close svg { width: 13px; height: 13px; stroke: currentColor; fill: none; stroke-width: 1.4; }
+.plb-close:hover { background: rgba(0,0,0,.8); color: var(--w); }
+.plb-close svg { width: 11px; height: 11px; stroke: currentColor; fill: none; stroke-width: 1.6; }
 
 /* Project index — top left */
 .plb-index {
@@ -255,15 +258,17 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 500; display: flex; a
 /* ── LIGHTBOX BOTTOM LAYOUT ── */
 
 /* Permanent gradient at bottom — always present */
+/* Permanent bottom gradient — tight to text area */
 .plb-bottom-grad {
   position: absolute; bottom: 0; left: 0; right: 0; z-index: 2;
-  height: 55%; pointer-events: none;
+  height: 45%; pointer-events: none;
   background: linear-gradient(to top,
-    rgba(4,4,4,.95) 0%,
-    rgba(4,4,4,.7) 30%,
-    rgba(4,4,4,.25) 65%,
+    rgba(4,4,4,.92) 0%,
+    rgba(4,4,4,.6) 28%,
+    rgba(4,4,4,.15) 58%,
     transparent 100%
   );
+  transition: height .55s cubic-bezier(.16,1,.3,1);
 }
 
 /* Bottom UI — two columns, always at bottom */
@@ -301,22 +306,44 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 500; display: flex; a
 .plb-read-more .plb-rm-txt::before { content: 'Read More'; }
 .plb-read-more.open .plb-rm-txt::before { content: 'Close'; }
 
-/* Right column — copy fades in, no movement */
+/* Right column — has own scrim, fades in */
 .plb-copy-right {
   min-width: 0;
   opacity: 0;
   transform: translateY(10px);
   transition: opacity .5s cubic-bezier(.22,1,.36,1), transform .5s cubic-bezier(.22,1,.36,1);
   pointer-events: none;
+  position: relative;
+  padding: 28px 0 0 28px;
+}
+/* Dark scrim only behind the text column */
+.plb-copy-right::before {
+  content: '';
+  position: absolute;
+  inset: -40px -24px -200px -40px;
+  background: linear-gradient(135deg,
+    rgba(4,4,4,.82) 0%,
+    rgba(4,4,4,.65) 50%,
+    rgba(4,4,4,.2) 100%
+  );
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity .5s cubic-bezier(.22,1,.36,1);
+  z-index: -1;
+  border-radius: 0;
 }
 .plb-copy.expanded .plb-copy-right {
   opacity: 1;
   transform: translateY(0);
   pointer-events: all;
 }
+.plb-copy.expanded .plb-copy-right::before { opacity: 1; }
+/* Also grow the bottom grad when expanded */
+.plb-copy.expanded + .plb-bottom-grad,
+.proj-lightbox .plb-copy.expanded ~ .plb-bottom-grad { height: 58%; }
 .plb-body p {
-  font-family: var(--sans); font-size: 13px; font-weight: 300;
-  line-height: 1.85; color: rgba(255,255,255,.62); letter-spacing: .01em;
+  font-family: var(--sans); font-size: 14px; font-weight: 300;
+  line-height: 1.85; color: rgba(255,255,255,.82); letter-spacing: .01em;
   margin-bottom: 14px;
 }
 .plb-body p:last-child { margin-bottom: 0; }
@@ -808,11 +835,14 @@ footer a:hover { color: var(--w); }
     </div>
 
     <!-- Project 2: top-right — blank/coming soon -->
-    <div class="pc rv d2" data-proj="2" style="background:#1c1c1c;">
-      <div class="pc-info" style="opacity:1;background:none;justify-content:center;align-items:center;text-align:center;">
-        <p class="pc-type" style="margin-bottom:0;color:rgba(255,255,255,.18);font-size:8px;letter-spacing:.3em;">Coming Soon</p>
+    <div class="pc rv d2" data-proj="2">
+      <img src="https://raw.githubusercontent.com/9s4pr6gvvk-bot/k-k/refs/heads/main/Rosebury%20Det%20As%20Style%20000%20-%20Issue%202%20-%20Sheet%20-%20033%20-%203D%20Exploded%20View.jpg" alt="National House Builder BIM">
+      <div class="pc-info">
+        <p class="pc-type">CAD to BIM</p>
+        <h3 class="pc-title">National House Builder BIM Master House Type Range</h3>
       </div>
-      <div class="pc-tap" style="display:none;"></div>
+      <div class="pc-tap"><span class="pc-tap-line">Learn More <svg viewBox="0 0 14 14"><path d="M2 7h10M7 2l5 5-5 5"/></svg></span></div>
+      <div class="pc-arrow"><svg viewBox="0 0 12 12" fill="none" stroke="white" stroke-width="1.5"><path d="M2 6h8M6 2l4 4-4 4"/></svg></div>
     </div>
 
     <!-- Project 4: Future Homes -->
@@ -1124,7 +1154,7 @@ footer a:hover { color: var(--w); }
         <li><a href="#practice">About</a></li>
         <li><a href="#projects">Projects</a></li>
         <li><a href="#news">News</a></li>
-        <li><a href="#contact">Careers</a></li>
+        <li><a href="#contact">Contact</a></li>
       </ul>
     </div>
     <div>
@@ -1217,7 +1247,19 @@ const projects = [
     images: ['https://raw.githubusercontent.com/9s4pr6gvvk-bot/k-k/refs/heads/main/Enscape_2024-05-24-15-35-05.jpg'],
     copy: ['Conversion of an existing two storey office buildings into high specification apartments, with a dramatic second floor penthouse addition. We used a sustainable architectural strategy that transformed this vacant commercial space into a high-quality residential apartment units, featuring open-plan layouts, maximum natural light, and modern amenities.','This process involved the redesigning of the floor plans, upgrading services for residential needs, and overcoming structural challenges to create comfortable, modern apartment layouts conforming with current NDSS standards and turning this once redundant building into places full of vibrant homes.']
   },
-  { label: 'Coming Soon', title: 'New Project', images: [], copy: ['Details coming soon.'] },
+  {
+    label: 'CAD to BIM',
+    title: 'National House Builder BIM Master House Type Range',
+    images: [
+      'https://raw.githubusercontent.com/9s4pr6gvvk-bot/k-k/refs/heads/main/Rosebury%20Det%20As%20Style%20000%20-%20Issue%202%20-%20Sheet%20-%20033%20-%203D%20Exploded%20View.jpg',
+      'https://raw.githubusercontent.com/9s4pr6gvvk-bot/k-k/refs/heads/main/02.JPG',
+      'https://raw.githubusercontent.com/9s4pr6gvvk-bot/k-k/refs/heads/main/09.JPG',
+      'https://raw.githubusercontent.com/9s4pr6gvvk-bot/k-k/refs/heads/main/BAUDRIFTWOOD.jpg',
+      'https://raw.githubusercontent.com/9s4pr6gvvk-bot/k-k/refs/heads/main/Valley%20to%20Corbel%20Interface%20-%203D%20Build%20Up%20Sketch%20-%20Broomy%20Phase%204.jpg',
+      'https://raw.githubusercontent.com/9s4pr6gvvk-bot/k-k/refs/heads/main/Parapet%203D%20Detail%20Section%20View%2001.jpg'
+    ],
+    copy: []
+  },
   {
     label: 'Luxury Residential · Bespoke',
     title: 'Super Home — 26,000 Sqft',
