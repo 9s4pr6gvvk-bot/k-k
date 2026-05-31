@@ -187,6 +187,13 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 500; display: flex; a
   transition: transform 8s linear;
 }
 .plb-slide.active { transform: scale(1.04); }
+.plb-slide.plb-slide-plan {
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-color: #1a1a1a;
+}
+.plb-slide.plb-slide-plan.active { transform: none; }
 
 /* Gradient layers */
 .plb-grad {
@@ -1288,9 +1295,9 @@ const projects = [
       'https://raw.githubusercontent.com/9s4pr6gvvk-bot/k-k/refs/heads/main/02_Crowborough%20Multi%20Stock-Cream%20Windows-Green%20Doors-Danum%20TLE%20Rustic-2.jpg',
       'https://raw.githubusercontent.com/9s4pr6gvvk-bot/k-k/refs/heads/main/Crowborough%20Multi%20Stock-Cream%20Windows-Green%20Doors-Danum%20TLE%20Rustic-1.jpg',
       'https://raw.githubusercontent.com/9s4pr6gvvk-bot/k-k/refs/heads/main/Plot%208.jpg',
-      'https://raw.githubusercontent.com/9s4pr6gvvk-bot/k-k/refs/heads/main/1684.jpg',
-      'https://raw.githubusercontent.com/9s4pr6gvvk-bot/k-k/refs/heads/main/2361.jpg',
-      'https://raw.githubusercontent.com/9s4pr6gvvk-bot/k-k/refs/heads/main/902.jpg'
+      {src:'https://raw.githubusercontent.com/9s4pr6gvvk-bot/k-k/refs/heads/main/1684.jpg',plan:true},
+      {src:'https://raw.githubusercontent.com/9s4pr6gvvk-bot/k-k/refs/heads/main/2361.jpg',plan:true},
+      {src:'https://raw.githubusercontent.com/9s4pr6gvvk-bot/k-k/refs/heads/main/902.jpg',plan:true}
     ],
     copy: ['New master house type range to keep ahead in a changing market. The Future Homes Building Regulation standard is evolving towards a "regenerative" narrative, where buildings do more than just shelter — they actively improve their environment, reduce energy usage by up to 80% (aiming for the Future Home Standard), and adapt to changing demographics like single-occupancy living.','The architectural narrative for 2026 focuses on blending natural, tactile materials (timber, stone) with advanced, invisible technology, moving away from purely sterile minimalism, creating homes for the future.']
   }
@@ -1342,7 +1349,11 @@ function openLightbox(projIdx) {
   const imgs = p.images.length ? p.images : [''];
   plbTotal = imgs.length;
   plbTot.textContent = String(plbTotal).padStart(2, '0');
-  plbSlides.innerHTML = imgs.map(src => `<div class="plb-slide" style="background-image:url('${src}')"></div>`).join('');
+  plbSlides.innerHTML = imgs.map(img => {
+    const src = typeof img === 'object' ? img.src : img;
+    const isPlan = typeof img === 'object' && img.plan;
+    return `<div class="plb-slide${isPlan?' plb-slide-plan':''}" style="background-image:url('${src}')"></div>`;
+  }).join('');
   plbDots.innerHTML = imgs.map((_, i) => `<button class="plb-dot${i===0?' active':''}" data-i="${i}"></button>`).join('');
   plbDots.querySelectorAll('.plb-dot').forEach(d => d.addEventListener('click', () => { plbGo(+d.dataset.i); }));
   // Close drawer
