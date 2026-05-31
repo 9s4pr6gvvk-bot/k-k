@@ -479,6 +479,10 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 500; display: flex; a
 .bim-btn { width: 24px; height: 24px; background: none; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; color: rgba(255,255,255,.7); transition: color .2s; padding: 0; }
 .bim-btn:hover { color: var(--w); }
 .bim-btn svg { width: 12px; height: 12px; fill: none; stroke: currentColor; stroke-width: 1.5; }
+#bimTrack { width: 100%; }
+#bimTrack img { width: 100%; }
+#vrTrack { width: 100%; }
+#vrTrack img { width: 100%; }
 .bim-dots { display: flex; gap: 6px; align-items: center; }
 .bim-dot { width: 5px; height: 5px; border-radius: 50%; background: rgba(255,255,255,.35); transition: background .3s, transform .3s; cursor: pointer; }
 .bim-dot.active { background: var(--w); transform: scale(1.3); }
@@ -970,14 +974,9 @@ footer a:hover { color: var(--w); }
       </div>
       <div class="svc-panel-img bim-carousel">
         <div class="bim-track" id="bimTrack">
-          <img src="https://raw.githubusercontent.com/9s4pr6gvvk-bot/k-k/refs/heads/main/Picture1.png" alt="BIM 1">
-          <img src="https://raw.githubusercontent.com/9s4pr6gvvk-bot/k-k/refs/heads/main/Picture2.png" alt="BIM 2">
+          <img src="https://raw.githubusercontent.com/9s4pr6gvvk-bot/k-k/refs/heads/main/Picture1.png" alt="BIM">
         </div>
-        <div class="bim-nav">
-          <button class="bim-btn" id="bimPrev"><svg viewBox="0 0 12 12"><path d="M8 2L4 6l4 4"/></svg></button>
-          <div class="bim-dots"><span class="bim-dot active" data-i="0"></span><span class="bim-dot" data-i="1"></span></div>
-          <button class="bim-btn" id="bimNext"><svg viewBox="0 0 12 12"><path d="M4 2l4 4-4 4"/></svg></button>
-        </div>
+        <div class="bim-nav" style="display:none"></div>
       </div>
     </div>
   </div>
@@ -992,14 +991,9 @@ footer a:hover { color: var(--w); }
       </div>
       <div class="svc-panel-img bim-carousel" id="vrCarouselWrap">
         <div class="bim-track" id="vrTrack">
-          <img src="https://raw.githubusercontent.com/9s4pr6gvvk-bot/k-k/refs/heads/main/WhatsApp%20Image%202026-05-12%20at%204.11.16%20PM%202.jpeg" alt="VR 1">
-          <img src="https://raw.githubusercontent.com/9s4pr6gvvk-bot/k-k/refs/heads/main/WhatsApp%20Image%202026-05-12%20at%204.11.16%20PM.jpeg" alt="VR 2">
+          <img src="https://images.unsplash.com/photo-1617802690992-15d93263d3a9?q=80&w=1170&auto=format&fit=crop" alt="VR">
         </div>
-        <div class="bim-nav">
-          <button class="bim-btn" id="vrPrev"><svg viewBox="0 0 12 12"><path d="M8 2L4 6l4 4"/></svg></button>
-          <div class="bim-dots"><span class="bim-dot active" data-i="0" data-carousel="vr"></span><span class="bim-dot" data-i="1" data-carousel="vr"></span></div>
-          <button class="bim-btn" id="vrNext"><svg viewBox="0 0 12 12"><path d="M4 2l4 4-4 4"/></svg></button>
-        </div>
+        <div class="bim-nav" style="display:none"></div>
       </div>
     </div>
   </div>
@@ -1016,7 +1010,17 @@ footer a:hover { color: var(--w); }
         </ul>
         <a href="#contact">Get in touch →</a>
       </div>
-      <div class="svc-panel-img"><img src="https://images.unsplash.com/photo-1609081219090-a6d81d3085bf?w=800&q=80&auto=format&fit=crop" alt="3D Printing"></div>
+      <div class="svc-panel-img bim-carousel" id="printCarouselWrap">
+        <div class="bim-track" id="printTrack">
+          <img src="https://raw.githubusercontent.com/9s4pr6gvvk-bot/k-k/refs/heads/main/WhatsApp%20Image%202026-05-12%20at%204.11.16%20PM%202.jpeg" alt="3D Print 1">
+          <img src="https://raw.githubusercontent.com/9s4pr6gvvk-bot/k-k/refs/heads/main/WhatsApp%20Image%202026-05-12%20at%204.11.16%20PM.jpeg" alt="3D Print 2">
+        </div>
+        <div class="bim-nav">
+          <button class="bim-btn" id="printPrev"><svg viewBox="0 0 12 12"><path d="M8 2L4 6l4 4"/></svg></button>
+          <div class="bim-dots"><span class="bim-dot active" data-i="0" data-carousel="print"></span><span class="bim-dot" data-i="1" data-carousel="print"></span></div>
+          <button class="bim-btn" id="printNext"><svg viewBox="0 0 12 12"><path d="M4 2l4 4-4 4"/></svg></button>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -1067,7 +1071,7 @@ footer a:hover { color: var(--w); }
       <h2 class="iq-text">We Design<br><span class="iq-dim">Buildings That</span><br>Belong.</h2>
       <div class="contact-details">
         <a href="tel:01422380047">01422 380 047</a>
-        <a href="mailto:studio@knaptonknapton.co.uk">studio@knaptonknapton.co.uk</a>
+        <a href="mailto:marketing@knaptonandknapton.co.uk">marketing@knaptonandknapton.co.uk</a>
         <a href="https://www.linkedin.com/company/knapton-and-knapton-architects" target="_blank" rel="noopener">LinkedIn</a>
         <address>D143, D Mill<br>Dean Clough Mills<br>Halifax, HX3 5AX</address>
       </div>
@@ -1168,7 +1172,7 @@ footer a:hover { color: var(--w); }
       <h4>Contact</h4>
       <ul style="margin-bottom:12px;">
         <li><a href="tel:01422380047">01422 380 047</a></li>
-        <li><a href="mailto:studio@knaptonknapton.co.uk">studio@knaptonknapton.co.uk</a></li>
+        <li><a href="mailto:marketing@knaptonandknapton.co.uk">marketing@knaptonandknapton.co.uk</a></li>
       </ul>
       <address class="ft-contact-address">
         D143, D Mill<br>
@@ -1216,25 +1220,21 @@ document.getElementById('heroPrev').addEventListener('click', () => { heroGo(her
 document.getElementById('heroNext').addEventListener('click', () => { heroGo(heroIdx+1); startHeroTimer(); });
 heroGo(0); startHeroTimer();
 
-/* BIM CAROUSEL */
+/* BIM — single image, no carousel needed */
 const bimTrack = document.getElementById('bimTrack');
-const bimDots = document.querySelectorAll('.bim-dot:not([data-carousel])');
-let bimIdx = 0;
-function bimGo(i) { bimIdx=i; bimTrack.style.transform='translateX(-'+(i*50)+'%)'; bimDots.forEach((d,j)=>d.classList.toggle('active',j===i)); }
-document.getElementById('bimNext').addEventListener('click',()=>bimGo(bimIdx===0?1:0));
-document.getElementById('bimPrev').addEventListener('click',()=>bimGo(bimIdx===0?1:0));
-bimDots.forEach(d=>d.addEventListener('click',()=>bimGo(+d.dataset.i)));
-setInterval(()=>{ if(document.querySelector('.svc-row.open .bim-carousel #bimTrack')) bimGo(bimIdx===0?1:0); },4000);
 
-/* VR CAROUSEL */
+/* VR — single image, no carousel needed */
 const vrTrack = document.getElementById('vrTrack');
-const vrDots = document.querySelectorAll('.bim-dot[data-carousel="vr"]');
-let vrIdx = 0;
-function vrGo(i) { vrIdx=i; vrTrack.style.transform='translateX(-'+(i*50)+'%)'; vrDots.forEach((d,j)=>d.classList.toggle('active',j===i)); }
-document.getElementById('vrNext').addEventListener('click',()=>vrGo(vrIdx===0?1:0));
-document.getElementById('vrPrev').addEventListener('click',()=>vrGo(vrIdx===0?1:0));
-vrDots.forEach(d=>d.addEventListener('click',()=>vrGo(+d.dataset.i)));
-setInterval(()=>vrGo(vrIdx===0?1:0),4500);
+
+/* 3D PRINTING CAROUSEL */
+const printTrack = document.getElementById('printTrack');
+const printDots = document.querySelectorAll('.bim-dot[data-carousel="print"]');
+let printIdx = 0;
+function printGo(i) { printIdx=i; printTrack.style.transform='translateX(-'+(i*50)+'%)'; printDots.forEach((d,j)=>d.classList.toggle('active',j===i)); }
+document.getElementById('printNext').addEventListener('click',()=>printGo(printIdx===0?1:0));
+document.getElementById('printPrev').addEventListener('click',()=>printGo(printIdx===0?1:0));
+printDots.forEach(d=>d.addEventListener('click',()=>printGo(+d.dataset.i)));
+setInterval(()=>printGo(printIdx===0?1:0),4500);
 
 /* PROJECT LIGHTBOX */
 const projects = [
