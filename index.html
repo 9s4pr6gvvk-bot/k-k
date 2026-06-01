@@ -174,7 +174,21 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 500; display: flex; a
 }
 .proj-lightbox.open { opacity: 1; pointer-events: all; }
 
-/* Slides wrapper — fullscreen on desktop, contained on mobile */
+/* Single mobile next arrow — hidden on desktop */
+.plb-mob-next {
+  display: none;
+}
+@media(max-width:768px){
+  .plb-mob-next {
+    display: flex; align-items: center; justify-content: center;
+    position: absolute; right: 14px; bottom: 14px; z-index: 10;
+    width: 36px; height: 36px;
+    background: rgba(0,0,0,.5); border: 1px solid rgba(255,255,255,.25);
+    color: rgba(255,255,255,.9); cursor: pointer;
+    pointer-events: all;
+  }
+  .plb-mob-next svg { width: 14px; height: 14px; }
+}
 .plb-slides-wrap {
   position: absolute; inset: 0;
   pointer-events: none;
@@ -183,6 +197,7 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 500; display: flex; a
 .plb-slides-wrap .plb-zone-prev,
 .plb-slides-wrap .plb-zone-next,
 .plb-slides-wrap .plb-close,
+.plb-slides-wrap .plb-mob-next,
 .plb-slides-wrap .plb-topbar { pointer-events: all; }
 .plb-slides {
   position: absolute; inset: 0;
@@ -961,6 +976,7 @@ footer a:hover { color: var(--w); }
     <div class="plb-topbar"><div class="plb-topbar-fill" id="plbFill"></div></div>
     <div class="plb-index"><span class="plb-idx-cur" id="plbCur">01</span> / <span id="plbTot">05</span></div>
     <button class="plb-close" id="plbClose"><svg viewBox="0 0 14 14"><path d="M1 1l12 12M13 1L1 13"/></svg> Close</button>
+    <button class="plb-mob-next" id="plbMobNext"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="4,2 8,6 4,10"/></svg></button>
   </div>
 
   <!-- Right strip: prev / dots / next -->
@@ -1448,6 +1464,8 @@ plbSlides.addEventListener('touchend', e => {
   const diff = touchStartX - e.changedTouches[0].clientX;
   if (Math.abs(diff) > 40) plbGo(diff > 0 ? plbIdx + 1 : plbIdx - 1);
 }, { passive: true });
+const plbMobNext = document.getElementById('plbMobNext');
+if (plbMobNext) plbMobNext.addEventListener('click', () => plbGo(plbIdx + 1));
 document.addEventListener('keydown', e => {
   if (!lightbox.classList.contains('open')) return;
   if (e.key === 'Escape') closeLightbox();
