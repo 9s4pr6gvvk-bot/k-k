@@ -363,31 +363,83 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 500; display: flex; a
 .plb-body-scroll::-webkit-scrollbar-track { background: transparent; }
 .plb-body-scroll::-webkit-scrollbar-thumb { background: rgba(255,255,255,.2); }
 
-/* Mobile — single column, copy visible */
-@media(max-width:900px){
-  .plb-copy { grid-template-columns: 1fr; gap: 0; padding: 0 20px 36px; }
-  .plb-copy-right { display: block; opacity: 1; transform: none; pointer-events: all; margin-top: 14px; }
-  .plb-copy.expanded .plb-copy-right { opacity: 1; transform: none; }
-  .plb-read-more { display: none; }
-  .plb-body-scroll { max-height: none; overflow: visible; }
-  .plb-title { font-size: clamp(16px, 5vw, 26px); margin-bottom: 12px; }
-  .plb-bottom-grad {
-    height: 85%;
-    background: linear-gradient(to top,
-      rgba(4,4,4,.98) 0%,
-      rgba(4,4,4,.9) 30%,
-      rgba(4,4,4,.6) 60%,
-      rgba(4,4,4,.15) 85%,
-      transparent 100%
-    );
+/* ── MOBILE LIGHTBOX — stacked layout ── */
+@media(max-width:768px){
+  /* Make the whole lightbox scrollable */
+  .proj-lightbox { overflow-y: auto; display: flex; flex-direction: column; }
+
+  /* Photo strip — fixed height at top, full width, swipeable */
+  .plb-slides {
+    position: relative;
+    flex-shrink: 0;
+    height: 52vw;
+    min-height: 240px;
+    max-height: 320px;
+    top: 0; left: 0; right: 0; bottom: auto;
+    width: 100%;
   }
-  .plb-close { top: 18px; right: 20px; }
-  .plb-index { top: 18px; left: 20px; }
+  .plb-slide {
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+  }
+  .plb-slide.active { transform: none; }
+
+  /* Hide desktop-only elements */
+  .plb-grad, .plb-bottom-grad { display: none; }
   .plb-strip { display: none; }
-  .plb-zone-prev, .plb-zone-next { width: 15%; bottom: 0; top: 0; }
+  .plb-read-more { display: none; }
+
+  /* Click zones only over the photo strip */
+  .plb-zone-prev, .plb-zone-next {
+    top: 0; height: 52vw; min-height: 240px; max-height: 320px;
+    bottom: auto; width: 20%; z-index: 6;
+  }
   .plb-zone-next { right: 0; }
-  .plb-body p { font-size: 12px; color: rgba(255,255,255,.75); margin-bottom: 10px; }
-  .plb-grad { background: linear-gradient(to top, rgba(4,4,4,.97) 0%, rgba(4,4,4,.75) 25%, rgba(4,4,4,.25) 55%, transparent 72%); }
+
+  /* Counter + close on photo */
+  .plb-index { position: absolute; top: 14px; left: 16px; z-index: 10; }
+  .plb-close { position: absolute; top: 14px; right: 16px; z-index: 10; padding: 7px 12px; font-size: 7px; }
+  .plb-topbar { position: absolute; top: 0; }
+
+  /* Text block — own section below photo, dark bg, full scroll */
+  .plb-copy {
+    position: relative;
+    flex: 1;
+    display: block;
+    background: #0d0d0d;
+    padding: 28px 22px 52px;
+    bottom: auto; left: auto; right: auto; top: auto;
+    border-top: 1px solid rgba(255,255,255,.07);
+    overflow-y: visible;
+  }
+  .plb-copy-left { margin-bottom: 22px; }
+  .plb-label { color: rgba(255,255,255,.32); margin-bottom: 8px; font-size: 8px; }
+  .plb-title {
+    font-size: clamp(17px, 5vw, 24px);
+    margin-bottom: 0;
+    color: var(--w);
+    line-height: 1.15;
+  }
+
+  /* Right column — always fully visible, no animation */
+  .plb-copy-right {
+    display: block !important;
+    opacity: 1 !important;
+    transform: none !important;
+    pointer-events: all !important;
+    padding: 0;
+    position: static;
+    margin-top: 0;
+  }
+  .plb-copy-right::before { display: none; }
+  .plb-body-scroll { max-height: none; overflow: visible; padding: 0; }
+  .plb-body p {
+    font-size: 13px;
+    line-height: 1.85;
+    color: rgba(255,255,255,.7);
+    margin-bottom: 14px;
+  }
 }
 
 
@@ -707,12 +759,12 @@ footer a:hover { color: var(--w); }
 
 <!-- Mobile menu -->
 <div class="mobile-menu" id="mobileMenu">
-  <a href="#projects" onclick="closeMenu()">Projects</a>
-  <a href="#services" onclick="closeMenu()">Services</a>
-  <a href="#practice" onclick="closeMenu()">Practice</a>
-  <a href="#news" onclick="closeMenu()">News</a>
-  <a href="#contact" onclick="closeMenu()">Contact</a>
-  <a href="#contact" class="mob-enquire" onclick="closeMenu()">Enquire</a>
+  <a href="#projects" onclick="event.preventDefault();closeMenu();setTimeout(()=>{const el=document.getElementById('projects');if(el)el.scrollIntoView({behavior:'smooth'});},350);">Projects</a>
+  <a href="#services" onclick="event.preventDefault();closeMenu();setTimeout(()=>{const el=document.getElementById('services');if(el)el.scrollIntoView({behavior:'smooth'});},350);">Services</a>
+  <a href="#practice" onclick="event.preventDefault();closeMenu();setTimeout(()=>{const el=document.getElementById('practice');if(el)el.scrollIntoView({behavior:'smooth'});},350);">Practice</a>
+  <a href="#news" onclick="event.preventDefault();closeMenu();setTimeout(()=>{const el=document.getElementById('news');if(el)el.scrollIntoView({behavior:'smooth'});},350);">News</a>
+  <a href="#contact" onclick="event.preventDefault();closeMenu();setTimeout(()=>{const el=document.getElementById('contact');if(el)el.scrollIntoView({behavior:'smooth'});},350);">Contact</a>
+  <a href="#contact" class="mob-enquire" onclick="event.preventDefault();closeMenu();setTimeout(()=>{const el=document.getElementById('contact');if(el)el.scrollIntoView({behavior:'smooth'});},350);">Enquire</a>
 </div>
 
 <!-- MAIN -->
@@ -1363,6 +1415,7 @@ function openLightbox(projIdx) {
   plbGo(0);
   lightbox.classList.add('open');
   document.body.style.overflow = 'hidden';
+  lightbox.scrollTop = 0;
 }
 
 function closeLightbox() {
@@ -1409,7 +1462,11 @@ document.querySelectorAll('.svc-row').forEach(row=>{
 /* BURGER MENU */
 const burger=document.getElementById('burger'), mobileMenu=document.getElementById('mobileMenu');
 burger.addEventListener('click',()=>{ const o=mobileMenu.classList.toggle('open'); burger.classList.toggle('open',o); document.body.style.overflow=o?'hidden':''; });
-function closeMenu(){ mobileMenu.classList.remove('open'); burger.classList.remove('open'); document.body.style.overflow=''; }
+function closeMenu(){
+  mobileMenu.classList.remove('open');
+  burger.classList.remove('open');
+  document.body.style.overflow = '';
+}
 </script>
 </body>
 </html>
