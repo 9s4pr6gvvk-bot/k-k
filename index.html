@@ -180,6 +180,7 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 500; display: flex; a
   pointer-events: none;
 }
 .plb-slides-wrap > * { pointer-events: all; }
+.plb-slides {
   position: absolute; inset: 0;
   display: flex;
   transition: transform .9s cubic-bezier(.16,1,.3,1);
@@ -369,25 +370,29 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 500; display: flex; a
 
 /* ── MOBILE LIGHTBOX — stacked layout ── */
 @media(max-width:768px){
-  /* Make the whole lightbox scrollable */
-  .proj-lightbox { overflow-y: auto; display: flex; flex-direction: column; }
+  .proj-lightbox {
+    overflow-y: auto;
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+  }
 
-  /* Photo wrapper — contains overflow, fixed height */
-  .proj-lightbox { overflow-x: hidden; }
+  /* Photo wrapper — clipping container */
   .plb-slides-wrap {
     position: relative;
     width: 100%;
     overflow: hidden;
     flex-shrink: 0;
-    height: 56vw;
-    min-height: 230px;
-    max-height: 310px;
+    height: 260px;
   }
+
+  /* Slides track — fill wrapper exactly */
   .plb-slides {
-    position: absolute; inset: 0;
-    height: 100%;
-    overflow: hidden;
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
   }
+
   .plb-slide {
     min-width: 100%; height: 100%;
     background-size: cover;
@@ -395,29 +400,24 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 500; display: flex; a
   }
   .plb-slide.active { transform: none; }
 
-  /* Hide desktop-only elements */
-  .plb-grad, .plb-bottom-grad { display: none; }
-  .plb-strip { display: none; }
-  .plb-read-more { display: none; }
-
-  /* Click zones — ONLY inside the photo area, not overlapping text */
+  /* Tap zones — contained inside wrapper, only cover photo */
   .plb-zone-prev, .plb-zone-next {
     position: absolute;
-    top: 60px;
-    height: calc(56vw - 60px);
-    min-height: 170px;
-    max-height: 250px;
-    bottom: auto;
-    width: 18%;
-    z-index: 6;
+    top: 44px; bottom: 0;
+    width: 18%; z-index: 6;
   }
   .plb-zone-prev { left: 0; }
   .plb-zone-next { right: 0; }
 
-  /* Counter + close on photo */
-  .plb-index { position: absolute; top: 14px; left: 16px; z-index: 10; }
-  .plb-close { position: absolute; top: 14px; right: 16px; z-index: 10; padding: 7px 12px; font-size: 7px; }
-  .plb-topbar { position: absolute; top: 0; }
+  /* Counter + close inside wrapper */
+  .plb-index { position: absolute; top: 12px; left: 14px; z-index: 10; }
+  .plb-close { position: absolute; top: 10px; right: 12px; z-index: 10; padding: 6px 11px; font-size: 7px; }
+  .plb-topbar { position: absolute; top: 0; left: 0; right: 0; }
+
+  /* Hide desktop-only elements */
+  .plb-grad, .plb-bottom-grad { display: none; }
+  .plb-strip { display: none; }
+  .plb-read-more { display: none; }
 
   /* Text block — own section below photo, dark bg, full scroll */
   .plb-copy {
