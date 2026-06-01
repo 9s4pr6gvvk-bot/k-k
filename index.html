@@ -592,14 +592,14 @@ footer a:hover { color: var(--w); }
     <img src="https://raw.githubusercontent.com/9s4pr6gvvk-bot/k-k/refs/heads/main/Untitled%20design%20(4).jpg" alt="Knapton & Knapton" class="nav-logo-img">
   </a>
   <ul class="nav-links">
-    <li><a href="#projects">Projects</a></li>
-    <li><a href="#services">Services</a></li>
-    <li><a href="#practice">Practice</a></li>
-    <li><a href="#news">News</a></li>
-    <li><a href="#contact">Contact</a></li>
+    <li><a href="#projects" onclick="event.preventDefault();document.getElementById('projects').scrollIntoView({behavior:'smooth'});">Projects</a></li>
+    <li><a href="#services" onclick="event.preventDefault();document.getElementById('services').scrollIntoView({behavior:'smooth'});">Services</a></li>
+    <li><a href="#practice" onclick="event.preventDefault();document.getElementById('practice').scrollIntoView({behavior:'smooth'});">Practice</a></li>
+    <li><a href="#news" onclick="event.preventDefault();document.getElementById('news').scrollIntoView({behavior:'smooth'});">News</a></li>
+    <li><a href="#contact" onclick="event.preventDefault();document.getElementById('contact').scrollIntoView({behavior:'smooth'});">Contact</a></li>
   </ul>
   <div class="nav-right">
-    <a href="#contact" class="nav-cta">Enquire</a>
+    <a href="#contact" class="nav-cta" onclick="event.preventDefault();document.getElementById('contact').scrollIntoView({behavior:'smooth'});">Enquire</a>
     <button class="nav-burger" id="burger" aria-label="Menu"><span></span><span></span></button>
   </div>
 </nav>
@@ -887,7 +887,7 @@ footer a:hover { color: var(--w); }
       </div>
     </div>
     <div><h4>Services</h4><ul><li><a href="#services">Residential</a></li><li><a href="#services">BIM</a></li><li><a href="#services">Virtual Reality</a></li><li><a href="#services">3D Printing</a></li></ul></div>
-    <div><h4>Practice</h4><ul><li><a href="#practice">About</a></li><li><a href="#projects">Projects</a></li><li><a href="#news">News</a></li><li><a href="#contact">Contact</a></li></ul></div>
+    <div><h4>Practice</h4><ul><li><a href="#practice">About</a></li><li><a href="#projects" onclick="event.preventDefault();document.getElementById('projects').scrollIntoView({behavior:'smooth'});">Projects</a></li><li><a href="#news" onclick="event.preventDefault();document.getElementById('news').scrollIntoView({behavior:'smooth'});">News</a></li><li><a href="#contact" onclick="event.preventDefault();document.getElementById('contact').scrollIntoView({behavior:'smooth'});">Contact</a></li></ul></div>
     <div>
       <h4>Contact</h4>
       <ul style="margin-bottom:12px;"><li><a href="tel:01422380047">01422 380 047</a></li><li><a href="mailto:marketing@knaptonandknapton.co.uk">marketing@knaptonandknapton.co.uk</a></li></ul>
