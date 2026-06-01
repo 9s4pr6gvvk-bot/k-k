@@ -404,14 +404,8 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 500; display: flex; a
   }
   .plb-slide.active { transform: none; }
 
-  /* Tap zones — contained inside wrapper, only cover photo */
-  .plb-zone-prev, .plb-zone-next {
-    position: absolute;
-    top: 44px; bottom: 0;
-    width: 18%; z-index: 6;
-  }
-  .plb-zone-prev { left: 0; }
-  .plb-zone-next { right: 0; }
+  /* No click zones on mobile — zones hidden, swipe handles navigation */
+  .plb-zone-prev, .plb-zone-next { display: none; }
 
   /* Counter + close inside wrapper */
   .plb-index { position: absolute; top: 12px; left: 14px; z-index: 10; }
@@ -1447,8 +1441,13 @@ plbReadMore.addEventListener('click', () => {
 document.getElementById('plbClose').addEventListener('click', closeLightbox);
 document.getElementById('plbNext').addEventListener('click', () => plbGo(plbIdx + 1));
 document.getElementById('plbPrev').addEventListener('click', () => plbGo(plbIdx - 1));
-document.getElementById('plbZoneNext').addEventListener('click', () => plbGo(plbIdx + 1));
-document.getElementById('plbZonePrev').addEventListener('click', () => plbGo(plbIdx - 1));
+/* Touch swipe on mobile */
+let touchStartX = 0;
+plbSlides.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; }, { passive: true });
+plbSlides.addEventListener('touchend', e => {
+  const diff = touchStartX - e.changedTouches[0].clientX;
+  if (Math.abs(diff) > 40) plbGo(diff > 0 ? plbIdx + 1 : plbIdx - 1);
+}, { passive: true });
 document.addEventListener('keydown', e => {
   if (!lightbox.classList.contains('open')) return;
   if (e.key === 'Escape') closeLightbox();
