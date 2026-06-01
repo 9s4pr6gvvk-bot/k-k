@@ -472,6 +472,32 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 500; display: flex; a
 .cf-success h3 { font-family: var(--serif); font-size: 22px; font-weight: 400; color: var(--w); letter-spacing: .02em; margin-bottom: 10px; }
 .cf-success p { font-family: var(--sans); font-size: 12px; font-weight: 300; color: rgba(255,255,255,.4); letter-spacing: .04em; line-height: 1.7; }
 
+/* ── ENQUIRE MODAL ── */
+.enq-modal { position: fixed; inset: 0; z-index: 7000; background: rgba(4,4,4,.88); backdrop-filter: blur(8px); display: flex; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: opacity .45s cubic-bezier(.22,1,.36,1); padding: 24px; }
+.enq-modal.open { opacity: 1; pointer-events: all; }
+.enq-inner { background: #111; display: grid; grid-template-columns: 1fr 1.4fr; max-width: 860px; width: 100%; max-height: 90vh; overflow-y: auto; }
+.enq-left { padding: 52px 44px; display: flex; flex-direction: column; justify-content: center; border-right: 1px solid rgba(255,255,255,.07); background: #0d0d0d; }
+.enq-eyebrow { font-family: var(--sans); font-size: 9px; font-weight: 300; letter-spacing: .34em; text-transform: uppercase; color: rgba(255,255,255,.3); margin-bottom: 24px; }
+.enq-title { font-family: var(--serif); font-size: clamp(24px, 3vw, 40px); font-weight: 400; line-height: 1.1; letter-spacing: .03em; text-transform: uppercase; color: var(--w); margin-bottom: 40px; }
+.enq-dim { color: rgba(255,255,255,.2); }
+.enq-details { display: flex; flex-direction: column; gap: 8px; }
+.enq-details a { font-family: var(--sans); font-size: 13px; font-weight: 300; color: rgba(255,255,255,.4); text-decoration: none; transition: color .2s; }
+.enq-details a:hover { color: var(--w); }
+.enq-details address { font-style: normal; font-family: var(--sans); font-size: 12px; font-weight: 300; line-height: 1.9; color: rgba(255,255,255,.2); margin-top: 8px; }
+.enq-right { padding: 52px 44px; position: relative; background: #161616; }
+.enq-close { position: absolute; top: 20px; right: 20px; background: none; border: none; cursor: pointer; color: rgba(255,255,255,.4); transition: color .2s; padding: 8px; }
+.enq-close:hover { color: var(--w); }
+.enq-close svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 1.5; display: block; }
+.enq-form-label { font-family: var(--sans); font-size: 9px; font-weight: 400; letter-spacing: .32em; text-transform: uppercase; color: rgba(255,255,255,.28); margin-bottom: 32px; }
+.enq-form { display: flex; flex-direction: column; }
+.enq-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+@media(max-width:640px){
+  .enq-inner { grid-template-columns: 1fr; }
+  .enq-left { display: none; }
+  .enq-right { padding: 52px 28px 40px; }
+  .enq-row { grid-template-columns: 1fr; gap: 0; }
+}
+
 /* ── FOOTER ── */
 footer { padding: 56px 52px 36px; background: var(--b); color: var(--w); border-top: 1px solid rgba(255,255,255,.08); }
 .ft { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 48px; margin-bottom: 48px; }
@@ -599,7 +625,7 @@ footer a:hover { color: var(--w); }
     <li><a href="#contact" onclick="event.preventDefault();document.getElementById('contact').scrollIntoView({behavior:'smooth'});">Contact</a></li>
   </ul>
   <div class="nav-right">
-    <a href="#contact" class="nav-cta" onclick="event.preventDefault();document.getElementById('contact').scrollIntoView({behavior:'smooth'});">Enquire</a>
+    <button class="nav-cta" id="enquireBtn">Enquire</button>
     <button class="nav-burger" id="burger" aria-label="Menu"><span></span><span></span></button>
   </div>
 </nav>
@@ -611,7 +637,7 @@ footer a:hover { color: var(--w); }
   <a href="#practice" onclick="event.preventDefault();closeMenu();setTimeout(()=>{const el=document.getElementById('practice');if(el)el.scrollIntoView({behavior:'smooth'});},400);">Practice</a>
   <a href="#news" onclick="event.preventDefault();closeMenu();setTimeout(()=>{const el=document.getElementById('news');if(el)el.scrollIntoView({behavior:'smooth'});},400);">News</a>
   <a href="#contact" onclick="event.preventDefault();closeMenu();setTimeout(()=>{const el=document.getElementById('contact');if(el)el.scrollIntoView({behavior:'smooth'});},400);">Contact</a>
-  <a href="#contact" class="mob-enquire" onclick="event.preventDefault();closeMenu();setTimeout(()=>{const el=document.getElementById('contact');if(el)el.scrollIntoView({behavior:'smooth'});},400);">Enquire</a>
+  <a href="#contact" class="mob-enquire" onclick="event.preventDefault();closeMenu();setTimeout(()=>openEnquire(),300);">Enquire</a>
 </div>
 
 <!-- MAIN -->
@@ -900,7 +926,46 @@ footer a:hover { color: var(--w); }
   </div>
 </footer>
 
-</div><!-- /#main -->
+<!-- ENQUIRE MODAL -->
+<div class="enq-modal" id="enqModal">
+  <div class="enq-inner">
+    <div class="enq-left">
+      <p class="enq-eyebrow">Start A Conversation</p>
+      <h2 class="enq-title">We Design<br><span class="enq-dim">Buildings That</span><br>Belong.</h2>
+      <div class="enq-details">
+        <a href="tel:01422380047">01422 380 047</a>
+        <a href="mailto:marketing@knaptonandknapton.co.uk">marketing@knaptonandknapton.co.uk</a>
+        <address>D143, D Mill<br>Dean Clough Mills<br>Halifax, HX3 5AX</address>
+      </div>
+    </div>
+    <div class="enq-right">
+      <button class="enq-close" id="enqClose"><svg viewBox="0 0 14 14"><path d="M1 1l12 12M13 1L1 13"/></svg></button>
+      <p class="enq-form-label">Send an Enquiry</p>
+      <form class="enq-form" id="enqForm">
+        <div class="enq-row">
+          <div class="cf-field"><label>Name</label><input type="text" name="name" placeholder="Your name" required></div>
+          <div class="cf-field"><label>Company</label><input type="text" name="company" placeholder="Optional"></div>
+        </div>
+        <div class="enq-row">
+          <div class="cf-field"><label>Email</label><input type="email" name="email" placeholder="your@email.com" required></div>
+          <div class="cf-field"><label>Phone</label><input type="tel" name="phone" placeholder="Optional"></div>
+        </div>
+        <div class="cf-field full"><label>Service</label>
+          <select name="service"><option value="" disabled selected>Select a service</option><option>Residential — New Build</option><option>Residential — Extension</option><option>BIM — Building Information Modelling</option><option>Virtual Reality</option><option>3D Printing</option><option>Future Homes</option><option>Other</option></select>
+        </div>
+        <div class="cf-field full"><label>Message</label><textarea name="message" rows="3" placeholder="Tell us about your project…" required></textarea></div>
+        <button type="submit" class="cf-submit">Send Enquiry</button>
+      </form>
+      <div class="cf-success" id="enqSuccess">
+        <div class="cf-success-icon"><svg viewBox="0 0 14 14"><polyline points="2,7 5.5,10.5 12,3.5"/></svg></div>
+        <h3>Thank You.</h3>
+        <p>Your enquiry has been received.<br>We will be in touch shortly.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
 
 <script>
 /* INTRO */
@@ -1073,7 +1138,39 @@ document.querySelectorAll('.pc').forEach(card => {
   card.addEventListener('click', () => openLightbox(parseInt(card.dataset.proj, 10) || 0));
 });
 
-/* FORM — AJAX submission, no page redirect */
+/* ENQUIRE MODAL */
+const enqModal = document.getElementById('enqModal');
+const enqForm = document.getElementById('enqForm');
+const enqSuccess = document.getElementById('enqSuccess');
+
+function openEnquire() {
+  enqModal.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeEnquire() {
+  enqModal.classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+document.getElementById('enquireBtn').addEventListener('click', openEnquire);
+document.getElementById('enqClose').addEventListener('click', closeEnquire);
+enqModal.addEventListener('click', e => { if (e.target === enqModal) closeEnquire(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape' && enqModal.classList.contains('open')) closeEnquire(); });
+
+if (enqForm) {
+  enqForm.addEventListener('submit', async e => {
+    e.preventDefault();
+    const btn = enqForm.querySelector('.cf-submit');
+    btn.textContent = 'Sending…'; btn.style.opacity = '.6';
+    try {
+      const res = await fetch('https://formspree.io/f/maqkrwan', {
+        method: 'POST', body: new FormData(enqForm), headers: { 'Accept': 'application/json' }
+      });
+      if (res.ok) { enqForm.style.display = 'none'; enqSuccess.classList.add('show'); }
+      else { btn.textContent = 'Try Again'; btn.style.opacity = '1'; }
+    } catch { btn.textContent = 'Try Again'; btn.style.opacity = '1'; }
+  });
+}
 const ctaForm = document.querySelector('.cta-form');
 const cfSuccess = document.getElementById('cfSuccess');
 if (ctaForm) {
