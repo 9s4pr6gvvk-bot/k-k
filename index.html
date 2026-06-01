@@ -174,8 +174,12 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 500; display: flex; a
 }
 .proj-lightbox.open { opacity: 1; pointer-events: all; }
 
-/* Fullscreen slides */
-.plb-slides {
+/* Slides wrapper — fullscreen on desktop, contained on mobile */
+.plb-slides-wrap {
+  position: absolute; inset: 0;
+  pointer-events: none;
+}
+.plb-slides-wrap > * { pointer-events: all; }
   position: absolute; inset: 0;
   display: flex;
   transition: transform .9s cubic-bezier(.16,1,.3,1);
@@ -368,18 +372,24 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 500; display: flex; a
   /* Make the whole lightbox scrollable */
   .proj-lightbox { overflow-y: auto; display: flex; flex-direction: column; }
 
-  /* Photo strip — fixed height at top, full width, swipeable */
-  .plb-slides {
+  /* Photo wrapper — contains overflow, fixed height */
+  .proj-lightbox { overflow-x: hidden; }
+  .plb-slides-wrap {
     position: relative;
-    flex-shrink: 0;
-    height: 52vw;
-    min-height: 240px;
-    max-height: 320px;
-    top: 0; left: 0; right: 0; bottom: auto;
     width: 100%;
+    overflow: hidden;
+    flex-shrink: 0;
+    height: 56vw;
+    min-height: 230px;
+    max-height: 310px;
+  }
+  .plb-slides {
+    position: absolute; inset: 0;
+    height: 100%;
+    overflow: hidden;
   }
   .plb-slide {
-    height: 100%;
+    min-width: 100%; height: 100%;
     background-size: cover;
     background-position: center;
   }
@@ -390,11 +400,18 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 500; display: flex; a
   .plb-strip { display: none; }
   .plb-read-more { display: none; }
 
-  /* Click zones only over the photo strip */
+  /* Click zones — ONLY inside the photo area, not overlapping text */
   .plb-zone-prev, .plb-zone-next {
-    top: 0; height: 52vw; min-height: 240px; max-height: 320px;
-    bottom: auto; width: 20%; z-index: 6;
+    position: absolute;
+    top: 60px;
+    height: calc(56vw - 60px);
+    min-height: 170px;
+    max-height: 250px;
+    bottom: auto;
+    width: 18%;
+    z-index: 6;
   }
+  .plb-zone-prev { left: 0; }
   .plb-zone-next { right: 0; }
 
   /* Counter + close on photo */
@@ -936,25 +953,17 @@ footer a:hover { color: var(--w); }
 <!-- PROJECT LIGHTBOX -->
 <div class="proj-lightbox" id="projLightbox">
 
-  <!-- Progress bar -->
-  <div class="plb-topbar"><div class="plb-topbar-fill" id="plbFill"></div></div>
-
-  <!-- Slides -->
-  <div class="plb-slides" id="plbSlides"></div>
-  <div class="plb-grad"></div>
-  <div class="plb-bottom-grad"></div>
-
-  <!-- Click zones for prev/next -->
-  <div class="plb-zone-prev" id="plbZonePrev"></div>
-  <div class="plb-zone-next" id="plbZoneNext"></div>
-
-  <!-- Top left: index -->
-  <div class="plb-index"><span class="plb-idx-cur" id="plbCur">01</span> / <span id="plbTot">05</span></div>
-
-  <!-- Top right: close -->
-  <button class="plb-close" id="plbClose">
-    <svg viewBox="0 0 14 14"><path d="M1 1l12 12M13 1L1 13"/></svg> Close
-  </button>
+  <!-- Slides wrapper — contains horizontal overflow -->
+  <div class="plb-slides-wrap">
+    <div class="plb-slides" id="plbSlides"></div>
+    <div class="plb-grad"></div>
+    <div class="plb-bottom-grad"></div>
+    <div class="plb-zone-prev" id="plbZonePrev"></div>
+    <div class="plb-zone-next" id="plbZoneNext"></div>
+    <div class="plb-topbar"><div class="plb-topbar-fill" id="plbFill"></div></div>
+    <div class="plb-index"><span class="plb-idx-cur" id="plbCur">01</span> / <span id="plbTot">05</span></div>
+    <button class="plb-close" id="plbClose"><svg viewBox="0 0 14 14"><path d="M1 1l12 12M13 1L1 13"/></svg> Close</button>
+  </div>
 
   <!-- Right strip: prev / dots / next -->
   <div class="plb-strip">
