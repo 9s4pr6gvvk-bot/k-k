@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Legal — Knapton & Knapton</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Liter&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --w: #ffffff; --b: #080808; --g: #999; --lg: #f6f6f6; --br: #e6e6e6;
+  --serif: 'Liter', Georgia, serif; --sans: 'Jost', sans-serif;
+}
+html { font-size: 16px; scroll-behavior: smooth; }
+body { background: var(--w); color: var(--b); font-family: var(--sans); overflow-x: hidden; }
+
+/* NAV */
+nav { position: fixed; top: 0; left: 0; right: 0; z-index: 600; display: flex; align-items: center; justify-content: space-between; padding: 16px 52px; background: #fefdfe; border-bottom: 1px solid var(--br); }
+.nav-logo { display: flex; align-items: center; text-decoration: none; }
+.nav-logo-img { height: 68px; width: auto; display: block; }
+.nav-back { font-family: var(--sans); font-size: 11px; font-weight: 300; letter-spacing: .18em; text-transform: uppercase; color: var(--g); text-decoration: none; display: flex; align-items: center; gap: 10px; transition: color .25s; }
+.nav-back:hover { color: var(--b); }
+.nav-back svg { width: 12px; height: 12px; stroke: currentColor; fill: none; stroke-width: 1.5; }
+@media(max-width:600px){ nav { padding: 12px 20px; } .nav-logo-img { height: 44px; } }
+
+/* HERO */
+.legal-hero { padding: 160px 52px 72px; border-bottom: 1px solid var(--br); display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: end; }
+.legal-hero-left { }
+.legal-eyebrow { font-family: var(--sans); font-size: 11px; font-weight: 300; letter-spacing: .34em; text-transform: uppercase; color: var(--g); margin-bottom: 20px; }
+.legal-hero h1 { font-family: var(--serif); font-size: clamp(36px, 4vw, 62px); font-weight: 400; line-height: 1.05; letter-spacing: .04em; text-transform: uppercase; }
+.legal-hero h1 .dim { color: var(--g); }
+.legal-updated { font-family: var(--sans); font-size: 11px; font-weight: 300; letter-spacing: .12em; color: var(--g); margin-top: 24px; }
+.legal-contents { }
+.legal-contents-label { font-family: var(--sans); font-size: 11px; font-weight: 400; letter-spacing: .28em; text-transform: uppercase; color: var(--g); margin-bottom: 20px; padding-bottom: 10px; border-bottom: 1px solid var(--br); }
+.legal-contents ol { list-style: none; display: flex; flex-direction: column; gap: 2px; }
+.legal-contents li { display: flex; align-items: center; gap: 16px; }
+.legal-contents li span { font-family: var(--serif); font-size: 11px; color: var(--g); width: 20px; flex-shrink: 0; }
+.legal-contents a { font-family: var(--sans); font-size: 13px; font-weight: 300; letter-spacing: .04em; color: var(--b); text-decoration: none; padding: 10px 0; border-bottom: 1px solid transparent; transition: border-color .25s, color .25s; display: block; }
+.legal-contents a:hover { color: var(--g); border-color: var(--br); }
+
+/* BODY */
+.legal-body { max-width: 1200px; }
+
+/* SECTION */
+.legal-section { display: grid; grid-template-columns: 280px 1fr; border-bottom: 1px solid var(--br); }
+.legal-section-index { padding: 72px 52px; border-right: 1px solid var(--br); position: sticky; top: 100px; align-self: start; }
+.legal-section-num { font-family: var(--serif); font-size: 48px; font-weight: 400; color: var(--br); line-height: 1; margin-bottom: 16px; }
+.legal-section-title { font-family: var(--serif); font-size: clamp(18px, 1.8vw, 24px); font-weight: 400; letter-spacing: .03em; text-transform: uppercase; line-height: 1.2; }
+.legal-section-content { padding: 72px 64px 80px; display: flex; flex-direction: column; gap: 40px; }
+
+/* BLOCKS */
+.legal-block { display: flex; flex-direction: column; gap: 14px; }
+.legal-block-label { font-family: var(--sans); font-size: 11px; font-weight: 400; letter-spacing: .28em; text-transform: uppercase; color: var(--b); padding-bottom: 10px; border-bottom: 1px solid var(--br); }
+.legal-block p { font-family: var(--sans); font-size: 14px; font-weight: 300; line-height: 1.9; color: #555; }
+.legal-block a { color: var(--b); text-decoration: none; border-bottom: 1px solid var(--br); transition: border-color .25s; }
+.legal-block a:hover { border-color: var(--b); }
+.legal-block ul { list-style: none; display: flex; flex-direction: column; gap: 12px; padding: 0; }
+.legal-block ul li { font-family: var(--sans); font-size: 14px; font-weight: 300; line-height: 1.8; color: #555; padding-left: 20px; position: relative; }
+.legal-block ul li::before { content: '—'; position: absolute; left: 0; color: var(--b); }
+.legal-block ul li strong { font-weight: 500; color: var(--b); }
+
+/* FOOTER */
+footer { padding: 40px 52px; background: var(--b); border-top: 1px solid rgba(255,255,255,.08); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+.ft-copy { font-family: var(--sans); font-size: 11px; font-weight: 300; letter-spacing: .1em; color: rgba(255,255,255,.3); }
+.ft-back { font-family: var(--sans); font-size: 11px; font-weight: 300; letter-spacing: .16em; text-transform: uppercase; color: rgba(255,255,255,.4); text-decoration: none; transition: color .25s; }
+.ft-back:hover { color: var(--w); }
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  .legal-hero { grid-template-columns: 1fr; padding: 140px 24px 56px; gap: 40px; }
+  .legal-section { grid-template-columns: 1fr; }
+  .legal-section-index { padding: 48px 24px 0; position: static; border-right: none; border-bottom: 1px solid var(--br); padding-bottom: 24px; }
+  .legal-section-num { font-size: 36px; }
+  .legal-section-content { padding: 40px 24px 56px; }
+  footer { padding: 32px 24px; }
+}
+@media(max-width:600px){
+  .legal-section-content { padding: 32px 20px 48px; gap: 32px; }
+  .legal-hero { padding: 130px 20px 48px; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="index.html">
+    <img src="https://raw.githubusercontent.com/9s4pr6gvvk-bot/k-k/refs/heads/main/Untitled%20design%20(4).jpg" alt="Knapton & Knapton" class="nav-logo-img">
+  </a>
+  <a href="index.html" class="nav-back">
+    <svg viewBox="0 0 12 12"><polyline points="8,2 4,6 8,10"/></svg>
+    Back to site
+  </a>
+</nav>
+
+<div class="legal-hero">
+  <div class="legal-hero-left">
+    <p class="legal-eyebrow">Knapton &amp; Knapton</p>
+    <h1>Legal <span class="dim">&amp;<br>Privacy.</span></h1>
+    <p class="legal-updated">Last updated: June 2025</p>
+  </div>
+  <div class="legal-contents">
+    <p class="legal-contents-label">Contents</p>
+    <ol>
+      <li><span>i</span><a href="#privacy">Privacy Policy</a></li>
+      <li><span>ii</span><a href="#cookies">Cookie Policy</a></li>
+    </ol>
+  </div>
+</div>
+
+<main class="legal-body">
+
+  <!-- PRIVACY POLICY -->
+  <section class="legal-section" id="privacy">
+    <div class="legal-section-index">
+      <div class="legal-section-num">i</div>
+      <div class="legal-section-title">Privacy Policy</div>
+    </div>
+    <div class="legal-section-content">
+
+      <div class="legal-block">
+        <p>Knapton &amp; Knapton ("we", "us", "our") is committed to protecting your personal data. This policy explains what information we collect, how we use it and your rights under the UK General Data Protection Regulation (UK GDPR).</p>
+      </div>
+
+      <div class="legal-block">
+        <p class="legal-block-label">Who we are</p>
+        <p>Knapton &amp; Knapton is an architectural consultancy based at D143, D Mill, Dean Clough Mills, Halifax, HX3 5AX. Our contact email is <a href="mailto:marketing@knaptonandknapton.co.uk">marketing@knaptonandknapton.co.uk</a>.</p>
+      </div>
+
+      <div class="legal-block">
+        <p class="legal-block-label">What data we collect</p>
+        <p>When you submit an enquiry form on this website we collect your name, email address, phone number (if provided) and any message you send. We do not collect payment information directly — any payments are handled by third-party providers.</p>
+      </div>
+
+      <div class="legal-block">
+        <p class="legal-block-label">How we use your data</p>
+        <p>We use your information solely to respond to your enquiry and communicate with you about our services. We will not sell, share or pass your data to any third party for marketing purposes.</p>
+      </div>
+
+      <div class="legal-block">
+        <p class="legal-block-label">Third-party services</p>
+        <p>Our contact forms are processed by Formspree (<a href="https://formspree.io" target="_blank" rel="noopener">formspree.io</a>), who store form submissions on our behalf. Their privacy policy is available at <a href="https://formspree.io/privacy" target="_blank" rel="noopener">formspree.io/privacy</a>. We may use Google Analytics to understand how visitors use this site — this collects anonymised usage data only.</p>
+      </div>
+
+      <div class="legal-block">
+        <p class="legal-block-label">How long we keep your data</p>
+        <p>Enquiry data is retained for up to 2 years, after which it is deleted unless an ongoing business relationship requires otherwise.</p>
+      </div>
+
+      <div class="legal-block">
+        <p class="legal-block-label">Your rights</p>
+        <p>Under UK GDPR you have the right to access, correct or request deletion of your personal data at any time. To exercise these rights, email us at <a href="mailto:marketing@knaptonandknapton.co.uk">marketing@knaptonandknapton.co.uk</a>.</p>
+      </div>
+
+      <div class="legal-block">
+        <p class="legal-block-label">Data security</p>
+        <p>We take reasonable steps to protect your data. Our website is served over HTTPS. Form data is transmitted securely via Formspree.</p>
+      </div>
+
+      <div class="legal-block">
+        <p class="legal-block-label">Changes to this policy</p>
+        <p>We may update this policy from time to time. The date at the top of this page will reflect the most recent revision.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- COOKIE POLICY -->
+  <section class="legal-section" id="cookies">
+    <div class="legal-section-index">
+      <div class="legal-section-num">ii</div>
+      <div class="legal-section-title">Cookie Policy</div>
+    </div>
+    <div class="legal-section-content">
+
+      <div class="legal-block">
+        <p>This website uses a minimal number of cookies to function and to understand how visitors use the site.</p>
+      </div>
+
+      <div class="legal-block">
+        <p class="legal-block-label">What are cookies?</p>
+        <p>Cookies are small text files stored on your device when you visit a website. They are widely used to make websites work and to provide information to site owners.</p>
+      </div>
+
+      <div class="legal-block">
+        <p class="legal-block-label">Cookies we use</p>
+        <ul>
+          <li><strong>Analytics cookies</strong> — If Google Analytics is enabled, it sets cookies to help us understand how visitors interact with our site (e.g. pages visited, time on site). This data is anonymised and cannot identify you personally.</li>
+          <li><strong>No advertising cookies</strong> — We do not use any advertising, tracking or retargeting cookies.</li>
+          <li><strong>No session cookies</strong> — This site does not require you to log in, so no session cookies are set.</li>
+        </ul>
+      </div>
+
+      <div class="legal-block">
+        <p class="legal-block-label">Managing cookies</p>
+        <p>You can control and delete cookies through your browser settings. Disabling analytics cookies will not affect your ability to use this website. For more information on managing cookies, visit <a href="https://www.aboutcookies.org/" target="_blank" rel="noopener">aboutcookies.org</a>.</p>
+      </div>
+
+      <div class="legal-block">
+        <p class="legal-block-label">Changes to this policy</p>
+        <p>We may update this policy from time to time. Please check this page periodically for any changes.</p>
+        <p>If you have any questions about how we use cookies, please contact us at <a href="mailto:marketing@knaptonandknapton.co.uk">marketing@knaptonandknapton.co.uk</a>.</p>
+      </div>
+
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <span class="ft-copy">© 2026 Knapton &amp; Knapton Ltd.</span>
+  <a href="index.html" class="ft-back">← Back to site</a>
+</footer>
+
+</body>
+</html>
