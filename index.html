@@ -119,7 +119,7 @@ body { background: var(--w); color: var(--b); font-family: var(--sans); overflow
 .intro-logo-wrap { position: absolute; inset: 0; z-index: 4; display: flex; flex-direction: column; align-items: center; justify-content: center; }
 .i-logo-clip { max-width: min(300px, 60vw); clip-path: inset(0 100% 0 0); animation: logoWipe 1.8s cubic-bezier(.16,1,.3,1) .2s forwards; }
 .i-logo { width: 100%; display: block; }
-@keyframes logoWipe { 0%{clip-path:inset(0 100% 0 0)} 35%{clip-path:inset(0 50% 0 0)} 55%{clip-path:inset(0 50% 0 0)} 100%{clip-path:inset(0 0% 0 0)} }
+@keyframes logoWipe { 0%{clip-path:inset(0 100% 0 0)} 35%{clip-path:inset(0 51.5% 0 0)} 55%{clip-path:inset(0 51.5% 0 0)} 100%{clip-path:inset(0 0% 0 0)} }
 .i-rule { width: 0; height: 1px; background: var(--br); margin: 22px auto 0; animation: iRule .7s cubic-bezier(.16,1,.3,1) 1s forwards; }
 @keyframes iRule { to { width: 160px; } }
 .i-sub { font-family: var(--sans); font-weight: 200; font-size: 11px; letter-spacing: .36em; text-transform: uppercase; color: var(--g); margin-top: 14px; opacity: 0; animation: iFade .6s 1.2s forwards; }
@@ -398,6 +398,9 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 600; display: flex; a
 .svc-panel-text p strong { color: var(--b); font-weight: 500; font-family: var(--sans); font-size: 9px; letter-spacing: .16em; text-transform: uppercase; display: block; margin-bottom: 6px; margin-top: 6px; }
 .svc-panel-text a { font-family: var(--sans); font-size: 11px; font-weight: 400; letter-spacing: .18em; text-transform: uppercase; color: var(--w); background: var(--b); text-decoration: none; padding: 12px 24px; display: inline-block; width: fit-content; transition: opacity .25s; margin-top: 16px; border: none; }
 .svc-panel-text a:hover { opacity: .75; color: var(--w); }
+.svc-panel-cta-row { display: flex; align-items: center; gap: 24px; flex-wrap: wrap; }
+.svc-panel-text a.svc-secondary-link { background: none; color: var(--b); padding: 0 0 4px; border-bottom: 1px solid var(--br); margin-top: 0; }
+.svc-panel-text a.svc-secondary-link:hover { opacity: 1; color: var(--g); border-color: var(--g); }
 .svc-bullets { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px; }
 .svc-bullets li { font-size: 14px; font-weight: 300; line-height: 1.6; color: #555; padding-left: 16px; position: relative; }
 .svc-bullets li::before { content: '—'; position: absolute; left: 0; color: var(--b); font-weight: 400; }
@@ -792,7 +795,7 @@ footer a:hover { color: var(--w); }
         <p>High quality architecture, urban design and place making has the opportunity to change society. It is essential that we as designers and developers get this right.</p>
         <p>It is only when buildings and spaces respond to people's needs that they can truly be called a 'place'. And this is what we really care about creating — great places.</p>
         <p>To create a successful 'place' we use well established principles to build up layers of design decisions, each having a positive impact on the next, and all creating a composition which is pleasing, attractive, safe and loved.</p>
-        <a href="#contact">Get in touch →</a>
+        <div class="svc-panel-cta-row"><a href="residential.html" class="svc-secondary-link">View Full Page →</a><a href="#contact">Get in touch →</a></div>
       </div>
       <div class="svc-panel-img"><img src="https://raw.githubusercontent.com/9s4pr6gvvk-bot/k-k/refs/heads/main/Residential.jpg" alt="Residential"></div>
     </div>
@@ -806,7 +809,7 @@ footer a:hover { color: var(--w); }
         <p><strong>Value added</strong><br>Early access to the rich information in the models helps stakeholders on the project team gain more insight into their projects. As a result, the team can make more informed decisions much earlier in the planning, design, construction, or renovation process when decisions can have the greatest impact on project cost, schedule, and sustainability.</p>
         <p><strong>What we do well</strong></p>
         <ul class="svc-bullets"><li>Content creation — Families and Materials</li><li>Training and support</li><li>Advice on hardware requirements</li><li>Partnering solutions with clients on project delivery</li></ul>
-        <a href="#contact">Get in touch →</a>
+        <div class="svc-panel-cta-row"><a href="bim.html" class="svc-secondary-link">View Full Page →</a><a href="#contact">Get in touch →</a></div>
       </div>
       <div class="svc-panel-img bim-carousel"><div class="bim-track" id="bimTrack"><img src="https://raw.githubusercontent.com/9s4pr6gvvk-bot/k-k/refs/heads/main/Picture1.png" alt="BIM"></div><div class="bim-nav" style="display:none"></div></div>
     </div>
@@ -917,7 +920,7 @@ footer a:hover { color: var(--w); }
         </a>
       </div>
     </div>
-    <div><h4>Services</h4><ul><li><a href="#services">Residential</a></li><li><a href="#services">BIM</a></li><li><a href="#services">Virtual Reality</a></li><li><a href="#services">3D Printing</a></li></ul></div>
+    <div><h4>Services</h4><ul><li><a href="residential.html">Residential</a></li><li><a href="bim.html">BIM</a></li><li><a href="#services">Virtual Reality</a></li><li><a href="#services">3D Printing</a></li></ul></div>
     <div><h4>Practice</h4><ul><li><a href="#practice">About</a></li><li><a href="#projects" onclick="event.preventDefault();document.getElementById('projects').scrollIntoView({behavior:'smooth'});">Projects</a></li><li><a href="#news" onclick="event.preventDefault();document.getElementById('news').scrollIntoView({behavior:'smooth'});">News</a></li><li><a href="#contact" onclick="event.preventDefault();document.getElementById('contact').scrollIntoView({behavior:'smooth'});">Contact</a></li></ul></div>
     <div>
       <h4>Contact</h4>
